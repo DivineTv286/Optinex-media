@@ -196,22 +196,27 @@
         return true;
       }
     }
+function handleFormSubmit(e) {
+  e.preventDefault();
+  const nameInput = document.getElementById('fullName');
+  const emailInput = document.getElementById('email');
+  const val = nameInput.value.trim();
 
-    function handleFormSubmit(e) {
-      e.preventDefault();
-      const nameInput = document.getElementById('fullName');
-      const val = nameInput.value.trim();
+  if (val.length < 2) {
+    const errorMsg = document.getElementById('name-error');
+    errorMsg.classList.remove('hidden');
+    nameInput.classList.add('border-red-400', 'bg-red-50/20');
+    nameInput.focus();
+    return;
+  }
 
-      if (val.length < 2) {
-        const errorMsg = document.getElementById('name-error');
-        errorMsg.classList.remove('hidden');
-        nameInput.classList.add('border-red-400', 'bg-red-50/20');
-        nameInput.focus();
-        return;
-      }
+  const selectedPlan = document.querySelector('input[name="selectedPlan"]:checked').value;
+  localStorage.setItem('user_fullname', val);
+  localStorage.setItem('user_email', emailInput.value.trim());
+  localStorage.setItem('user_plan', selectedPlan);
 
-      window.location.href = 'review.html';
-    }
+  window.location.href = 'review.html';
+}
   </script>
 </body>
 </html>
