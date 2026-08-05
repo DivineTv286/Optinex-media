@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register - Optinex</title>
+  <title>Register - Optinex </title>
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome for Icons -->
@@ -41,20 +41,13 @@
   <main class="w-full max-w-md mx-auto px-6 py-8 flex-1 flex flex-col items-center text-center">
     
     <!-- BRAND LOGO -->
-    <div class="mb-6 flex justify-center items-center">
+    <div class="mb-6 flex justify-center">
       <img 
         src="logo.png" 
-        alt="Optinex Logo" 
-        class="h-10 w-auto object-contain"
-        onerror="this.style.display='none'; document.getElementById('fallback-logo').classList.remove('hidden');"
+        alt="Logo" 
+        class="h-12 w-auto object-contain"
+        onerror="this.onerror=null; this.src='https://via.placeholder.com/160x48?text=YOUR+LOGO';"
       >
-      <!-- Fallback text/icon logo if logo.png fails to load -->
-      <div id="fallback-logo" class="hidden flex items-center gap-2">
-        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-700 flex items-center justify-center text-white shadow-sm">
-          <i class="fa-solid fa-arrow-up text-xs"></i>
-        </div>
-        <span class="text-xl font-extrabold text-blue-950 tracking-tight">Optinex</span>
-      </div>
     </div>
 
     <!-- HEADING & SUBTITLE -->
@@ -117,7 +110,7 @@
     <!-- GET STARTED ACTION BUTTON -->
     <a 
       id="get-started-btn" 
-      href="your-info.html" 
+      href="step2.html" 
       class="w-full bg-gradient-to-r from-blue-900 via-blue-700 to-cyan-400 text-white font-semibold py-4 rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/10 hover:opacity-95 transition"
     >
       <span>Get Started</span>
