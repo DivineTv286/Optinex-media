@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Info - Register</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50/50 min-h-screen flex flex-col justify-between text-gray-800">
+
+  <!-- STEP INDICATOR HEADER -->
+  <header class="w-full max-w-md mx-auto pt-6 px-6">
+    <div class="flex items-center justify-between text-sm pb-3">
+      <!-- Completed Step 1 -->
+      <div class="flex flex-col items-center flex-1">
+        <span class="text-cyan-500 font-medium">Welcome</span>
+      </div>
+      <!-- Active Step 2 -->
+      <div class="flex flex-col items-center flex-1">
+        <span class="text-blue-900 font-bold">Your Info</span>
+      </div>
+      <!-- Inactive Step 3 -->
+      <div class="flex flex-col items-center flex-1">
+        <span class="text-gray-300 font-medium">Review</span>
+      </div>
+    </div>
+    <!-- Progress Bar -->
+    <div class="w-full bg-gray-200 h-1 rounded-full overflow-hidden">
+      <div class="bg-gradient-to-r from-blue-900 via-blue-600 to-cyan-400 h-full w-2/3"></div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="w-full max-w-md mx-auto px-6 py-8 flex-1 flex flex-col justify-between">
+    
+    <div>
+      <!-- HEADING & SUBTITLE -->
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold text-slate-900 mb-2">
+          Tell Us About Yourself
+        </h1>
+        <p class="text-gray-500 text-sm">
+          We'll use this to personalize your experience
+        </p>
+      </div>
+
+      <!-- FORM -->
+      <form id="info-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
+        
+        <!-- Full Name Field -->
+        <div>
+          <label for="fullName" class="block text-xs font-semibold text-gray-600 mb-2">
+            Full Name
+          </label>
+          <input 
+            type="text" 
+            id="fullName" 
+            name="fullName"
+            placeholder="Enter your full name" 
+            oninput="validateName()"
+            class="w-full bg-blue-50/30 border border-gray-200 rounded-2xl px-4 py-3.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none transition-all duration-200"
+          >
+          <!-- Validation Error Message -->
+          <p id="name-error" class="hidden text-xs text-red-500 font-medium mt-1.5 pl-1">
+            Name must be at least 2 characters
+          </p>
+        </div>
+
+        <!-- Email Address Field -->
+        <div>
+          <label for="email" class="block text-xs font-semibold text-gray-600 mb-2">
+            Email Address
+          </label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email"
+            placeholder="e.g. example@gmail.com" 
+            required
+            class="w-full bg-blue-50/30 border border-gray-200 rounded-2xl px-4 py-3.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-all duration-200"
+          >
+        </div>
+
+        <!-- PLAN SELECTION -->
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-2">
+            Select Your Plan
+          </label>
+          <div class="grid grid-cols-2 gap-3">
+            
+            <!-- Dynasty Plan Option -->
+            <label class="relative flex flex-col items-center justify-center p-3.5 bg-blue-50/30 border-2 border-blue-600 rounded-2xl cursor-pointer transition-all" id="label-dynasty">
+              <input 
+                type="radio" 
+                name="selectedPlan" 
+                value="Dynasty" 
+                checked 
+                onchange="selectPlan('Dynasty')"
+                class="hidden"
+              >
+              <i class="fa-solid fa-crown text-blue-600 text-lg mb-1"></i>
+              <span class="text-sm font-bold text-slate-900">Dynasty</span>
+            </label>
+
+            <!-- Noble Plan Option -->
+            <label class="relative flex flex-col items-center justify-center p-3.5 bg-blue-50/30 border-2 border-gray-200 rounded-2xl cursor-pointer transition-all" id="label-noble">
+              <input 
+                type="radio" 
+                name="selectedPlan" 
+                value="Noble" 
+                onchange="selectPlan('Noble')"
+                class="hidden"
+              >
+              <i class="fa-solid fa-gem text-gray-400 text-lg mb-1" id="icon-noble"></i>
+              <span class="text-sm font-bold text-slate-900">Noble</span>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- CONTINUE BUTTON -->
+        <button 
+          type="submit" 
+          id="continue-btn"
+          class="w-full mt-4 bg-gradient-to-r from-blue-600 via-cyan-500 to-cyan-400 text-white font-semibold py-4 rounded-2xl shadow-md hover:opacity-95 transition"
+        >
+          Continue
+        </button>
+
+      </form>
+
+      <!-- AGE CONFIRMATION TEXT -->
+      <p class="text-center text-xs text-gray-400 mt-6">
+        By continuing, you confirm that you are at least 18 years old.
+      </p>
+
+      <!-- GO BACK LINK -->
+      <div class="text-center mt-6">
+        <a href="register.html" class="inline-flex items-center gap-2 text-xs text-gray-400 hover:text-gray-600 font-medium transition">
+          <i class="fa-solid fa-arrow-left text-[10px]"></i>
+          <span>Go back</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- TERMS & PRIVACY FOOTER -->
+    <p class="text-center text-[11px] text-gray-400 mt-8 leading-relaxed">
+      By signing up, you agree to our 
+      <a href="/terms" class="underline hover:text-gray-600">Terms of Service</a> 
+      and 
+      <a href="/privacy" class="underline hover:text-gray-600">Privacy Policy</a>
+    </p>
+
+  </main>
+
+  <!-- JAVASCRIPT VALIDATION & SELECTION -->
+  <script>
+    function selectPlan(plan) {
+      const dynastyLabel = document.getElementById('label-dynasty');
+      const nobleLabel = document.getElementById('label-noble');
+      const nobleIcon = document.getElementById('icon-noble');
+
+      if (plan === 'Dynasty') {
+        dynastyLabel.className = 'relative flex flex-col items-center justify-center p-3.5 bg-blue-50/30 border-2 border-blue-600 rounded-2xl cursor-pointer transition-all';
+        nobleLabel.className = 'relative flex flex-col items-center justify-center p-3.5 bg-blue-50/30 border-2 border-gray-200 rounded-2xl cursor-pointer transition-all';
+        nobleIcon.className = 'fa-solid fa-gem text-gray-400 text-lg mb-1';
+      } else {
+        nobleLabel.className = 'relative flex flex-col items-center justify-center p-3.5 bg-blue-50/30 border-2 border-blue-600 rounded-2xl cursor-pointer transition-all';
+        dynastyLabel.className = 'relative flex flex-col items-center justify-center p-3.5 bg-blue-50/30 border-2 border-gray-200 rounded-2xl cursor-pointer transition-all';
+        nobleIcon.className = 'fa-solid fa-gem text-blue-600 text-lg mb-1';
+      }
+    }
+
+    function validateName() {
+      const nameInput = document.getElementById('fullName');
+      const errorMsg = document.getElementById('name-error');
+      const val = nameInput.value.trim();
+
+      if (val.length > 0 && val.length < 2) {
+        errorMsg.classList.remove('hidden');
+        nameInput.classList.remove('border-gray-200', 'focus:border-blue-400');
+        nameInput.classList.add('border-red-400', 'bg-red-50/20');
+        return false;
+      } else {
+        errorMsg.classList.add('hidden');
+        nameInput.classList.remove('border-red-400', 'bg-red-50/20');
+        nameInput.classList.add('border-gray-200');
+        return true;
+      }
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('fullName');
+      const val = nameInput.value.trim();
+
+      if (val.length < 2) {
+        const errorMsg = document.getElementById('name-error');
+        errorMsg.classList.remove('hidden');
+        nameInput.classList.add('border-red-400', 'bg-red-50/20');
+        nameInput.focus();
+        return;
+      }
+
+      window.location.href = 'review.html';
+    }
+  </script>
+</body>
+</html>
