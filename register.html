@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Welcome</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50/50 min-h-screen flex flex-col justify-between text-gray-800">
+
+  <!-- STEP INDICATOR HEADER -->
+  <header class="w-full max-w-md mx-auto pt-6 px-6">
+    <div class="flex items-center justify-between text-sm pb-3 border-b border-gray-200">
+      <!-- Active Step -->
+      <div class="flex flex-col items-center flex-1">
+        <span class="text-blue-900 font-bold">Welcome</span>
+        <div class="h-0.5 w-full bg-blue-900 mt-2 rounded-full"></div>
+      </div>
+      <!-- Step 2 -->
+      <div class="flex flex-col items-center flex-1">
+        <span class="text-gray-300 font-medium">Your Info</span>
+        <div class="h-0.5 w-full bg-transparent mt-2"></div>
+      </div>
+      <!-- Step 3 -->
+      <div class="flex flex-col items-center flex-1">
+        <span class="text-gray-300 font-medium">Review</span>
+        <div class="h-0.5 w-full bg-transparent mt-2"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="w-full max-w-md mx-auto px-6 py-8 flex-1 flex flex-col items-center text-center">
+    
+    <!-- BRAND LOGO -->
+    <div class="mb-6 flex justify-center">
+      <img 
+        src="your-logo.png" 
+        alt="Logo" 
+        class="h-12 w-auto object-contain"
+        onerror="this.onerror=null; this.src='https://via.placeholder.com/160x48?text=YOUR+LOGO';"
+      >
+    </div>
+
+    <!-- HEADING & SUBTITLE -->
+    <h1 class="text-2xl font-bold text-slate-900 mb-2">
+      Welcome
+    </h1>
+    <p class="text-gray-500 text-sm max-w-xs mb-8 leading-relaxed">
+      Access digital services, tasks, and reward opportunities
+    </p>
+
+    <!-- 2x2 FEATURES GRID -->
+    <div class="grid grid-cols-2 gap-3.5 w-full mb-8">
+      
+      <!-- Card 1 -->
+      <div class="bg-white border border-gray-100/80 rounded-2xl p-4 shadow-sm flex items-start gap-3 text-left">
+        <div class="bg-blue-50 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+          <i class="fa-solid fa-brain text-lg"></i>
+        </div>
+        <div>
+          <h3 class="text-xs font-bold text-slate-900">Moral Craft</h3>
+          <p class="text-[11px] text-gray-400 font-medium mt-0.5">Learn & engage</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white border border-gray-100/80 rounded-2xl p-4 shadow-sm flex items-start gap-3 text-left">
+        <div class="bg-blue-50 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+          <i class="fa-solid fa-globe text-lg"></i>
+        </div>
+        <div>
+          <h3 class="text-xs font-bold text-slate-900">Connect</h3>
+          <p class="text-[11px] text-gray-400 font-medium mt-0.5">Global network</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white border border-gray-100/80 rounded-2xl p-4 shadow-sm flex items-start gap-3 text-left">
+        <div class="bg-blue-50 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+          <i class="fa-regular fa-clock text-lg"></i>
+        </div>
+        <div>
+          <h3 class="text-xs font-bold text-slate-900">Hour Flow</h3>
+          <p class="text-[11px] text-gray-400 font-medium mt-0.5">Time-based activities</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="bg-white border border-gray-100/80 rounded-2xl p-4 shadow-sm flex items-start gap-3 text-left">
+        <div class="bg-blue-50 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+          <i class="fa-regular fa-lightbulb text-lg"></i>
+        </div>
+        <div>
+          <h3 class="text-xs font-bold text-slate-900">IdeaVault</h3>
+          <p class="text-[11px] text-gray-400 font-medium mt-0.5">Submit ideas</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- GET STARTED ACTION BUTTON -->
+    <a 
+      id="get-started-btn" 
+      href="step2.html" 
+      class="w-full bg-gradient-to-r from-blue-900 via-blue-700 to-cyan-400 text-white font-semibold py-4 rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/10 hover:opacity-95 transition"
+    >
+      <span>Get Started</span>
+      <i class="fa-solid fa-arrow-right text-sm"></i>
+    </a>
+
+    <!-- TERMS & PRIVACY FOOTER -->
+    <p class="text-[11px] text-gray-400 mt-6 leading-relaxed">
+      By signing up, you agree to our 
+      <a href="/terms" class="underline hover:text-gray-600">Terms of Service</a> 
+      and 
+      <a href="/privacy" class="underline hover:text-gray-600">Privacy Policy</a>
+    </p>
+
+  </main>
+</body>
+</html>
