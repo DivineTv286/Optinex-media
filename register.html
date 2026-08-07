@@ -574,86 +574,105 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        // Password toggle function
-        function togglePassword(inputId, icon) {
-            const input = document.getElementById(inputId);
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                input.type = "password";
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
+<script>
+    // Password toggle function
+    function togglePassword(inputId, icon) {
+        const input = document.getElementById(inputId);
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = "password";
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
         }
+    }
 
-        // Package selector toggle
-        function selectPackage(el, val) {
-            document.querySelectorAll('.package-option').forEach(opt => {
-                opt.classList.remove('selected');
-                opt.querySelector('input').checked = false;
-            });
-            el.classList.add('selected');
-            el.querySelector('input').checked = true;
-        }
+    // Package selector toggle
+    function selectPackage(el, val) {
+        document.querySelectorAll('.package-option').forEach(opt => {
+            opt.classList.remove('selected');
+            opt.querySelector('input').checked = false;
+        });
+        el.classList.add('selected');
+        el.querySelector('input').checked = true;
+    }
 
-        // JS Form Handler & Redirect to dashboard.html
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop default form submit and reload
+    // JS Form Handler with localStorage saving
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Stop default form reload
 
-            const submitBtn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            const btnIcon = document.getElementById('btnIcon');
-            const btnSpinner = document.getElementById('btnSpinner');
-            const popup = document.getElementById('successPopup');
-            const countdownEl = document.getElementById('countdown');
+        // 1. Capture user inputs
+        const fullname = document.querySelector('input[name="fullname"]').value;
+        const email = document.querySelector('input[name="email"]').value;
+        const phone = document.querySelector('input[name="phone"]').value;
+        const country = document.querySelector('select[name="country"]').value;
+        const selectedPlan = document.querySelector('input[name="package"]:checked').value;
 
-            // Show Processing State
-            btnText.innerText = 'Creating Account...';
-            btnIcon.style.display = 'none';
-            btnSpinner.style.display = 'inline-block';
-            submitBtn.style.opacity = '0.8';
-            submitBtn.style.pointerEvents = 'none';
+        // 2. Save user session data to browser localStorage
+        const userData = {
+            fullname: fullname,
+            email: email,
+            phone: phone,
+            country: country,
+            plan: selectedPlan,
+            isLoggedIn: true,
+            registeredAt: new Date().toLocaleDateString()
+        };
 
-            // Simulate account creation delay
-            setTimeout(() => {
-                popup.classList.add('show');
+        localStorage.setItem('optinex_user', JSON.stringify(userData));
 
-                let timeLeft = 3;
+        // 3. UI Loading state controls
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnIcon = document.getElementById('btnIcon');
+        const btnSpinner = document.getElementById('btnSpinner');
+        const popup = document.getElementById('successPopup');
+        const countdownEl = document.getElementById('countdown');
+
+        btnText.innerText = 'Creating Account...';
+        btnIcon.style.display = 'none';
+        btnSpinner.style.display = 'inline-block';
+        submitBtn.style.opacity = '0.8';
+        submitBtn.style.pointerEvents = 'none';
+
+        // 4. Show modal and route to dashboard
+        setTimeout(() => {
+            popup.classList.add('show');
+
+            let timeLeft = 3;
+            countdownEl.textContent = timeLeft;
+
+            const timer = setInterval(() => {
+                timeLeft--;
                 countdownEl.textContent = timeLeft;
 
-                const timer = setInterval(() => {
-                    timeLeft--;
-                    countdownEl.textContent = timeLeft;
-
-                    if (timeLeft <= 0) {
-                        clearInterval(timer);
-                        window.location.href = 'dashboard.html';
-                    }
-                }, 1000);
-
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    window.location.href = 'dashboard.html';
+                }
             }, 1000);
-        });
 
-        // Mobile Menu Toggle
-        const hamburger = document.getElementById('hamburger');
-        const mobileNav = document.getElementById('mobileNav');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
+        }, 1000);
+    });
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileNav.classList.toggle('active');
-        });
+    // Mobile Navigation Toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
 
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileNav.classList.remove('active');
-            });
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+    });
+
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
         });
-    </script>
+    });
+</script>
 </body>
 </html>
