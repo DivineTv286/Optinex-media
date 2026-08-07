@@ -299,7 +299,7 @@
             <span class="plan-value" id="planDisplay">Dynasty Plan</span>
         </div>
 
-        <!-- Timer -->
+        <!-- Working Real-Time Timer -->
         <div class="timer-bar">
             <i class="fa-solid fa-stopwatch"></i>
             <span>Reserved for: <strong id="timerText">29:49</strong></span>
@@ -351,7 +351,7 @@
                 </div>
                 <div class="step-item">
                     <div class="step-num">3</div>
-                    <div>Use <strong>Celeste</strong> as payment narration.</div>
+                    <div>Use <strong id="instructionUsername">Celeste</strong> as payment narration.</div>
                 </div>
                 <div class="step-item">
                     <div class="step-num">4</div>
@@ -372,18 +372,20 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- 1. DYNAMIC USER & PLAN SYNC ---
+            // --- 1. DYNAMIC USER, USERNAME & PLAN SYNC ---
             const savedData = localStorage.getItem('optinex_user');
             let planName = "Dynasty Plan";
             let amount = "₦15,000";
             let oldAmount = "₦15,800";
-            let userEmail = "raphealemmanuel411@gmail.com";
-            let userPhone = "080646494921";
+            let userEmail = "optinex@gmail.com";
+            let userPhone = "0800000";
+            let username = "Optinex"; // Fallback username
 
             if (savedData) {
                 const user = JSON.parse(savedData);
                 if (user.email) userEmail = user.email;
                 if (user.phone) userPhone = user.phone;
+                if (user.username) username = user.username;
                 
                 if (user.plan && user.plan.toLowerCase().includes('noble')) {
                     planName = "Noble Plan";
@@ -396,6 +398,7 @@
             document.getElementById('priceText').innerText = amount;
             document.getElementById('oldPriceText').innerText = oldAmount;
             document.getElementById('instructionPrice').innerText = amount;
+            document.getElementById('instructionUsername').innerText = username;
 
             // --- 2. COPY ACCOUNT NUMBER ---
             const copyBtn = document.getElementById('copyBtn');
@@ -409,25 +412,43 @@
                 }, 2000);
             });
 
-            // --- 3. COUNTDOWN TIMER ---
-            let duration = 29 * 60 + 49;
+            // --- 3. WORKING REAL-TIME COUNTDOWN TIMER ---
             const timerDisplay = document.getElementById('timerText');
-            
-            setInterval(() => {
-                let minutes = Math.floor(duration / 60);
-                let seconds = duration % 60;
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
+            let totalSeconds = localStorage.getItem('optinex_timer_seconds');
+
+            if (!totalSeconds || isNaN(totalSeconds) || totalSeconds <= 0) {
+                totalSeconds = 29 * 60 + 49; // Default 29 mins 49 secs
+            }
+
+            function updateTimerUI() {
+                let mins = Math.floor(totalSeconds / 60);
+                let secs = totalSeconds % 60;
                 
-                timerDisplay.textContent = minutes + ":" + seconds;
-                if (--duration < 0) duration = 30 * 60;
+                mins = mins < 10 ? "0" + mins : mins;
+                secs = secs < 10 ? "0" + secs : secs;
+                
+                timerDisplay.textContent = `${mins}:${secs}`;
+            }
+
+            updateTimerUI();
+
+            const countdownInterval = setInterval(() => {
+                totalSeconds--;
+                localStorage.setItem('optinex_timer_seconds', totalSeconds);
+                updateTimerUI();
+
+                if (totalSeconds <= 0) {
+                    clearInterval(countdownInterval);
+                    timerDisplay.textContent = "00:00";
+                    localStorage.removeItem('optinex_timer_seconds');
+                }
             }, 1000);
 
             // --- 4. TELEGRAM PRE-FILLED MESSAGE HANDLER ---
             const telegramBtn = document.getElementById('telegramBtn');
             const telegramUsername = "OPTINEX_0FFICIAL";
 
-            const messageText = `Hello Admin 👋\n\nI have successfully made payment for NEXTEL registration.\n\nKindly find my payment proof attached below for verification.\n\nEmail Address: ${userEmail}\nPhone Number: ${userPhone}`;
+            const messageText = `Hello Admin 👋\n\nI have successfully made payment for Optinex registration.\n\nKindly find my payment proof attached below for verification.\n\nEmail Address: ${userEmail}\nPhone Number: ${userPhone}`;
 
             const encodedMessage = encodeURIComponent(messageText);
             telegramBtn.href = `https://t.me/${telegramUsername}?text=${encodedMessage}`;
@@ -435,3 +456,4 @@
     </script>
 </body>
 </html>
+
