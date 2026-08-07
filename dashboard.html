@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Optinex Dashboard</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --opt-blue: #0063dc;
+            --opt-light-blue: #e8f2ff;
+            --opt-black: #0f172a;
+            --opt-white: #ffffff;
+            --bg-color: #f3f6fb;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --card-grad: linear-gradient(135deg, #0052cc 0%, #0088ff 100%);
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --font-main: 'Outfit', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            padding-bottom: 90px;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 480px; margin: 0 auto; padding: 20px 18px; }
+
+        /* --- HEADER --- */
+        .top-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+        }
+        .header-title { text-align: center; }
+        .header-title h2 { font-size: 1.3rem; font-weight: 800; color: var(--text-dark); }
+        .header-title p { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+        .icon-btn {
+            width: 42px; height: 42px; background: var(--opt-white); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); cursor: pointer; color: var(--text-dark);
+        }
+
+        /* --- WALLET CARD SECTION --- */
+        .wallet-card-wrapper {
+            background: var(--card-grad); border-radius: var(--radius-lg);
+            padding: 24px 20px; color: var(--opt-white); position: relative;
+            box-shadow: 0 12px 30px rgba(0, 82, 204, 0.25); margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .virtual-card {
+            background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25); border-radius: var(--radius-md);
+            padding: 18px 20px; margin-bottom: 22px; position: relative;
+        }
+        .card-chip {
+            width: 38px; height: 26px; background: #e2b755; border-radius: 6px;
+            margin-bottom: 12px; position: relative;
+        }
+        .card-brand {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 10px;
+        }
+        .card-brand span { font-weight: 800; letter-spacing: 2px; font-size: 0.95rem; text-transform: uppercase; }
+        .card-brand i { font-size: 2.2rem; font-style: italic; font-weight: 900; }
+        .card-number { font-size: 0.85rem; letter-spacing: 3px; opacity: 0.8; margin-top: 12px; }
+
+        .balance-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .plan-tag { font-size: 0.8rem; opacity: 0.85; font-weight: 500; }
+        .card-actions { display: flex; gap: 10px; }
+        .mini-action-btn {
+            width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 255, 255, 0.2);
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            color: #fff; font-size: 0.85rem; transition: 0.2s;
+        }
+
+        .balance-title { font-size: 0.8rem; opacity: 0.8; margin-bottom: 2px; }
+        .balance-row { display: flex; justify-content: space-between; align-items: center; }
+        .balance-amount { font-size: 1.7rem; font-weight: 900; letter-spacing: -0.5px; }
+
+        .btn-withdraw {
+            background: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.4);
+            color: var(--opt-white); padding: 8px 16px; border-radius: 20px;
+            font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; gap: 6px;
+            cursor: pointer; backdrop-filter: blur(5px);
+        }
+
+        /* --- QUICK TOP-UP --- */
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .section-title { font-size: 1rem; font-weight: 800; color: var(--text-dark); }
+        .section-link { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-decoration: none; }
+
+        .quick-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 22px; }
+        .quick-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
+        .quick-icon {
+            width: 52px; height: 52px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 1.1rem;
+        }
+        .quick-item span { font-size: 0.7rem; font-weight: 700; color: var(--text-dark); text-align: center; }
+
+        /* Icon Variants */
+        .q-blue { background: #e0f2fe; color: #0284c7; }
+        .q-yellow { background: #fef9c3; color: #ca8a04; }
+        .q-green { background: #dcfce7; color: #16a34a; }
+        .q-slate { background: #f1f5f9; color: #475569; }
+        .q-pink { background: #fce7f3; color: #db2777; }
+
+        /* --- ACTIVATE BUTTON --- */
+        .btn-activate {
+            width: 100%; background: #0099ff; color: var(--opt-white); border: none;
+            padding: 16px; border-radius: 50px; font-size: 1rem; font-weight: 800;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 8px 20px rgba(0, 153, 255, 0.3); cursor: pointer; margin-bottom: 25px;
+            text-decoration: none;
+        }
+
+        /* --- OTHER FEATURES --- */
+        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .feature-card {
+            background: var(--opt-white); padding: 16px; border-radius: var(--radius-md);
+            display: flex; align-items: center; gap: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02); cursor: pointer;
+        }
+        .feature-icon {
+            width: 42px; height: 42px; border-radius: 12px; display: flex;
+            align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+        }
+        .feature-info h4 { font-size: 0.88rem; font-weight: 800; color: var(--text-dark); margin-bottom: 2px; }
+        .feature-info p { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
+
+        /* --- BOTTOM NAVBAR --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--opt-white);
+            display: flex; justify-content: space-around; align-items: center; padding: 10px 0 14px;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05); z-index: 100;
+        }
+        .nav-tab { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 0.7rem; font-weight: 600; cursor: pointer; }
+        .nav-tab i { font-size: 1.1rem; }
+        .nav-tab.active { color: var(--opt-black); font-weight: 800; }
+        
+        .center-fab {
+            width: 50px; height: 50px; background: var(--opt-blue); border-radius: 16px;
+            display: flex; align-items: center; justify-content: center; color: var(--opt-white);
+            font-size: 1.2rem; margin-top: -25px; box-shadow: 0 8px 18px rgba(0, 99, 220, 0.35); cursor: pointer;
+        }
+
+        /* --- MODAL POPUP --- */
+        .popup-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px);
+            z-index: 999; display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: all 0.3s ease; padding: 20px;
+        }
+        .popup-overlay.show { opacity: 1; pointer-events: all; }
+        .popup-box {
+            background: var(--opt-white); width: 100%; max-width: 360px;
+            border-radius: var(--radius-lg); padding: 30px 24px; text-align: center;
+            position: relative; transform: scale(0.9); transition: transform 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .popup-overlay.show .popup-box { transform: scale(1); }
+        .popup-close {
+            position: absolute; top: 16px; right: 16px; width: 28px; height: 28px;
+            background: #f1f5f9; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; color: var(--text-muted); cursor: pointer; font-size: 0.8rem;
+        }
+        .popup-lock-icon {
+            width: 65px; height: 65px; background: #e0f2fe; color: var(--opt-blue);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin: 0 auto 18px;
+        }
+        .popup-box h3 { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
+        .popup-box p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 22px; font-weight: 500; }
+        .popup-btn {
+            background: var(--opt-blue); color: var(--opt-white); width: 100%;
+            padding: 14px; border-radius: 50px; font-weight: 700; font-size: 0.95rem;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            border: none; cursor: pointer; text-decoration: none; box-shadow: 0 8px 18px rgba(0, 99, 220, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="top-header">
+            <div class="icon-btn top-menu-btn"><i class="fa-solid fa-bars"></i></div>
+            <div class="header-title">
+                <h2>Wallet</h2>
+                <p>My Cards & Transactions</p>
+            </div>
+            <div class="icon-btn pop-trigger"><i class="fa-solid fa-plus"></i></div>
+        </div>
+
+        <!-- Card Section -->
+        <div class="wallet-card-wrapper">
+            <div class="virtual-card">
+                <div class="card-chip"></div>
+                <div class="card-brand">
+                    <span>OPTINEX</span>
+                    <i class="fa-brands fa-visa"></i>
+                </div>
+                <div class="card-number">•••• •••• •••• 5678</div>
+            </div>
+
+            <div class="balance-header">
+                <div>
+                    <div class="balance-title">Wallet</div>
+                    <div class="plan-tag" id="displayPlan">Dynasty Plan</div>
+                </div>
+                <div class="card-actions">
+                    <div class="mini-action-btn" id="toggleBalanceBtn"><i class="fa-solid fa-eye" id="eyeIcon"></i></div>
+                    <div class="mini-action-btn pop-trigger"><i class="fa-solid fa-ellipsis-vertical"></i></div>
+                </div>
+            </div>
+
+            <div class="balance-row" style="margin-top: 10px;">
+                <div class="balance-amount" id="balanceText">₦ 15,000.00</div>
+                <button class="btn-withdraw pop-trigger">
+                    <i class="fa-solid fa-wallet"></i> Withdraw
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Top-Up -->
+        <div class="section-header">
+            <span class="section-title">Quick Top-Up</span>
+            <a href="#" class="section-link pop-trigger">Explore</a>
+        </div>
+        <div class="quick-grid">
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-blue"><i class="fa-solid fa-money-bill"></i></div>
+                <span>Daily Pay</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-yellow"><i class="fa-solid fa-sitemap"></i></div>
+                <span>Connect</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-green"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                <span>BNPL</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-slate"><i class="fa-solid fa-list-check"></i></div>
+                <span>Tasks</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-pink"><i class="fa-solid fa-brain"></i></div>
+                <span>Daily IQ Test</span>
+            </div>
+        </div>
+
+        <!-- Activate Button -->
+        <a href="payment.html" class="btn-activate">
+            <i class="fa-solid fa-box-archive"></i> Activate Account
+        </a>
+
+        <!-- Other Features -->
+        <div class="section-header">
+            <span class="section-title">Other Features</span>
+            <a href="#" class="section-link pop-trigger">View all</a>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card pop-trigger">
+                <div class="feature-icon q-blue"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="feature-info">
+                    <h4>Security</h4>
+                    <p>2FA & PIN</p>
+                </div>
+            </div>
+            <div class="feature-card pop-trigger">
+                <div class="feature-icon q-green"><i class="fa-solid fa-gift"></i></div>
+                <div class="feature-info">
+                    <h4>Referrals</h4>
+                    <p>Earn bonuses</p>
+                </div>
+            </div>
+            <div class="feature-card pop-trigger">
+                <div class="feature-icon q-yellow"><i class="fa-solid fa-ranking-star"></i></div>
+                <div class="feature-info">
+                    <h4>Leaderboard</h4>
+                    <p>Top earners</p>
+                </div>
+            </div>
+            <div class="feature-card pop-trigger">
+                <div class="feature-icon q-pink"><i class="fa-solid fa-headset"></i></div>
+                <div class="feature-info">
+                    <h4>Support</h4>
+                    <p>Live chat</p>
+                </div>
+            </div>
+            <div class="feature-card pop-trigger">
+                <div class="feature-icon q-slate"><i class="fa-solid fa-file-invoice"></i></div>
+                <div class="feature-info">
+                    <h4>Statements</h4>
+                    <p>Download PDF</p>
+                </div>
+            </div>
+            <div class="feature-card pop-trigger">
+                <div class="feature-icon q-green"><i class="fa-solid fa-bell"></i></div>
+                <div class="feature-info">
+                    <h4>Notifications</h4>
+                    <p>Alerts & news</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <div class="nav-tab active">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-tab pop-trigger">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Statistic</span>
+        </div>
+        <div class="center-fab pop-trigger">
+            <i class="fa-solid fa-expand"></i>
+        </div>
+        <div class="nav-tab pop-trigger">
+            <i class="fa-solid fa-list-ul"></i>
+            <span>Activity</span>
+        </div>
+        <div class="nav-tab pop-trigger">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span>Logout</span>
+        </div>
+    </div>
+
+    <!-- Setup Requirement Modal -->
+    <div class="popup-overlay" id="setupModal">
+        <div class="popup-box">
+            <div class="popup-close" id="closeModal"><i class="fa-solid fa-xmark"></i></div>
+            <div class="popup-lock-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3>Account Setup Required</h3>
+            <p>Activate your Optinex account with a <strong id="modalFeeText">₦15,000</strong> setup fee to unlock withdrawals and premium earning features.</p>
+            <a href="payment.html" class="popup-btn">
+                Activate Account <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Fetch user values from registration storage
+            const savedData = localStorage.getItem('optinex_user');
+            let planName = "Dynasty Plan";
+            let rawAmount = "₦ 15,000.00";
+            let shortFee = "₦15,000";
+
+            if (savedData) {
+                const user = JSON.parse(savedData);
+                if (user.plan && user.plan.toLowerCase().includes('noble')) {
+                    planName = "Noble Plan";
+                    rawAmount = "₦ 10,000.00";
+                    shortFee = "₦10,000";
+                }
+            }
+
+            // Sync text to layout elements
+            document.getElementById('displayPlan').innerText = planName;
+            document.getElementById('modalFeeText').innerText = shortFee;
+
+            // 2. Persistent Eye Balance Toggle Handling
+            const balanceText = document.getElementById('balanceText');
+            const toggleBalanceBtn = document.getElementById('toggleBalanceBtn');
+            const eyeIcon = document.getElementById('eyeIcon');
+
+            // Retrieve saved visibility state (default is visible)
+            let isHidden = localStorage.getItem('optinex_hide_balance') === 'true';
+
+            function updateBalanceDisplay() {
+                if (isHidden) {
+                    balanceText.innerText = '••••••••';
+                    eyeIcon.classList.remove('fa-eye');
+                    eyeIcon.classList.add('fa-eye-slash');
+                } else {
+                    balanceText.innerText = rawAmount;
+                    eyeIcon.classList.remove('fa-eye-slash');
+                    eyeIcon.classList.add('fa-eye');
+                }
+            }
+
+            // Initial render
+            updateBalanceDisplay();
+
+            toggleBalanceBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isHidden = !isHidden;
+                localStorage.setItem('optinex_hide_balance', isHidden);
+                updateBalanceDisplay();
+            });
+
+            // 3. Setup Modal Popup Triggers
+            const setupModal = document.getElementById('setupModal');
+            const closeModal = document.getElementById('closeModal');
+            const triggers = document.querySelectorAll('.pop-trigger');
+
+            triggers.forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    setupModal.classList.add('show');
+                });
+            });
+
+            closeModal.addEventListener('click', () => {
+                setupModal.classList.remove('show');
+            });
+
+            setupModal.addEventListener('click', (e) => {
+                if (e.target === setupModal) {
+                    setupModal.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
