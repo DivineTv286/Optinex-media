@@ -13,6 +13,7 @@
     <style>
         :root {
             --opt-blue: #0063dc;
+            --opt-cyan: #00c9f3;
             --opt-light-blue: #e8f2ff;
             --opt-black: #0f172a;
             --opt-white: #ffffff;
@@ -32,21 +33,89 @@
             color: var(--text-dark);
             padding-bottom: 90px;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container { max-width: 480px; margin: 0 auto; padding: 20px 18px; }
 
-        /* --- HEADER --- */
+        /* --- TOP HEADER & LIVE ACTIVITY POPUP BAR --- */
         .top-header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 10px;
         }
-        .header-title { text-align: center; }
-        .header-title h2 { font-size: 1.3rem; font-weight: 800; color: var(--text-dark); }
-        .header-title p { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
         .icon-btn {
             width: 42px; height: 42px; background: var(--opt-white); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); cursor: pointer; color: var(--text-dark);
+        }
+
+        .live-activity-bar {
+            flex: 1; background: var(--opt-white); border-radius: 50px;
+            padding: 6px 14px 6px 8px; display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); height: 44px; overflow: hidden;
+        }
+        .activity-badge {
+            width: 30px; height: 30px; border-radius: 50%; background: #e0f2fe; color: var(--opt-blue);
+            display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;
+        }
+        .activity-ticker { flex: 1; overflow: hidden; position: relative; height: 32px; display: flex; align-items: center; }
+        .activity-item {
+            position: absolute; width: 100%; transition: all 0.5s ease-in-out;
+            opacity: 0; transform: translateY(15px); pointer-events: none;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .activity-item.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .activity-item.exit { opacity: 0; transform: translateY(-15px); }
+        .activity-text-main { font-size: 0.74rem; font-weight: 800; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+        .activity-text-main span { color: var(--opt-blue); }
+        .activity-text-sub { font-size: 0.65rem; color: var(--text-muted); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; }
+
+        /* --- SIDEBAR DRAWER MENU --- */
+        .drawer-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
+            z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        .drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+        .drawer-content {
+            position: fixed; top: 0; left: -80%; width: 78%; max-width: 320px; height: 100%;
+            background: var(--opt-white); z-index: 2001; transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 24px 18px 24px; display: flex; flex-direction: column;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+        }
+        .drawer-overlay.open .drawer-content { left: 0; }
+
+        .drawer-close-btn {
+            width: 36px; height: 36px; background: #f1f5f9; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: var(--text-muted);
+            cursor: pointer; margin-bottom: 20px; font-size: 0.9rem;
+        }
+
+        .drawer-profile {
+            display: flex; align-items: center; gap: 14px; margin-bottom: 30px; padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .drawer-avatar {
+            width: 48px; height: 48px; border-radius: 50%; background: var(--opt-blue);
+            color: var(--opt-white); display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; font-weight: 800; flex-shrink: 0;
+        }
+        .drawer-user-info h4 { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 2px; }
+        .drawer-user-info p { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; word-break: break-all; }
+
+        .drawer-nav-list { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+        .drawer-nav-item {
+            display: flex; align-items: center; gap: 16px; padding: 14px 18px; border-radius: 16px;
+            color: var(--text-dark); font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: all 0.2s;
+        }
+        .drawer-nav-item i { font-size: 1.1rem; width: 22px; text-align: center; color: var(--text-muted); }
+        .drawer-nav-item.active { background: #00aaff; color: var(--opt-white); }
+        .drawer-nav-item.active i { color: var(--opt-white); }
+
+        .drawer-logout-btn {
+            margin-top: auto; border: 1.5px solid #e2e8f0; border-radius: 18px;
+            padding: 14px; display: flex; align-items: center; justify-content: center; gap: 10px;
+            color: var(--text-dark); font-weight: 800; font-size: 0.95rem; cursor: pointer; text-decoration: none;
         }
 
         /* --- WALLET CARD SECTION --- */
@@ -66,10 +135,7 @@
             width: 38px; height: 26px; background: #e2b755; border-radius: 6px;
             margin-bottom: 12px; position: relative;
         }
-        .card-brand {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-top: 10px;
-        }
+        .card-brand { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
         .card-brand span { font-weight: 800; letter-spacing: 2px; font-size: 0.95rem; text-transform: uppercase; }
         .card-brand i { font-size: 2.2rem; font-style: italic; font-weight: 900; }
         .card-number { font-size: 0.85rem; letter-spacing: 3px; opacity: 0.8; margin-top: 12px; }
@@ -107,7 +173,7 @@
         }
         .quick-item span { font-size: 0.7rem; font-weight: 700; color: var(--text-dark); text-align: center; }
 
-        /* Icon Variants */
+        /* Icon Colors */
         .q-blue { background: #e0f2fe; color: #0284c7; }
         .q-yellow { background: #fef9c3; color: #ca8a04; }
         .q-green { background: #dcfce7; color: #16a34a; }
@@ -157,7 +223,7 @@
         .popup-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px);
-            z-index: 999; display: flex; justify-content: center; align-items: center;
+            z-index: 2999; display: flex; justify-content: center; align-items: center;
             opacity: 0; pointer-events: none; transition: all 0.3s ease; padding: 20px;
         }
         .popup-overlay.show { opacity: 1; pointer-events: all; }
@@ -190,14 +256,44 @@
 </head>
 <body>
 
-    <div class="container">
-        <!-- Header -->
-        <div class="top-header">
-            <div class="icon-btn top-menu-btn"><i class="fa-solid fa-bars"></i></div>
-            <div class="header-title">
-                <h2>Wallet</h2>
-                <p>My Cards & Transactions</p>
+    <!-- Drawer Navigation Menu Overlay -->
+    <div class="drawer-overlay" id="drawerOverlay">
+        <div class="drawer-content">
+            <div class="drawer-close-btn" id="drawerCloseBtn"><i class="fa-solid fa-xmark"></i></div>
+            
+            <div class="drawer-profile">
+                <div class="drawer-avatar" id="avatarInitial">O</div>
+                <div class="drawer-user-info">
+                    <h4 id="drawerName">Optinex User</h4>
+                    <p id="drawerEmail">user@optinex.com</p>
+                </div>
             </div>
+
+            <div class="drawer-nav-list">
+                <a href="#" class="drawer-nav-item active"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="#" class="drawer-nav-item pop-trigger"><i class="fa-solid fa-bolt"></i> Ecosystem</a>
+                <a href="#" class="drawer-nav-item pop-trigger"><i class="fa-solid fa-chart-line"></i> Statistics</a>
+                <a href="#" class="drawer-nav-item pop-trigger"><i class="fa-solid fa-wallet"></i> Wallet</a>
+                <a href="#" class="drawer-nav-item pop-trigger"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="#" class="drawer-nav-item pop-trigger"><i class="fa-circle-question fa-solid"></i> Help Center</a>
+            </div>
+
+            <a href="login.html" class="drawer-logout-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Top Header & Live Activity Bar -->
+        <div class="top-header">
+            <div class="icon-btn" id="openDrawerBtn"><i class="fa-solid fa-bars"></i></div>
+            
+            <div class="live-activity-bar">
+                <div class="activity-badge"><i class="fa-solid fa-sitemap"></i></div>
+                <div class="activity-ticker" id="activityTicker"></div>
+            </div>
+
             <div class="icon-btn pop-trigger"><i class="fa-solid fa-plus"></i></div>
         </div>
 
@@ -355,7 +451,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. Fetch user values from registration storage
+            // --- 1. USER REGISTRATION DATA & DRAWER SYNC ---
             const savedData = localStorage.getItem('optinex_user');
             let planName = "Dynasty Plan";
             let rawAmount = "₦ 15,000.00";
@@ -363,6 +459,13 @@
 
             if (savedData) {
                 const user = JSON.parse(savedData);
+                if (user.fullname) {
+                    document.getElementById('drawerName').innerText = user.fullname;
+                    document.getElementById('avatarInitial').innerText = user.fullname.charAt(0).toUpperCase();
+                }
+                if (user.email) {
+                    document.getElementById('drawerEmail').innerText = user.email;
+                }
                 if (user.plan && user.plan.toLowerCase().includes('noble')) {
                     planName = "Noble Plan";
                     rawAmount = "₦ 10,000.00";
@@ -370,16 +473,108 @@
                 }
             }
 
-            // Sync text to layout elements
             document.getElementById('displayPlan').innerText = planName;
             document.getElementById('modalFeeText').innerText = shortFee;
 
-            // 2. Persistent Eye Balance Toggle Handling
+            // --- 2. DRAWER SIDEBAR MENU HANDLER ---
+            const openDrawerBtn = document.getElementById('openDrawerBtn');
+            const drawerOverlay = document.getElementById('drawerOverlay');
+            const drawerCloseBtn = document.getElementById('drawerCloseBtn');
+
+            openDrawerBtn.addEventListener('click', () => {
+                drawerOverlay.classList.add('open');
+            });
+
+            drawerCloseBtn.addEventListener('click', () => {
+                drawerOverlay.classList.remove('open');
+            });
+
+            drawerOverlay.addEventListener('click', (e) => {
+                if (e.target === drawerOverlay) {
+                    drawerOverlay.classList.remove('open');
+                }
+            });
+
+            // --- 3. 40 LIVE ACTIVITIES TICKER POPUP ---
+            const activities = [
+                { name: "David", action: "earned", amount: "₦25,000", source: "from Global Connect" },
+                { name: "Tom", action: "earned", amount: "₦15,500", source: "from Talent Core" },
+                { name: "Sarah", action: "withdrew", amount: "₦150,000", source: "to Local Bank" },
+                { name: "Emeka", action: "earned", amount: "₦8,500", source: "from a Product Review" },
+                { name: "Grace", action: "earned", amount: "₦45,000", source: "from Global Connect" },
+                { name: "Michael", action: "withdrew", amount: "₦80,000", source: "to Local Bank" },
+                { name: "Anita", action: "earned", amount: "₦12,000", source: "from Daily IQ Test" },
+                { name: "Blessing", action: "earned", amount: "₦30,000", source: "from Talent Core" },
+                { name: "Chidi", action: "withdrew", amount: "₦200,000", source: "to Local Bank" },
+                { name: "Victor", action: "earned", amount: "₦18,000", source: "from Global Connect" },
+                { name: "Mercy", action: "earned", amount: "₦6,500", source: "from a Product Review" },
+                { name: "Daniel", action: "withdrew", amount: "₦95,000", source: "to Local Bank" },
+                { name: "Joy", action: "earned", amount: "₦22,000", source: "from Talent Core" },
+                { name: "Kevin", action: "earned", amount: "₦14,000", source: "from Daily Pay" },
+                { name: "Faith", action: "withdrew", amount: "₦110,000", source: "to Local Bank" },
+                { name: "Samuel", action: "earned", amount: "₦50,000", source: "from Global Connect" },
+                { name: "Esther", action: "earned", amount: "₦9,000", source: "from a Product Review" },
+                { name: "Alex", action: "withdrew", amount: "₦175,000", source: "to Local Bank" },
+                { name: "Rita", action: "earned", amount: "₦35,000", source: "from Talent Core" },
+                { name: "Paul", action: "earned", amount: "₦16,000", source: "from Daily IQ Test" },
+                { name: "Tunde", action: "withdrew", amount: "₦130,000", source: "to Local Bank" },
+                { name: "Kemi", action: "earned", amount: "₦28,000", source: "from Global Connect" },
+                { name: "Ibrahim", action: "earned", amount: "₦7,200", source: "from a Product Review" },
+                { name: "Zainab", action: "withdrew", amount: "₦60,000", source: "to Local Bank" },
+                { name: "Johnson", action: "earned", amount: "₦40,000", source: "from Talent Core" },
+                { name: "Precious", action: "earned", amount: "₦11,500", source: "from Daily Pay" },
+                { name: "Kelvin", action: "withdrew", amount: "₦220,000", source: "to Local Bank" },
+                { name: "Cynthia", action: "earned", amount: "₦19,500", source: "from Global Connect" },
+                { name: "Usman", action: "earned", amount: "₦10,000", source: "from a Product Review" },
+                { name: "Vivian", action: "withdrew", amount: "₦145,000", source: "to Local Bank" },
+                { name: "Gideon", action: "earned", amount: "₦33,000", source: "from Talent Core" },
+                { name: "Hannah", action: "earned", amount: "₦15,000", source: "from Daily IQ Test" },
+                { name: "Akanbi", action: "withdrew", amount: "₦90,000", source: "to Local Bank" },
+                { name: "Miracle", action: "earned", amount: "₦27,000", source: "from Global Connect" },
+                { name: "Sonia", action: "earned", amount: "₦8,000", source: "from a Product Review" },
+                { name: "Kingsley", action: "withdrew", amount: "₦310,000", source: "to Local Bank" },
+                { name: "Sandra", action: "earned", amount: "₦42,000", source: "from Talent Core" },
+                { name: "Benjamin", action: "earned", amount: "₦13,500", source: "from Daily Pay" },
+                { name: "Patience", action: "withdrew", amount: "₦105,000", source: "to Local Bank" },
+                { name: "Emmanuel", action: "earned", amount: "₦60,000", source: "from Global Connect" }
+            ];
+
+            const tickerContainer = document.getElementById('activityTicker');
+            
+            // Build ticker items dynamically
+            activities.forEach((act, index) => {
+                const item = document.createElement('div');
+                item.className = `activity-item ${index === 0 ? 'active' : ''}`;
+                item.innerHTML = `
+                    <div class="activity-text-main">${act.name} just ${act.action} <span>${act.amount}</span></div>
+                    <div class="activity-text-sub">${act.source}</div>
+                `;
+                tickerContainer.appendChild(item);
+            });
+
+            // Rotate activity ticker every 4 seconds
+            let currentIndex = 0;
+            const tickerItems = tickerContainer.querySelectorAll('.activity-item');
+
+            setInterval(() => {
+                const prevIndex = currentIndex;
+                currentIndex = (currentIndex + 1) % tickerItems.length;
+
+                tickerItems[prevIndex].classList.remove('active');
+                tickerItems[prevIndex].classList.add('exit');
+
+                setTimeout(() => {
+                    tickerItems[prevIndex].classList.remove('exit');
+                }, 500);
+
+                tickerItems[currentIndex].classList.add('active');
+            }, 4000);
+
+            // --- 4. PERSISTENT EYE BALANCE TOGGLE ---
             const balanceText = document.getElementById('balanceText');
             const toggleBalanceBtn = document.getElementById('toggleBalanceBtn');
             const eyeIcon = document.getElementById('eyeIcon');
 
-            // Retrieve saved visibility state (default is visible)
             let isHidden = localStorage.getItem('optinex_hide_balance') === 'true';
 
             function updateBalanceDisplay() {
@@ -394,7 +589,6 @@
                 }
             }
 
-            // Initial render
             updateBalanceDisplay();
 
             toggleBalanceBtn.addEventListener('click', (e) => {
@@ -404,7 +598,7 @@
                 updateBalanceDisplay();
             });
 
-            // 3. Setup Modal Popup Triggers
+            // --- 5. SETUP MODAL POPUP TRIGGERS ---
             const setupModal = document.getElementById('setupModal');
             const closeModal = document.getElementById('closeModal');
             const triggers = document.querySelectorAll('.pop-trigger');
@@ -412,6 +606,8 @@
             triggers.forEach(el => {
                 el.addEventListener('click', (e) => {
                     e.preventDefault();
+                    // Close drawer if open when clicking a trigger inside it
+                    drawerOverlay.classList.remove('open');
                     setupModal.classList.add('show');
                 });
             });
