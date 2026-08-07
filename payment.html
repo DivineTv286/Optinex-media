@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Activate Account - Optinex</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --opt-blue: #0063dc;
+            --opt-cyan: #00c9f3;
+            --bg-color: #f3f6fb;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --card-blue: #0052cc;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --font-main: 'Outfit', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px 18px;
+        }
+
+        /* --- HEADER --- */
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            width: 42px;
+            height: 42px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            font-size: 1.1rem;
+        }
+
+        .page-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        /* --- SELECTED PLAN BADGE & TIMER --- */
+        .plan-badge-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #ffffff;
+            padding: 8px 16px;
+            border-radius: 50px;
+            width: fit-content;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .plan-badge-container i { color: #0063dc; font-size: 0.9rem; }
+        .plan-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; }
+        .plan-value { font-size: 0.85rem; color: #0063dc; font-weight: 800; }
+
+        .timer-bar {
+            background: #e0f2fe;
+            color: #0284c7;
+            padding: 10px 16px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        /* --- BLUE AMOUNT CARD --- */
+        .amount-card {
+            background: linear-gradient(135deg, #004ac8 0%, #0070f3 100%);
+            border-radius: var(--radius-lg);
+            padding: 24px 20px;
+            color: #ffffff;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 82, 204, 0.25);
+            margin-bottom: 16px;
+        }
+
+        .tag-pill {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .amount-title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            opacity: 0.85;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .old-price {
+            font-size: 1.1rem;
+            text-decoration: line-through;
+            opacity: 0.6;
+            font-weight: 700;
+        }
+
+        .current-price {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .amount-footer {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        /* --- TRANSFER BOX --- */
+        .transfer-card {
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-label-header {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .bank-details-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bank-info { display: flex; flex-direction: column; gap: 2px; }
+        .bank-tag {
+            background: #0063dc;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 4px;
+            width: fit-content;
+            margin-bottom: 4px;
+        }
+        .acc-number {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+        }
+        .acc-name {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            width: 42px;
+            height: 42px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0063dc;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        /* --- HOW TO PROCEED --- */
+        .instructions-card {
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 18px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        }
+
+        .step-list { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+        .step-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.83rem; color: var(--text-dark); font-weight: 600; }
+        .step-num {
+            width: 22px;
+            height: 22px;
+            background: #e0f2fe;
+            color: #0063dc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        /* --- TELEGRAM ACTION BUTTON --- */
+        .btn-telegram {
+            width: 100%;
+            background: #0088cc;
+            color: #ffffff;
+            border: none;
+            padding: 18px;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 20px rgba(0, 136, 204, 0.35);
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 16px;
+            transition: 0.2s;
+        }
+        .btn-telegram:active { transform: scale(0.98); }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="page-header">
+            <a href="dashboard.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
+            <h1 class="page-title">Activate Account</h1>
+        </div>
+
+        <!-- Selected Plan Badge -->
+        <div class="plan-badge-container">
+            <i class="fa-solid fa-crown"></i>
+            <span class="plan-label">Your Plan:</span>
+            <span class="plan-value" id="planDisplay">Dynasty Plan</span>
+        </div>
+
+        <!-- Timer -->
+        <div class="timer-bar">
+            <i class="fa-solid fa-stopwatch"></i>
+            <span>Reserved for: <strong id="timerText">29:49</strong></span>
+        </div>
+
+        <!-- Blue Amount Box -->
+        <div class="amount-card">
+            <div class="tag-pill">
+                <i class="fa-solid fa-shield-halved"></i> SECURE SETUP FEE
+            </div>
+            <div class="amount-title">REQUIRED AMOUNT</div>
+            <div class="price-row">
+                <span class="old-price" id="oldPriceText">₦15,800</span>
+                <span class="current-price" id="priceText">₦15,000</span>
+            </div>
+            <div class="amount-footer">One-time payment to unlock all features</div>
+        </div>
+
+        <!-- Bank Transfer Details Box -->
+        <div class="transfer-card">
+            <div class="section-label-header">
+                <i class="fa-solid fa-building-columns"></i> Transfer To
+            </div>
+            <div class="bank-details-box">
+                <div class="bank-info">
+                    <span class="bank-tag">Moniepoint MFB</span>
+                    <span class="acc-number" id="accNum">5296999718</span>
+                    <span class="acc-name">Isaac Promise Odetola</span>
+                </div>
+                <button class="copy-btn" id="copyBtn" title="Copy Account Number">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- How To Proceed -->
+        <div class="instructions-card">
+            <div class="section-label-header">
+                <i class="fa-solid fa-list-check"></i> How to Proceed
+            </div>
+            <div class="step-list">
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <div>Copy the account number above.</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <div>Transfer exactly <strong id="instructionPrice">₦15,000</strong></div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <div>Use <strong>Celeste</strong> as payment narration.</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">4</div>
+                    <div>Click the confirmation button below to notify admin.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direct Telegram Button -->
+        <a href="#" id="telegramBtn" class="btn-telegram">
+            <i class="fa-paper-plane fa-solid"></i> Confirm on Telegram
+        </a>
+
+        <div class="footer-note">
+            <i class="fa-solid fa-shield-halved" style="color: #0063dc;"></i> All payments are verified securely by our team.
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. DYNAMIC USER & PLAN SYNC ---
+            const savedData = localStorage.getItem('optinex_user');
+            let planName = "Dynasty Plan";
+            let amount = "₦15,000";
+            let oldAmount = "₦15,800";
+            let userEmail = "raphealemmanuel411@gmail.com";
+            let userPhone = "080646494921";
+
+            if (savedData) {
+                const user = JSON.parse(savedData);
+                if (user.email) userEmail = user.email;
+                if (user.phone) userPhone = user.phone;
+                
+                if (user.plan && user.plan.toLowerCase().includes('noble')) {
+                    planName = "Noble Plan";
+                    amount = "₦10,000";
+                    oldAmount = "₦10,800";
+                }
+            }
+
+            document.getElementById('planDisplay').innerText = planName;
+            document.getElementById('priceText').innerText = amount;
+            document.getElementById('oldPriceText').innerText = oldAmount;
+            document.getElementById('instructionPrice').innerText = amount;
+
+            // --- 2. COPY ACCOUNT NUMBER ---
+            const copyBtn = document.getElementById('copyBtn');
+            const accNum = document.getElementById('accNum').innerText;
+
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(accNum);
+                copyBtn.innerHTML = `<i class="fa-solid fa-check" style="color:#16a34a;"></i>`;
+                setTimeout(() => {
+                    copyBtn.innerHTML = `<i class="fa-regular fa-copy"></i>`;
+                }, 2000);
+            });
+
+            // --- 3. COUNTDOWN TIMER ---
+            let duration = 29 * 60 + 49;
+            const timerDisplay = document.getElementById('timerText');
+            
+            setInterval(() => {
+                let minutes = Math.floor(duration / 60);
+                let seconds = duration % 60;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                
+                timerDisplay.textContent = minutes + ":" + seconds;
+                if (--duration < 0) duration = 30 * 60;
+            }, 1000);
+
+            // --- 4. TELEGRAM PRE-FILLED MESSAGE HANDLER ---
+            const telegramBtn = document.getElementById('telegramBtn');
+            const telegramUsername = "OPTINEX_0FFICIAL";
+
+            const messageText = `Hello Admin 👋\n\nI have successfully made payment for NEXTEL registration.\n\nKindly find my payment proof attached below for verification.\n\nEmail Address: ${userEmail}\nPhone Number: ${userPhone}`;
+
+            const encodedMessage = encodeURIComponent(messageText);
+            telegramBtn.href = `https://t.me/${telegramUsername}?text=${encodedMessage}`;
+        });
+    </script>
+</body>
+</html>
