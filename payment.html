@@ -281,12 +281,118 @@
             justify-content: center;
             gap: 6px;
         }
+          /* --- NOTIFICATION POPUP MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .notice-modal {
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 32px 24px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .notice-modal {
+            transform: scale(1);
+        }
+
+        .bell-badge {
+            width: 72px;
+            height: 72px;
+            background: #e0f2fe;
+            color: #0063dc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 16px auto;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .modal-text {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .modal-warning {
+            font-size: 0.88rem;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .btn-modal-dismiss {
+            width: 100%;
+            background: linear-gradient(135deg, #0088cc 0%, #00c9f3 100%);
+            color: #ffffff;
+            border: none;
+            padding: 16px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(0, 136, 204, 0.3);
+            transition: 0.2s;
+        }
+
+        .btn-modal-dismiss:active {
+            transform: scale(0.98);
+        }
     </style>
 </head>
 <body>
-
+    <div class="modal-overlay active" id="noticeModal">
+        <div class="notice-modal">
+            <div class="bell-badge">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+            <h2 class="modal-title">Notification</h2>
+            <p class="modal-text">
+                Before making payment for your slot booking, please take note of this important notice
+            </p>
+            <p class="modal-warning">
+                ⚠️ Do NOT use OPay to make your payment, as it may lead to payment delays or unsuccessful confirmation
+            </p>
+            <button class="btn-modal-dismiss" id="closeModalBtn">Okay, I Understand</button>
+        </div>
+    </div>
     <div class="container">
-        <!-- Header -->
         <div class="page-header">
             <a href="dashboard.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
             <h1 class="page-title">Activate Account</h1>
@@ -372,7 +478,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- 1. DYNAMIC USER, USERNAME & PLAN SYNC ---
+            const noticeModal = document.getElementById('noticeModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+
+            closeModalBtn.addEventListener('click', () => {
+                noticeModal.classList.remove('active');
+            });
             const savedData = localStorage.getItem('optinex_user');
             let planName = "Dynasty Plan";
             let amount = "₦15,000";
