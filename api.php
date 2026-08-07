@@ -1,12 +1,11 @@
 <?php
 header('Content-Type: application/json');
 
-// Put your Paystack Secret Key here
-$paystackSecretKey = "";
+
+$paystackSecretKey = "sk_test_8df35f0fdf38905d4cec8e22a0eff23e87fbd491";
 
 $action = $_GET['action'] ?? '';
 
-// 1. Fetch Nigerian Banks
 if ($action === 'get_banks') {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, "https://api.paystack.co/bank?country=nigeria");
@@ -21,7 +20,6 @@ if ($action === 'get_banks') {
     exit();
 }
 
-// 2. Verify Account Details
 if ($action === 'resolve_account') {
     $accountNumber = $_GET['account_number'] ?? '';
     $bankCode = $_GET['bank_code'] ?? '';
