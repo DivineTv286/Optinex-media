@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Optinex Dashboard</title>
+    <title>Incossify Dashboard</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,16 +11,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        /* --- INCOSSIFY COLOR PALETTE & VARIABLES --- */
         :root {
-            --opt-blue: #0063dc;
-            --opt-cyan: #00c9f3;
-            --opt-light-blue: #e8f2ff;
-            --opt-black: #0f172a;
-            --opt-white: #ffffff;
-            --bg-color: #f3f6fb;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --card-grad: linear-gradient(135deg, #0052cc 0%, #0088ff 100%);
+            --inc-purple-dark: #1b022b;
+            --inc-purple-main: #3b0764;
+            --inc-violet: #8b5cf6;
+            --inc-magenta: #d946ef;
+            --inc-pink-glow: #f0abfc;
+            --inc-black: #0d0118; 
+            --inc-white: #ffffff;
+            
+            --bg-color: #fcf8ff;
+            --text-dark: #1e0933;
+            --text-muted: #584466;
+            --text-light: #a08cae;
+            
+            --grad-primary: linear-gradient(135deg, #6b21a8 0%, #d946ef 100%);
+            --grad-card: linear-gradient(135deg, #3b0764 0%, #8b5cf6 50%, #d946ef 100%);
+            
             --radius-md: 20px;
             --radius-lg: 28px;
             --font-main: 'Outfit', sans-serif;
@@ -41,18 +49,19 @@
         /* --- TOP HEADER & LIVE ACTIVITY POPUP BAR --- */
         .top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 10px; }
         .icon-btn {
-            width: 42px; height: 42px; background: var(--opt-white); border-radius: 50%;
+            width: 42px; height: 42px; background: var(--inc-white); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); cursor: pointer; color: var(--text-dark);
+            box-shadow: 0 4px 12px rgba(59, 7, 100, 0.08); cursor: pointer; color: var(--text-dark);
         }
 
         .live-activity-bar {
-            flex: 1; background: var(--opt-white); border-radius: 50px;
+            flex: 1; background: var(--inc-white); border-radius: 50px;
             padding: 6px 14px 6px 8px; display: flex; align-items: center; gap: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); height: 44px; overflow: hidden;
+            box-shadow: 0 4px 15px rgba(59, 7, 100, 0.06); height: 44px; overflow: hidden;
+            border: 1px solid #f3e8ff;
         }
         .activity-badge {
-            width: 30px; height: 30px; border-radius: 50%; background: #e0f2fe; color: var(--opt-blue);
+            width: 30px; height: 30px; border-radius: 50%; background: #fae8ff; color: var(--inc-magenta);
             display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;
         }
         .activity-ticker { flex: 1; overflow: hidden; position: relative; height: 32px; display: flex; align-items: center; }
@@ -64,38 +73,38 @@
         .activity-item.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
         .activity-item.exit { opacity: 0; transform: translateY(-15px); }
         .activity-text-main { font-size: 0.74rem; font-weight: 800; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
-        .activity-text-main span { color: var(--opt-blue); }
+        .activity-text-main span { color: var(--inc-magenta); }
         .activity-text-sub { font-size: 0.65rem; color: var(--text-muted); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; }
 
         /* --- SIDEBAR DRAWER MENU --- */
         .drawer-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
+            background: rgba(13, 1, 24, 0.6); backdrop-filter: blur(4px);
             z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
         }
         .drawer-overlay.open { opacity: 1; pointer-events: all; }
 
         .drawer-content {
             position: fixed; top: 0; left: -80%; width: 78%; max-width: 320px; height: 100%;
-            background: var(--opt-white); z-index: 2001; transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--inc-white); z-index: 2001; transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             padding: 24px 18px 24px; display: flex; flex-direction: column;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+            box-shadow: 10px 0 30px rgba(27, 2, 43, 0.15);
         }
         .drawer-overlay.open .drawer-content { left: 0; }
 
         .drawer-close-btn {
-            width: 36px; height: 36px; background: #f1f5f9; border-radius: 50%;
+            width: 36px; height: 36px; background: #f3e8ff; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; color: var(--text-muted);
             cursor: pointer; margin-bottom: 20px; font-size: 0.9rem;
         }
 
         .drawer-profile {
             display: flex; align-items: center; gap: 14px; margin-bottom: 30px; padding-bottom: 20px;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f3e8ff;
         }
         .drawer-avatar {
-            width: 48px; height: 48px; border-radius: 50%; background: var(--opt-blue);
-            color: var(--opt-white); display: flex; align-items: center; justify-content: center;
+            width: 48px; height: 48px; border-radius: 50%; background: var(--grad-primary);
+            color: var(--inc-white); display: flex; align-items: center; justify-content: center;
             font-size: 1.2rem; font-weight: 800; flex-shrink: 0;
         }
         .drawer-user-info h4 { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 2px; }
@@ -107,20 +116,20 @@
             color: var(--text-dark); font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: all 0.2s;
         }
         .drawer-nav-item i { font-size: 1.1rem; width: 22px; text-align: center; color: var(--text-muted); }
-        .drawer-nav-item.active { background: #00aaff; color: var(--opt-white); }
-        .drawer-nav-item.active i { color: var(--opt-white); }
+        .drawer-nav-item.active { background: var(--grad-primary); color: var(--inc-white); }
+        .drawer-nav-item.active i { color: var(--inc-white); }
 
         .drawer-logout-btn {
-            margin-top: auto; border: 1.5px solid #e2e8f0; border-radius: 18px;
+            margin-top: auto; border: 1.5px solid #e9d5ff; border-radius: 18px;
             padding: 14px; display: flex; align-items: center; justify-content: center; gap: 10px;
             color: var(--text-dark); font-weight: 800; font-size: 0.95rem; cursor: pointer; text-decoration: none;
         }
 
         /* --- WALLET CARD SECTION --- */
         .wallet-card-wrapper {
-            background: var(--card-grad); border-radius: var(--radius-lg);
-            padding: 24px 20px; color: var(--opt-white); position: relative;
-            box-shadow: 0 12px 30px rgba(0, 82, 204, 0.25); margin-bottom: 25px;
+            background: var(--grad-card); border-radius: var(--radius-lg);
+            padding: 24px 20px; color: var(--inc-white); position: relative;
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.3); margin-bottom: 25px;
             overflow: hidden;
         }
 
@@ -129,11 +138,11 @@
             border: 1px solid rgba(255, 255, 255, 0.25); border-radius: var(--radius-md);
             padding: 18px 20px; margin-bottom: 22px; position: relative;
         }
-        .card-chip { width: 38px; height: 26px; background: #e2b755; border-radius: 6px; margin-bottom: 12px; }
+        .card-chip { width: 38px; height: 26px; background: #f59e0b; border-radius: 6px; margin-bottom: 12px; }
         .card-brand { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
         .card-brand span { font-weight: 800; letter-spacing: 2px; font-size: 0.95rem; text-transform: uppercase; }
         .card-brand i { font-size: 2.2rem; font-style: italic; font-weight: 900; }
-        .card-number { font-size: 0.85rem; letter-spacing: 3px; opacity: 0.8; margin-top: 12px; }
+        .card-number { font-size: 0.85rem; letter-spacing: 3px; opacity: 0.85; margin-top: 12px; }
 
         .balance-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
         .plan-tag { font-size: 0.8rem; opacity: 0.85; font-weight: 500; }
@@ -150,44 +159,50 @@
 
         .btn-withdraw {
             background: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.4);
-            color: var(--opt-white); padding: 8px 16px; border-radius: 20px;
+            color: var(--inc-white); padding: 8px 16px; border-radius: 20px;
             font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; gap: 6px;
-            cursor: pointer; backdrop-filter: blur(5px);
+            cursor: pointer; backdrop-filter: blur(5px); transition: 0.2s;
         }
+        .btn-withdraw:hover { background: rgba(255, 255, 255, 0.35); }
 
         /* --- QUICK TOP-UP --- */
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
         .section-title { font-size: 1rem; font-weight: 800; color: var(--text-dark); }
         .section-link { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-decoration: none; }
 
-        .quick-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 22px; }
+        .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 22px; }
         .quick-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
         .quick-icon {
-            width: 52px; height: 52px; border-radius: 50%; display: flex;
+            width: 52px; height: 52px; border-radius: 18px; display: flex;
             align-items: center; justify-content: center; font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
-        .quick-item span { font-size: 0.7rem; font-weight: 700; color: var(--text-dark); text-align: center; }
+        .quick-item span { font-size: 0.7rem; font-weight: 700; color: var(--text-dark); text-align: center; line-height: 1.2; }
 
-        .q-blue { background: #e0f2fe; color: #0284c7; }
-        .q-yellow { background: #fef9c3; color: #ca8a04; }
-        .q-green { background: #dcfce7; color: #16a34a; }
-        .q-slate { background: #f1f5f9; color: #475569; }
-        .q-pink { background: #fce7f3; color: #db2777; }
+        .q-purple { background: #f3e8ff; color: #7e22ce; }
+        .q-magenta { background: #fce7f3; color: #db2777; }
+        .q-violet { background: #ede9fe; color: #6d28d9; }
+        .q-pink { background: #fdf2f8; color: #be185d; }
+        .q-indigo { background: #e0e7ff; color: #4338ca; }
+        .q-cyan { background: #e0f2fe; color: #0284c7; }
+        .q-orange { background: #ffedd5; color: #c2410c; }
+        .q-teal { background: #ccfbf1; color: #0f766e; }
 
         .btn-activate {
-            width: 100%; background: #0099ff; color: var(--opt-white); border: none;
+            width: 100%; background: var(--grad-primary); color: var(--inc-white); border: none;
             padding: 16px; border-radius: 50px; font-size: 1rem; font-weight: 800;
             display: flex; align-items: center; justify-content: center; gap: 10px;
-            box-shadow: 0 8px 20px rgba(0, 153, 255, 0.3); cursor: pointer; margin-bottom: 25px;
-            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(217, 70, 239, 0.3); cursor: pointer; margin-bottom: 25px;
+            text-decoration: none; transition: transform 0.2s;
         }
+        .btn-activate:hover { transform: translateY(-2px); }
 
         /* --- OTHER FEATURES --- */
         .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .feature-card {
-            background: var(--opt-white); padding: 16px; border-radius: var(--radius-md);
+            background: var(--inc-white); padding: 16px; border-radius: var(--radius-md);
             display: flex; align-items: center; gap: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02); cursor: pointer;
+            box-shadow: 0 4px 15px rgba(59, 7, 100, 0.04); cursor: pointer; border: 1px solid #f3e8ff;
         }
         .feature-icon {
             width: 42px; height: 42px; border-radius: 12px; display: flex;
@@ -198,47 +213,47 @@
 
         /* --- BOTTOM NAVBAR --- */
         .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--opt-white);
+            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--inc-white);
             display: flex; justify-content: space-around; align-items: center; padding: 10px 0 14px;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05); z-index: 100;
+            box-shadow: 0 -5px 20px rgba(59, 7, 100, 0.05); z-index: 100; border-top: 1px solid #f3e8ff;
         }
         .nav-tab { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 0.7rem; font-weight: 600; cursor: pointer; }
         .nav-tab i { font-size: 1.1rem; }
-        .nav-tab.active { color: var(--opt-black); font-weight: 800; }
+        .nav-tab.active { color: var(--inc-magenta); font-weight: 800; }
         
         .center-fab {
-            width: 50px; height: 50px; background: var(--opt-blue); border-radius: 16px;
-            display: flex; align-items: center; justify-content: center; color: var(--opt-white);
-            font-size: 1.2rem; margin-top: -25px; box-shadow: 0 8px 18px rgba(0, 99, 220, 0.35); cursor: pointer;
+            width: 50px; height: 50px; background: var(--grad-primary); border-radius: 16px;
+            display: flex; align-items: center; justify-content: center; color: var(--inc-white);
+            font-size: 1.2rem; margin-top: -25px; box-shadow: 0 8px 18px rgba(217, 70, 239, 0.4); cursor: pointer;
         }
 
         /* --- GENERAL OVERLAY MODAL BASE --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px);
+            background: rgba(13, 1, 24, 0.75); backdrop-filter: blur(6px);
             z-index: 2999; display: flex; justify-content: center; align-items: center;
             opacity: 0; pointer-events: none; transition: all 0.3s ease; padding: 20px;
         }
         .modal-overlay.show { opacity: 1; pointer-events: all; }
 
-        /* --- WITHDRAWAL FORM MODAL (UI MATCH) --- */
+        /* --- WITHDRAWAL FORM MODAL --- */
         .withdraw-card {
-            background: var(--opt-white); width: 100%; max-width: 380px;
+            background: var(--inc-white); width: 100%; max-width: 380px;
             border-radius: 32px; padding: 28px 22px; position: relative;
             transform: scale(0.9); transition: transform 0.3s ease;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
         .modal-overlay.show .withdraw-card { transform: scale(1); }
 
         .withdraw-close-btn {
             position: absolute; top: 20px; right: 20px; width: 34px; height: 34px;
-            background: #f1f5f9; border-radius: 50%; display: flex; align-items: center;
+            background: #f3e8ff; border-radius: 50%; display: flex; align-items: center;
             justify-content: center; color: var(--text-muted); cursor: pointer; font-size: 0.9rem;
         }
 
         .withdraw-header { text-align: center; margin-bottom: 20px; }
         .withdraw-icon-badge {
-            width: 60px; height: 60px; background: #e0f2fe; color: var(--opt-blue);
+            width: 60px; height: 60px; background: #fae8ff; color: var(--inc-magenta);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-size: 1.4rem; margin: 0 auto 12px;
         }
@@ -249,34 +264,34 @@
         .form-group label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
         
         .form-input-box {
-            width: 100%; background: #f8fafc; border: 1px solid #e2e8f0;
+            width: 100%; background: #fcf8ff; border: 1px solid #e9d5ff;
             border-radius: 16px; padding: 14px 16px; font-size: 0.88rem;
             color: var(--text-dark); font-weight: 600; outline: none; transition: 0.2s;
         }
-        .form-input-box:focus { border-color: var(--opt-blue); background: #fff; }
+        .form-input-box:focus { border-color: var(--inc-magenta); background: #fff; }
         
         .form-input-box.clickable { cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .form-input-box.clickable span { color: #94a3b8; font-weight: 500; }
+        .form-input-box.clickable span { color: #a08cae; font-weight: 500; }
         .form-input-box.clickable.selected span { color: var(--text-dark); font-weight: 700; }
 
         .amount-display-box {
-            background: #e0f2fe; border-radius: 16px; padding: 14px 16px;
-            color: var(--opt-blue); font-weight: 800; font-size: 1rem;
+            background: #fae8ff; border-radius: 16px; padding: 14px 16px;
+            color: var(--inc-purple-main); font-weight: 800; font-size: 1rem;
         }
 
         .verify-status { font-size: 0.72rem; margin-top: 4px; font-weight: 600; min-height: 16px; }
 
         .btn-submit-withdraw {
-            width: 100%; background: #0063dc; color: #fff; border: none;
+            width: 100%; background: var(--grad-primary); color: #fff; border: none;
             padding: 16px; border-radius: 50px; font-weight: 800; font-size: 0.95rem;
             display: flex; align-items: center; justify-content: center; gap: 8px;
-            cursor: pointer; box-shadow: 0 8px 20px rgba(0, 99, 220, 0.3); margin-top: 10px;
+            cursor: pointer; box-shadow: 0 8px 20px rgba(217, 70, 239, 0.3); margin-top: 10px;
         }
 
-        /* --- BANK SELECTION MODAL (POPUP SLIDE-UP) --- */
+        /* --- BANK SELECTION BOTTOM SHEET --- */
         .bank-selector-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px);
+            background: rgba(13, 1, 24, 0.75); backdrop-filter: blur(4px);
             z-index: 3500; display: flex; justify-content: center; align-items: flex-end;
             opacity: 0; pointer-events: none; transition: all 0.3s ease;
         }
@@ -295,37 +310,37 @@
         .sheet-close { cursor: pointer; font-size: 1.2rem; color: var(--text-muted); }
 
         .bank-search-input {
-            width: 100%; background: #f1f5f9; border: 1px solid #e2e8f0;
+            width: 100%; background: #fcf8ff; border: 1px solid #e9d5ff;
             padding: 12px 16px; border-radius: 16px; outline: none; margin-bottom: 15px; font-weight: 600;
         }
 
         .bank-list-container { flex: 1; overflow-y: auto; }
         .bank-item-row {
-            padding: 14px 10px; border-bottom: 1px solid #f1f5f9; cursor: pointer;
+            padding: 14px 10px; border-bottom: 1px solid #f3e8ff; cursor: pointer;
             font-size: 0.9rem; font-weight: 600; color: var(--text-dark); transition: 0.2s;
         }
-        .bank-item-row:hover { background: #f8fafc; color: var(--opt-blue); }
+        .bank-item-row:hover { background: #fcf8ff; color: var(--inc-magenta); }
 
         /* --- REQUIREMENT MODAL --- */
         .popup-box {
-            background: var(--opt-white); width: 100%; max-width: 360px;
+            background: var(--inc-white); width: 100%; max-width: 360px;
             border-radius: var(--radius-lg); padding: 30px 24px; text-align: center;
             position: relative; transform: scale(0.9); transition: transform 0.3s ease;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
         .modal-overlay.show .popup-box { transform: scale(1); }
         .popup-lock-icon {
-            width: 65px; height: 65px; background: #e0f2fe; color: var(--opt-blue);
+            width: 65px; height: 65px; background: #fae8ff; color: var(--inc-magenta);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-size: 1.5rem; margin: 0 auto 18px;
         }
         .popup-box h3 { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
         .popup-box p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 22px; font-weight: 500; }
         .popup-btn {
-            background: var(--opt-blue); color: var(--opt-white); width: 100%;
+            background: var(--grad-primary); color: var(--inc-white); width: 100%;
             padding: 14px; border-radius: 50px; font-weight: 700; font-size: 0.95rem;
             display: flex; align-items: center; justify-content: center; gap: 8px;
-            border: none; cursor: pointer; text-decoration: none; box-shadow: 0 8px 18px rgba(0, 99, 220, 0.3);
+            border: none; cursor: pointer; text-decoration: none; box-shadow: 0 8px 18px rgba(217, 70, 239, 0.3);
         }
     </style>
 </head>
@@ -337,10 +352,10 @@
             <div class="drawer-close-btn" id="drawerCloseBtn"><i class="fa-solid fa-xmark"></i></div>
             
             <div class="drawer-profile">
-                <div class="drawer-avatar" id="avatarInitial">O</div>
+                <div class="drawer-avatar" id="avatarInitial">I</div>
                 <div class="drawer-user-info">
-                    <h4 id="drawerName">Optinex User</h4>
-                    <p id="drawerEmail">user@optinex.com</p>
+                    <h4 id="drawerName">Incossify User</h4>
+                    <p id="drawerEmail">user@incossify.com</p>
                 </div>
             </div>
 
@@ -377,16 +392,16 @@
             <div class="virtual-card">
                 <div class="card-chip"></div>
                 <div class="card-brand">
-                    <span>OPTINEX</span>
+                    <span>INCOSSIFY</span>
                     <i class="fa-brands fa-visa"></i>
                 </div>
-                <div class="card-number">•••• •••• •••• 5678</div>
+                <div class="card-number">•••• •••• •••• 8892</div>
             </div>
 
             <div class="balance-header">
                 <div>
                     <div class="balance-title">Wallet</div>
-                    <div class="plan-tag" id="displayPlan">Dynasty Plan</div>
+                    <div class="plan-tag" id="displayPlan">Starterkit Plan</div>
                 </div>
                 <div class="card-actions">
                     <div class="mini-action-btn" id="toggleBalanceBtn"><i class="fa-solid fa-eye" id="eyeIcon"></i></div>
@@ -395,7 +410,7 @@
             </div>
 
             <div class="balance-row" style="margin-top: 10px;">
-                <div class="balance-amount" id="balanceText">₦ 15,000.00</div>
+                <div class="balance-amount" id="balanceText">₦ 10,000.00</div>
                 <button class="btn-withdraw" id="openWithdrawBtn">
                     <i class="fa-solid fa-wallet"></i> Withdraw
                 </button>
@@ -404,29 +419,41 @@
 
         <!-- Quick Top-Up -->
         <div class="section-header">
-            <span class="section-title">Quick Top-Up</span>
+            <span class="section-title">Quick Features</span>
             <a href="#" class="section-link pop-trigger">Explore</a>
         </div>
         <div class="quick-grid">
             <div class="quick-item pop-trigger">
-                <div class="quick-icon q-blue"><i class="fa-solid fa-money-bill"></i></div>
-                <span>Daily Pay</span>
+                <div class="quick-icon q-purple"><i class="fa-solid fa-child"></i></div>
+                <span>Kids Assignment</span>
             </div>
             <div class="quick-item pop-trigger">
-                <div class="quick-icon q-yellow"><i class="fa-solid fa-sitemap"></i></div>
-                <span>Connect</span>
+                <div class="quick-icon q-magenta"><i class="fa-solid fa-circle-play"></i></div>
+                <span>Watch Video</span>
             </div>
             <div class="quick-item pop-trigger">
-                <div class="quick-icon q-green"><i class="fa-solid fa-hand-holding-dollar"></i></div>
-                <span>BNPL</span>
+                <div class="quick-icon q-violet"><i class="fa-solid fa-music"></i></div>
+                <span>Play Musics</span>
             </div>
             <div class="quick-item pop-trigger">
-                <div class="quick-icon q-slate"><i class="fa-solid fa-list-check"></i></div>
-                <span>Tasks</span>
+                <div class="quick-icon q-pink"><i class="fa-solid fa-newspaper"></i></div>
+                <span>Inn-Blog</span>
             </div>
             <div class="quick-item pop-trigger">
-                <div class="quick-icon q-pink"><i class="fa-solid fa-brain"></i></div>
-                <span>Daily IQ Test</span>
+                <div class="quick-icon q-indigo"><i class="fa-solid fa-robot"></i></div>
+                <span>Inn-Ai</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-cyan"><i class="fa-brands fa-twitter"></i></div>
+                <span>Inn-Tweet</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-orange"><i class="fa-solid fa-gamepad"></i></div>
+                <span>Inn-Games</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-teal"><i class="fa-solid fa-plane-departure"></i></div>
+                <span>Inn-Trips</span>
             </div>
         </div>
 
@@ -442,21 +469,21 @@
         </div>
         <div class="features-grid">
             <div class="feature-card pop-trigger">
-                <div class="feature-icon q-blue"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="feature-icon q-purple"><i class="fa-solid fa-shield-halved"></i></div>
                 <div class="feature-info">
                     <h4>Security</h4>
                     <p>2FA & PIN</p>
                 </div>
             </div>
             <div class="feature-card pop-trigger">
-                <div class="feature-icon q-green"><i class="fa-solid fa-gift"></i></div>
+                <div class="feature-icon q-magenta"><i class="fa-solid fa-gift"></i></div>
                 <div class="feature-info">
                     <h4>Referrals</h4>
                     <p>Earn bonuses</p>
                 </div>
             </div>
             <div class="feature-card pop-trigger">
-                <div class="feature-icon q-yellow"><i class="fa-solid fa-ranking-star"></i></div>
+                <div class="feature-icon q-violet"><i class="fa-solid fa-ranking-star"></i></div>
                 <div class="feature-info">
                     <h4>Leaderboard</h4>
                     <p>Top earners</p>
@@ -470,14 +497,14 @@
                 </div>
             </div>
             <div class="feature-card pop-trigger">
-                <div class="feature-icon q-slate"><i class="fa-solid fa-file-invoice"></i></div>
+                <div class="feature-icon q-indigo"><i class="fa-solid fa-file-invoice"></i></div>
                 <div class="feature-info">
                     <h4>Statements</h4>
                     <p>Download PDF</p>
                 </div>
             </div>
             <div class="feature-card pop-trigger">
-                <div class="feature-icon q-green"><i class="fa-solid fa-bell"></i></div>
+                <div class="feature-icon q-cyan"><i class="fa-solid fa-bell"></i></div>
                 <div class="feature-info">
                     <h4>Notifications</h4>
                     <p>Alerts & news</p>
@@ -533,7 +560,7 @@
                     <label>Bank Name</label>
                     <div class="form-input-box clickable" id="bankSelectTrigger">
                         <span id="selectedBankText">Enter bank name</span>
-                        <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; color: #94a3b8;"></i>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; color: #a08cae;"></i>
                     </div>
                 </div>
 
@@ -545,7 +572,7 @@
                 <div class="form-group">
                     <label>Amount</label>
                     <div class="amount-display-box" id="modalWithdrawAmount">
-                        ₦15,000.00
+                        ₦10,000.00
                     </div>
                 </div>
 
@@ -565,7 +592,7 @@
             </div>
             <input type="text" id="bankSearchInput" class="bank-search-input" placeholder="Search bank...">
             <div class="bank-list-container" id="bankListContainer">
-                <div style="text-align: center; color: #94a3b8; padding: 20px;">Loading banks...</div>
+                <div style="text-align: center; color: #a08cae; padding: 20px;">Loading banks...</div>
             </div>
         </div>
     </div>
@@ -573,12 +600,12 @@
     <!-- 3. SETUP REQUIREMENT MODAL -->
     <div class="modal-overlay" id="setupModal">
         <div class="popup-box">
-            <div class="popup-close" id="closeModal" style="position: absolute; top: 16px; right: 16px; cursor: pointer;"><i class="fa-solid fa-xmark"></i></div>
+            <div class="popup-close" id="closeModal" style="position: absolute; top: 16px; right: 16px; cursor: pointer; color: var(--text-muted);"><i class="fa-solid fa-xmark"></i></div>
             <div class="popup-lock-icon">
                 <i class="fa-solid fa-lock"></i>
             </div>
             <h3>Account Setup Required</h3>
-            <p>Activate your Optinex account with a <strong id="modalFeeText">₦15,000</strong> setup fee to unlock withdrawals and premium earning features.</p>
+            <p>Activate your Incossify account with a <strong id="modalFeeText">₦10,000</strong> setup fee to unlock withdrawals and premium earning features.</p>
             <a href="payment.html" class="popup-btn">
                 Activate Account <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -591,10 +618,10 @@
             const PAYSTACK_SECRET_KEY = "sk_test_8df35f0fdf38905d4cec8e22a0eff23e87fbd491";
 
             // --- 1. USER REGISTRATION DATA & DRAWER SYNC ---
-            const savedData = localStorage.getItem('optinex_user');
-            let planName = "Dynasty Plan";
-            let rawAmount = "₦ 15,000.00";
-            let shortFee = "₦15,000";
+            const savedData = localStorage.getItem('incossify_user');
+            let planName = "Starterkit Plan";
+            let rawAmount = "₦ 10,000.00";
+            let shortFee = "₦10,000";
 
             if (savedData) {
                 const user = JSON.parse(savedData);
@@ -605,10 +632,10 @@
                 if (user.email) {
                     document.getElementById('drawerEmail').innerText = user.email;
                 }
-                if (user.plan && user.plan.toLowerCase().includes('noble')) {
-                    planName = "Noble Plan";
-                    rawAmount = "₦ 10,000.00";
-                    shortFee = "₦10,000";
+                if (user.plan && user.plan.toLowerCase().includes('apex')) {
+                    planName = "Apex Plan";
+                    rawAmount = "₦ 15,000.00";
+                    shortFee = "₦15,000";
                 }
             }
 
@@ -629,16 +656,16 @@
 
             // --- 3. LIVE ACTIVITIES TICKER POPUP ---
             const activities = [
-                { name: "David", action: "earned", amount: "₦25,000", source: "from Global Connect" },
-                { name: "Tom", action: "earned", amount: "₦15,500", source: "from Talent Core" },
+                { name: "David", action: "earned", amount: "₦25,000", source: "from Watch Video" },
+                { name: "Tom", action: "earned", amount: "₦15,500", source: "from Inn-Ai" },
                 { name: "Sarah", action: "withdrew", amount: "₦150,000", source: "to Local Bank" },
-                { name: "Emeka", action: "earned", amount: "₦8,500", source: "from a Product Review" },
-                { name: "Grace", action: "earned", amount: "₦45,000", source: "from Global Connect" },
+                { name: "Emeka", action: "earned", amount: "₦8,500", source: "from Inn-Blog" },
+                { name: "Grace", action: "earned", amount: "₦45,000", source: "from Play Musics" },
                 { name: "Michael", action: "withdrew", amount: "₦80,000", source: "to Local Bank" },
-                { name: "Anita", action: "earned", amount: "₦12,000", source: "from Daily IQ Test" },
-                { name: "Blessing", action: "earned", amount: "₦30,000", source: "from Talent Core" },
+                { name: "Anita", action: "earned", amount: "₦12,000", source: "from Kids Assignment" },
+                { name: "Blessing", action: "earned", amount: "₦30,000", source: "from Inn-Games" },
                 { name: "Chidi", action: "withdrew", amount: "₦200,000", source: "to Local Bank" },
-                { name: "Victor", action: "earned", amount: "₦18,000", source: "from Global Connect" }
+                { name: "Victor", action: "earned", amount: "₦18,000", source: "from Inn-Trips" }
             ];
 
             const tickerContainer = document.getElementById('activityTicker');
@@ -667,7 +694,7 @@
             const balanceText = document.getElementById('balanceText');
             const toggleBalanceBtn = document.getElementById('toggleBalanceBtn');
             const eyeIcon = document.getElementById('eyeIcon');
-            let isHidden = localStorage.getItem('optinex_hide_balance') === 'true';
+            let isHidden = localStorage.getItem('incossify_hide_balance') === 'true';
 
             function updateBalanceDisplay() {
                 if (isHidden) {
@@ -683,7 +710,7 @@
             toggleBalanceBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 isHidden = !isHidden;
-                localStorage.setItem('optinex_hide_balance', isHidden);
+                localStorage.setItem('incossify_hide_balance', isHidden);
                 updateBalanceDisplay();
             });
 
@@ -691,7 +718,6 @@
             let banksData = [];
             let selectedBankCode = "";
 
-            // Fetch Bank List directly from Paystack API
             function fetchPaystackBanks() {
                 fetch("https://api.paystack.co/bank?country=nigeria", {
                     method: "GET",
@@ -734,14 +760,12 @@
 
             fetchPaystackBanks();
 
-            // Bank Search Filter
             document.getElementById('bankSearchInput').addEventListener('input', (e) => {
                 const query = e.target.value.toLowerCase();
                 const filtered = banksData.filter(b => b.name.toLowerCase().includes(query));
                 renderBankList(filtered);
             });
 
-            // Auto-Resolve Account Name using Paystack
             const accNumInput = document.getElementById('acc_number');
             const accNameInput = document.getElementById('acc_name');
             const verifyStatus = document.getElementById('verifyStatus');
@@ -750,7 +774,7 @@
                 const num = accNumInput.value.trim();
                 if (num.length === 10 && selectedBankCode !== "") {
                     verifyStatus.innerText = "Verifying account details...";
-                    verifyStatus.style.color = "#0063dc";
+                    verifyStatus.style.color = "#d946ef";
                     accNameInput.value = "";
 
                     fetch(`https://api.paystack.co/bank/resolve?account_number=${num}&bank_code=${selectedBankCode}`, {
@@ -807,13 +831,12 @@
             }
             document.getElementById('closeBankSheet').addEventListener('click', closeBankSheet);
 
-            // Clicking Withdraw Form Button -> Redirects to Activation Setup Modal
             document.getElementById('submitWithdrawBtn').addEventListener('click', () => {
                 withdrawModal.classList.remove('show');
                 setupModal.classList.add('show');
             });
 
-            // Triggers for Setup Modal on Quick Items
+            // Triggers for Activation Setup Modal on all Quick Feature items
             const triggers = document.querySelectorAll('.pop-trigger');
             triggers.forEach(el => {
                 el.addEventListener('click', (e) => {
