@@ -27,7 +27,7 @@
             --text-light: #a08cae;
             
             --grad-primary: linear-gradient(135deg, #6b21a8 0%, #d946ef 100%);
-            --grad-card: linear-gradient(135deg, #3b0764 0%, #8b5cf6 50%, #d946ef 100%);
+            --grad-card: linear-gradient(135deg, #2a0845 0%, #6b21a8 50%, #d946ef 100%);
             
             --radius-md: 20px;
             --radius-lg: 28px;
@@ -125,45 +125,273 @@
             color: var(--text-dark); font-weight: 800; font-size: 0.95rem; cursor: pointer; text-decoration: none;
         }
 
-        /* --- WALLET CARD SECTION --- */
-        .wallet-card-wrapper {
-            background: var(--grad-card); border-radius: var(--radius-lg);
-            padding: 24px 20px; color: var(--inc-white); position: relative;
-            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.3); margin-bottom: 25px;
+        /* --- STYLED CUSTOM BALANCE CARD (MATCHED TO DESIGN) --- */
+        .card-container-wrapper {
+            position: relative;
+            margin-bottom: 25px;
+            perspective: 1000px;
+        }
+
+        /* Background Stacked Card Effect */
+        .card-stack-bg {
+            position: absolute;
+            top: 6px;
+            right: -8px;
+            width: 90%;
+            height: 94%;
+            background: linear-gradient(135deg, #4c1d95 0%, #c026d3 100%);
+            border-radius: var(--radius-lg);
+            z-index: 1;
+            opacity: 0.4;
+            transform: rotate(3deg);
+        }
+
+        .optinex-card {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            background: linear-gradient(135deg, #18022b 0%, #3b0764 45%, #60a5fa 200%);
+            border-radius: var(--radius-lg);
+            padding: 22px 20px;
+            color: var(--inc-white);
+            box-shadow: 0 15px 35px rgba(27, 2, 43, 0.4);
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        .virtual-card {
-            background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.25); border-radius: var(--radius-md);
-            padding: 18px 20px; margin-bottom: 22px; position: relative;
-        }
-        .card-chip { width: 38px; height: 26px; background: #f59e0b; border-radius: 6px; margin-bottom: 12px; }
-        .card-brand { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-        .card-brand span { font-weight: 800; letter-spacing: 2px; font-size: 0.95rem; text-transform: uppercase; }
-        .card-brand i { font-size: 2.2rem; font-style: italic; font-weight: 900; }
-        .card-number { font-size: 0.85rem; letter-spacing: 3px; opacity: 0.85; margin-top: 12px; }
-
-        .balance-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-        .plan-tag { font-size: 0.8rem; opacity: 0.85; font-weight: 500; }
-        .card-actions { display: flex; gap: 10px; }
-        .mini-action-btn {
-            width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 255, 255, 0.2);
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-            color: #fff; font-size: 0.85rem; transition: 0.2s;
+        /* Card Mesh/Wave Overlays */
+        .optinex-card::before {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -30%;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(217, 70, 239, 0.25) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
         }
 
-        .balance-title { font-size: 0.8rem; opacity: 0.8; margin-bottom: 2px; }
-        .balance-row { display: flex; justify-content: space-between; align-items: center; }
-        .balance-amount { font-size: 1.7rem; font-weight: 900; letter-spacing: -0.5px; }
-
-        .btn-withdraw {
-            background: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.4);
-            color: var(--inc-white); padding: 8px 16px; border-radius: 20px;
-            font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; gap: 6px;
-            cursor: pointer; backdrop-filter: blur(5px); transition: 0.2s;
+        .optinex-card::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
         }
-        .btn-withdraw:hover { background: rgba(255, 255, 255, 0.35); }
+
+        /* Top Header inside Card */
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .badge-pill {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            backdrop-filter: blur(8px);
+        }
+
+        .badge-pill i.fa-award {
+            color: #f59e0b;
+        }
+
+        .brand-logo-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-align: right;
+        }
+
+        .brand-logo-icon {
+            width: 28px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .brand-text-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-size: 1.05rem;
+            font-weight: 900;
+            letter-spacing: -0.3px;
+            line-height: 1;
+        }
+
+        .brand-sub {
+            font-size: 0.58rem;
+            opacity: 0.75;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+
+        /* Middle Balance Row */
+        .card-middle-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .card-chip-img {
+            width: 44px;
+            height: 32px;
+            background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 100%);
+            border-radius: 6px;
+            position: relative;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            border: 1px solid #fbbf24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-chip-img::after {
+            content: '';
+            width: 70%;
+            height: 60%;
+            border: 1px solid rgba(0, 0, 0, 0.25);
+            border-radius: 3px;
+        }
+
+        .balance-display-main {
+            font-size: 1.85rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: var(--inc-white);
+            flex: 1;
+            white-space: nowrap;
+        }
+
+        .contactless-icon {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-left: auto;
+        }
+
+        /* Footer Row inside Card */
+        .card-footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
+            z-index: 3;
+        }
+
+        .card-left-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sub-tag-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.9;
+        }
+
+        .btn-card-withdraw {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: #fff;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            backdrop-filter: blur(6px);
+            transition: 0.2s;
+            width: fit-content;
+        }
+
+        .btn-card-withdraw:active {
+            transform: scale(0.96);
+        }
+
+        .card-right-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .card-type-text {
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            opacity: 0.75;
+        }
+
+        .mastercard-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .mc-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+
+        .mc-red {
+            background: #eb001b;
+        }
+
+        .mc-yellow {
+            background: #f79e1b;
+            margin-left: -10px;
+            opacity: 0.9;
+        }
+
+        /* Balance Eye Toggle Icon inside Card Header */
+        .eye-toggle-badge {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: #fff;
+            transition: 0.2s;
+        }
 
         /* --- QUICK TOP-UP --- */
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
@@ -214,8 +442,9 @@
         /* --- BOTTOM NAVBAR --- */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: var(--inc-white);
-            display: flex; justify-content: space-around; align-items: center; padding: 10px 0 14px;
+            display: flex; justify-space-around: fill; align-items: center; padding: 10px 0 14px;
             box-shadow: 0 -5px 20px rgba(59, 7, 100, 0.05); z-index: 100; border-top: 1px solid #f3e8ff;
+            justify-content: space-around;
         }
         .nav-tab { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 0.7rem; font-weight: 600; cursor: pointer; }
         .nav-tab i { font-size: 1.1rem; }
@@ -387,33 +616,63 @@
             <div class="icon-btn pop-trigger"><i class="fa-solid fa-plus"></i></div>
         </div>
 
-        <!-- Card Section -->
-        <div class="wallet-card-wrapper">
-            <div class="virtual-card">
-                <div class="card-chip"></div>
-                <div class="card-brand">
-                    <span>INCOSSIFY</span>
-                    <i class="fa-brands fa-visa"></i>
-                </div>
-                <div class="card-number">•••• •••• •••• 8892</div>
-            </div>
+        <!-- REDESIGNED OPTINEX-STYLE BALANCE CARD -->
+        <div class="card-container-wrapper">
+            <div class="card-stack-bg"></div>
+            
+            <div class="optinex-card">
+                <!-- Top Header inside Card -->
+                <div class="card-header-row">
+                    <div class="badge-pill">
+                        <i class="fa-solid fa-award"></i>
+                        <span id="displayPlan">Starterkit Plan</span>
+                    </div>
 
-            <div class="balance-header">
-                <div>
-                    <div class="balance-title">Wallet</div>
-                    <div class="plan-tag" id="displayPlan">Starterkit Plan</div>
-                </div>
-                <div class="card-actions">
-                    <div class="mini-action-btn" id="toggleBalanceBtn"><i class="fa-solid fa-eye" id="eyeIcon"></i></div>
-                    <div class="mini-action-btn pop-trigger"><i class="fa-solid fa-ellipsis-vertical"></i></div>
-                </div>
-            </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div class="eye-toggle-badge" id="toggleBalanceBtn" title="Toggle Balance">
+                            <i class="fa-solid fa-eye" id="eyeIcon"></i>
+                        </div>
 
-            <div class="balance-row" style="margin-top: 10px;">
-                <div class="balance-amount" id="balanceText">₦ 10,000.00</div>
-                <button class="btn-withdraw" id="openWithdrawBtn">
-                    <i class="fa-solid fa-wallet"></i> Withdraw
-                </button>
+                        <div class="brand-logo-box">
+                            <div class="brand-logo-icon">
+                                <i class="fa-solid fa-arrow-trend-up"></i>
+                            </div>
+                            <div class="brand-text-wrapper">
+                                <span class="brand-name">Incossify</span>
+                                <span class="brand-sub">Optimize your wealth</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Middle Balance Row -->
+                <div class="card-middle-row">
+                    <i class="fa-solid fa-chevron-left" style="font-size: 0.8rem; opacity: 0.6;"></i>
+                    <div class="card-chip-img"></div>
+                    <div class="balance-display-main" id="balanceText">₦10,000.00</div>
+                    <i class="fa-solid fa-wifi contactless-icon"></i>
+                </div>
+
+                <!-- Footer Row inside Card -->
+                <div class="card-footer-row">
+                    <div class="card-left-footer">
+                        <div class="sub-tag-label">
+                            <i class="fa-solid fa-gem" style="font-size: 0.75rem; color: var(--inc-pink-glow);"></i>
+                            Performance Reward
+                        </div>
+                        <button class="btn-card-withdraw" id="openWithdrawBtn">
+                            <i class="fa-solid fa-wallet"></i> Withdraw
+                        </button>
+                    </div>
+
+                    <div class="card-right-footer">
+                        <span class="card-type-text">DEBIT</span>
+                        <div class="mastercard-logo">
+                            <div class="mc-circle mc-red"></div>
+                            <div class="mc-circle mc-yellow"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -620,7 +879,7 @@
             // --- 1. USER REGISTRATION DATA & DRAWER SYNC ---
             const savedData = localStorage.getItem('incossify_user');
             let planName = "Starterkit Plan";
-            let rawAmount = "₦ 10,000.00";
+            let rawAmount = "₦10,000.00";
             let shortFee = "₦10,000";
 
             if (savedData) {
@@ -634,7 +893,7 @@
                 }
                 if (user.plan && user.plan.toLowerCase().includes('apex')) {
                     planName = "Apex Plan";
-                    rawAmount = "₦ 15,000.00";
+                    rawAmount = "₦15,000.00";
                     shortFee = "₦15,000";
                 }
             }
