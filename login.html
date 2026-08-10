@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sign In | Optinex</title>
+    <title>Sign In | Incossify</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,31 +11,33 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    
     <style>
-        /* --- CSS VARIABLES & THEMING (OPTINEX) --- */
+        /* --- CSS VARIABLES & THEMING (INCOSSIFY) --- */
         :root {
-            --opt-blue: #0063dc;
-            --opt-cyan: #00C9F3;
-            --opt-gold: #D1A342;
-            --opt-black: #0f172a; 
-            --opt-white: #ffffff;
+            --inc-purple-dark: #1b022b;
+            --inc-purple-main: #3b0764;
+            --inc-violet: #8b5cf6;
+            --inc-magenta: #d946ef;
+            --inc-pink-glow: #f0abfc;
+            --inc-black: #0d0118; 
+            --inc-white: #ffffff;
             
-            --light-bg: #f8fafc;
-            --text-dark: #0f172a;
-            --text-muted: #475569;
-            --text-light: #94a3b8;
+            --light-bg: #fcf8ff;
+            --text-dark: #1e0933;
+            --text-muted: #584466;
+            --text-light: #a08cae;
             
-            --grad-primary: linear-gradient(135deg, var(--opt-blue), var(--opt-cyan));
-            --grad-gold: linear-gradient(135deg, var(--opt-gold), #FCD34D);
+            --grad-primary: linear-gradient(135deg, #6b21a8, #d946ef);
+            --grad-accent: linear-gradient(135deg, #a855f7, #ec4899);
+            --grad-glow: linear-gradient(135deg, #d946ef, #f0abfc);
             
             --radius-sm: 12px;
             --radius-md: 20px;
             --radius-lg: 30px;
             --radius-pill: 999px;
             
-            --shadow-soft: 0 15px 35px rgba(0, 99, 220, 0.08);
-            --shadow-float: 0 25px 50px rgba(15, 23, 42, 0.15);
+            --shadow-soft: 0 15px 35px rgba(107, 33, 168, 0.12);
+            --shadow-float: 0 25px 50px rgba(27, 2, 43, 0.22);
             
             --font-main: 'Outfit', sans-serif;
             --header-height: 90px;
@@ -46,7 +48,7 @@
         html, body { 
             scroll-behavior: smooth; 
             font-size: 16px; 
-            overflow-x: hidden; /* Strict lock on horizontal scroll */
+            overflow-x: hidden; 
             max-width: 100vw;
             width: 100%;
         }
@@ -74,22 +76,22 @@
             position: fixed; top: 0; left: 0; width: 100%; height: var(--header-height);
             z-index: 1005; transition: all 0.3s ease; display: flex; align-items: center;
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 20px rgba(59, 7, 100, 0.05);
         }
         .nav-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         
         .logo { display: flex; align-items: center; text-decoration: none; }
         .logo img { height: 40px; width: auto; object-fit: contain; }
-        .logo-text { font-weight: 900; font-size: 1.5rem; color: var(--opt-blue); margin-left: 10px; letter-spacing: -0.5px; }
+        .logo-text { font-weight: 900; font-size: 1.5rem; color: var(--inc-purple-main); margin-left: 10px; letter-spacing: -0.5px; }
         
         .nav-links { display: flex; gap: 35px; align-items: center; }
         .nav-links a.nav-item { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); }
-        .nav-links a.nav-item:hover { color: var(--opt-blue); }
+        .nav-links a.nav-item:hover { color: var(--inc-magenta); }
 
         .hamburger { display: none; cursor: pointer; width: 30px; height: 20px; position: relative; z-index: 1006; }
         .hamburger span {
             display: block; position: absolute; height: 2px; width: 100%;
-            background: var(--opt-black); border-radius: 4px; transition: .3s ease-in-out; left: 0;
+            background: var(--inc-black); border-radius: 4px; transition: .3s ease-in-out; left: 0;
         }
         .hamburger span:nth-child(1) { top: 0px; }
         .hamburger span:nth-child(2) { top: 9px; width: 70%; right: 0; left: auto; }
@@ -99,14 +101,14 @@
         .hamburger.active span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
 
         .mobile-nav-bg {
-            position: fixed; top: -100%; left: 0; width: 100%; background: var(--opt-white);
+            position: fixed; top: -100%; left: 0; width: 100%; background: var(--inc-white);
             box-shadow: 0 15px 40px rgba(0,0,0,0.1); z-index: 1004;
             padding: calc(var(--header-height) + 20px) 30px 40px;
             border-bottom-left-radius: var(--radius-lg); border-bottom-right-radius: var(--radius-lg);
             transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; gap: 20px;
         }
         .mobile-nav-bg.active { top: 0; }
-        .mobile-link { font-size: 1.1rem; color: var(--opt-black); font-weight: 600; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;}
+        .mobile-link { font-size: 1.1rem; color: var(--inc-black); font-weight: 600; border-bottom: 1px solid #f3e8ff; padding-bottom: 10px;}
 
         /* --- BUTTONS --- */
         .btn {
@@ -116,18 +118,18 @@
             cursor: pointer; transition: all 0.3s ease; border: none;
         }
         .btn-primary { 
-            background: var(--grad-primary); color: var(--opt-white); 
-            box-shadow: 0 8px 20px rgba(0, 99, 220, 0.25); width: 100%;
+            background: var(--grad-primary); color: var(--inc-white); 
+            box-shadow: 0 8px 20px rgba(107, 33, 168, 0.3); width: 100%;
             position: relative; overflow: hidden;
         }
         .btn-primary:hover { 
-            transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 201, 243, 0.4);
+            transform: translateY(-3px); box-shadow: 0 12px 25px rgba(217, 70, 239, 0.45);
         }
         .btn-dark {
-            background: var(--opt-black); color: var(--opt-white); width: 100%;
+            background: var(--inc-black); color: var(--inc-white); width: 100%;
         }
         .btn-dark:hover {
-            background: var(--opt-blue); transform: translateY(-3px);
+            background: var(--inc-purple-main); transform: translateY(-3px);
         }
 
         /* --- MAIN LOGIN AREA --- */
@@ -139,11 +141,11 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden; /* Contains background animations to stop shaking */
+            overflow: hidden;
             width: 100%;
         }
 
-        /* Abstract Background Shapes (Optinex Branding) */
+        /* Abstract Background Shapes (Incossify Branding) */
         .bg-shape-1 {
             position: absolute; top: 10%; left: -5%; width: 50vw; height: 50vw;
             background: var(--grad-primary); border-radius: 50%;
@@ -152,14 +154,14 @@
         }
         .bg-shape-2 {
             position: absolute; bottom: -10%; right: -5%; width: 40vw; height: 40vw;
-            background: var(--grad-gold); border-radius: 50%;
-            filter: blur(100px); z-index: 0; opacity: 0.1;
+            background: var(--grad-accent); border-radius: 50%;
+            filter: blur(100px); z-index: 0; opacity: 0.12;
             animation: pulse 12s infinite alternate-reverse;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.1; }
-            100% { transform: scale(1.1); opacity: 0.2; }
+            0% { transform: scale(1); opacity: 0.12; }
+            100% { transform: scale(1.1); opacity: 0.22; }
         }
 
         .auth-wrapper {
@@ -171,20 +173,20 @@
         .auth-branding {
             padding-right: 20px;
         }
-        .auth-branding h1 { font-size: 3.5rem; letter-spacing: -1.5px; margin-bottom: 20px; color: var(--opt-black); font-weight: 900;}
+        .auth-branding h1 { font-size: 3.5rem; letter-spacing: -1.5px; margin-bottom: 20px; color: var(--inc-black); font-weight: 900;}
         .auth-branding h1 span { background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .auth-branding p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 30px; line-height: 1.6; }
         
         .branding-perk { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .perk-icon { width: 50px; height: 50px; border-radius: 15px; background: var(--opt-white); box-shadow: var(--shadow-soft); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--opt-blue); }
+        .perk-icon { width: 50px; height: 50px; border-radius: 15px; background: var(--inc-white); box-shadow: var(--shadow-soft); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--inc-magenta); }
         .perk-text h4 { font-size: 1.05rem; margin-bottom: 2px; }
         .perk-text p { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
 
         /* Form Card */
         .auth-card {
-            background: rgba(255, 255, 255, 0.7); 
+            background: rgba(255, 255, 255, 0.75); 
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(217, 70, 239, 0.15);
             border-radius: var(--radius-lg); 
             padding: 40px; 
             box-shadow: var(--shadow-float);
@@ -192,12 +194,12 @@
             position: relative;
         }
 
-        .auth-title { font-size: 1.8rem; margin-bottom: 25px; color: var(--opt-black); font-weight: 800; text-align: center;}
+        .auth-title { font-size: 1.8rem; margin-bottom: 25px; color: var(--inc-black); font-weight: 800; text-align: center;}
 
         /* --- FORM INPUTS WITH OUTLINE --- */
         .form-group { margin-bottom: 20px; text-align: left; }
         .form-group label { 
-            display: block; font-size: 0.85rem; color: var(--opt-black); 
+            display: block; font-size: 0.85rem; color: var(--inc-black); 
             margin-bottom: 8px; font-weight: 700; padding-left: 5px;
         }
         
@@ -210,33 +212,33 @@
             position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
             color: var(--text-light); font-size: 1.1rem; cursor: pointer; transition: 0.3s;
         }
-        .input-wrapper i.icon-right:hover { color: var(--opt-blue); }
+        .input-wrapper i.icon-right:hover { color: var(--inc-magenta); }
         
         .input-wrapper input {
             width: 100%; padding: 15px 50px;
-            background: var(--opt-white); 
-            border: 1.5px solid #cbd5e1; /* Visible outline matching register */
+            background: var(--inc-white); 
+            border: 1.5px solid #e9d5ff; 
             border-radius: 16px;
             color: var(--text-dark); font-size: 0.95rem; outline: none; transition: all 0.3s ease;
             font-family: var(--font-main); font-weight: 500;
-            box-shadow: inset 2px 2px 5px rgba(15, 23, 42, 0.02); 
+            box-shadow: inset 2px 2px 5px rgba(27, 2, 43, 0.02); 
         }
-        .input-wrapper input::placeholder { color: #94a3b8; font-weight: 400; }
+        .input-wrapper input::placeholder { color: #a08cae; font-weight: 400; }
         .input-wrapper input:focus { 
-            border-color: var(--opt-blue); 
-            box-shadow: 0 0 0 4px rgba(0, 99, 220, 0.1); 
-            background: var(--opt-white);
+            border-color: var(--inc-magenta); 
+            box-shadow: 0 0 0 4px rgba(217, 70, 239, 0.15); 
+            background: var(--inc-white);
         }
-        .input-wrapper input:focus ~ i.icon-left { color: var(--opt-blue); }
+        .input-wrapper input:focus ~ i.icon-left { color: var(--inc-magenta); }
 
         /* Utilities */
         .form-utils {
             display: flex; justify-content: flex-end; margin-bottom: 25px; margin-top: -10px; padding-right: 5px;
         }
         .form-utils a {
-            font-size: 0.85rem; color: var(--opt-blue); font-weight: 700; text-decoration: none; transition: 0.3s;
+            font-size: 0.85rem; color: var(--inc-purple-main); font-weight: 700; text-decoration: none; transition: 0.3s;
         }
-        .form-utils a:hover { color: var(--opt-cyan); text-decoration: underline; }
+        .form-utils a:hover { color: var(--inc-magenta); text-decoration: underline; }
 
         /* --- ALERTS --- */
         .error-msg { 
@@ -250,35 +252,35 @@
         /* --- SUCCESS POPUP --- */
         .popup-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px);
+            background: rgba(13, 1, 24, 0.82); backdrop-filter: blur(8px);
             z-index: 9999; display: flex; justify-content: center; align-items: center;
             opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
         }
         .popup-overlay.show { opacity: 1; pointer-events: all; }
         
         .popup-content {
-            background: var(--opt-white); 
+            background: var(--inc-white); 
             padding: 50px 40px; 
             border-radius: var(--radius-lg);
             text-align: center;
             transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.25); max-width: 90%; width: 450px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3); max-width: 90%; width: 450px;
         }
         .popup-overlay.show .popup-content { transform: scale(1); }
         
-        .popup-content h2 { font-size: 1.8rem; margin-bottom: 12px; color: var(--opt-black); }
+        .popup-content h2 { font-size: 1.8rem; margin-bottom: 12px; color: var(--inc-black); }
         .popup-content p { color: var(--text-muted); font-size: 1rem; font-weight: 500; line-height: 1.5; }
-        .countdown { margin-top: 25px; font-size: 1rem; color: var(--opt-black); font-weight: 800; }
+        .countdown { margin-top: 25px; font-size: 1rem; color: var(--inc-black); font-weight: 800; }
 
         .auth-footer-links {
             margin-top: 25px; font-size: 0.95rem; color: var(--text-muted); font-weight: 500; text-align: center;
         }
-        .auth-footer-links a { color: var(--opt-blue); font-weight: 700; text-decoration: none; transition: 0.3s; }
-        .auth-footer-links a:hover { color: var(--opt-cyan); }
+        .auth-footer-links a { color: var(--inc-purple-main); font-weight: 700; text-decoration: none; transition: 0.3s; }
+        .auth-footer-links a:hover { color: var(--inc-magenta); }
 
         /* --- FOOTER --- */
         footer {
-            background: var(--opt-white); padding: 50px 0 20px; border-top: 1px solid #e2e8f0; margin-top: auto;
+            background: var(--inc-white); padding: 50px 0 20px; border-top: 1px solid #f3e8ff; margin-top: auto;
         }
 
         /* --- RESPONSIVE / MOBILE ADAPTATIONS --- */
@@ -292,12 +294,10 @@
             .hamburger { display: block; }
             .nav-links { display: none; }
             
-            /* Hide branding on mobile */
             .auth-branding { display: none; }
             
             .auth-wrapper { padding: 0 15px; grid-template-columns: 1fr; width: 100%; box-sizing: border-box; }
             
-            /* Remove heavy styling to prevent width/padding issues on mobile */
             .auth-card { padding: 30px 15px; border-radius: 24px; box-shadow: none; border: none; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; width: 100%; box-sizing: border-box;} 
             
             .auth-title { font-size: 1.8rem; }
@@ -309,8 +309,8 @@
     <header id="navbar">
         <div class="container nav-wrapper">
             <a href="index.html" class="logo">
-                <img src="logo.png" alt="Optinex Logo" onerror="this.style.display='none'; document.getElementById('txtLogo').style.display='block';">
-                <span id="txtLogo" style="display:none; font-size:1.5rem; font-weight:900; color:var(--opt-blue); letter-spacing:-0.5px;">Optinex</span>
+                <img src="logo.png" alt="Incossify Logo" onerror="this.style.display='none'; document.getElementById('txtLogo').style.display='block';">
+                <span id="txtLogo" style="display:none; font-size:1.5rem; font-weight:900; color:var(--inc-purple-main); letter-spacing:-0.5px;">Incossify</span>
             </a>
             
             <nav class="nav-links">
@@ -318,7 +318,7 @@
                 <a href="index.html#features" class="nav-item">Ecosystem</a>
                 <a href="index.html#withdraw" class="nav-item">Payouts</a>
                 
-                <a href="login.html" class="nav-item" style="margin-left: 15px; color: var(--opt-blue);">Login</a>
+                <a href="login.html" class="nav-item" style="margin-left: 15px; color: var(--inc-magenta);">Login</a>
                 <a href="register.html" class="btn btn-primary" style="margin-left: 5px;">Register</a>
             </nav>
             
@@ -335,7 +335,7 @@
         <a href="index.html#features" class="mobile-link">Ecosystem</a>
         <a href="index.html#withdraw" class="mobile-link">Payouts</a>
         
-        <a href="login.html" class="mobile-link" style="margin-top: 10px; border:none; color: var(--opt-blue);">Login</a>
+        <a href="login.html" class="mobile-link" style="margin-top: 10px; border:none; color: var(--inc-magenta);">Login</a>
         <a href="register.html" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 5px;">Register</a>
     </div>
 
@@ -347,22 +347,21 @@
             
             <div class="auth-branding">
                 <h1>Access the<br><span>Wealth Engine</span></h1>
-                <p>Welcome back. Log in to track your earnings, complete tasks, and withdraw your funds effortlessly.</p>
+                <p>Welcome back. Log in to track your Euro earnings, complete tasks, and withdraw your funds effortlessly.</p>
                 
                 <div class="branding-perk">
                     <div class="perk-icon"><i class="fa-solid fa-chart-line"></i></div>
                     <div class="perk-text">
                         <h4>Live Interaction Logs</h4>
-                        <p>Track your activity history and revenue growth.</p>
+                        <p>Track your activity history and revenue growth in real time.</p>
                     </div>
                 </div>
             </div>
 
             <div class="auth-card">
                 
-                <h2 class="auth-title">Sign In to Optinex</h2>
+                <h2 class="auth-title">Sign In to Incossify</h2>
 
-                
                 <form action="" method="POST" id="loginForm">
                     
                     <div class="form-group">
@@ -401,11 +400,11 @@
         </div>
     </main>
 
-    <div class="popup-overlay " id="successPopup">
+    <div class="popup-overlay" id="successPopup">
         <div class="popup-content">
             <div style="display: flex; justify-content: center; margin-bottom: 25px;">
-                <img src="logo.png" alt="Optinex Logo" style="height: 70px; width: auto;" onerror="this.style.display='none'; document.getElementById('txtLogoPopup').style.display='block';">
-                <span id="txtLogoPopup" style="display:none; font-size:2.2rem; font-weight:900; color:var(--opt-blue); letter-spacing:-0.5px;">Optinex</span>
+                <img src="logo.png" alt="Incossify Logo" style="height: 70px; width: auto;" onerror="this.style.display='none'; document.getElementById('txtLogoPopup').style.display='block';">
+                <span id="txtLogoPopup" style="display:none; font-size:2.2rem; font-weight:900; color:var(--inc-purple-main); letter-spacing:-0.5px;">Incossify</span>
             </div>
             <h2>Welcome Back!</h2>
             <p>Access granted. Redirecting you to your dashboard...</p>
@@ -417,35 +416,35 @@
         <div class="container">
             <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; margin-bottom: 40px;">
                 <div style="max-width: 320px;">
-                    <a href="index.php" class="logo" style="margin-bottom: 15px;">
-                        <img src="logo.png" alt="Optinex Logo" style="height: 35px; width: auto;" onerror="this.style.display='none'; document.getElementById('txtLogoFoot').style.display='block';">
-                        <span id="txtLogoFoot" style="display:none; font-weight: 900; font-size: 1.3rem; color: var(--opt-blue); margin-left: 10px;">Optinex</span>
+                    <a href="index.html" class="logo" style="margin-bottom: 15px;">
+                        <img src="logo.png" alt="Incossify Logo" style="height: 35px; width: auto;" onerror="this.style.display='none'; document.getElementById('txtLogoFoot').style.display='block';">
+                        <span id="txtLogoFoot" style="display:none; font-weight: 900; font-size: 1.3rem; color: var(--inc-purple-main); margin-left: 10px;">Incossify</span>
                     </a>
                     <p style="color: var(--text-muted); font-size: 0.95rem;">Monetize your digital presence. Earn seamlessly through reviews, connections, and talent sharing, and withdraw your funds instantly.</p>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 15px; color: var(--opt-black);">Platform</h4>
+                    <h4 style="margin-bottom: 15px; color: var(--inc-black);">Platform</h4>
                     <ul style="color: var(--text-muted); font-size: 0.95rem; display: flex; flex-direction: column; gap: 12px;">
                         <li><a href="index.html#earn">How to Earn</a></li>
-                        <li><a href="index.php#features">Ecosystem Features</a></li>
-                        <li><a href="index.php#withdraw">Withdrawal System</a></li>
+                        <li><a href="index.html#features">Ecosystem Features</a></li>
+                        <li><a href="index.html#withdraw">Withdrawal System</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 15px; color: var(--opt-black);">Stay Updated</h4>
+                    <h4 style="margin-bottom: 15px; color: var(--inc-black);">Stay Updated</h4>
                     <div style="display: flex; gap: 10px;">
-                        <input type="email" placeholder="Enter your email..." style="padding: 12px 15px; border-radius: 12px; border: 1px solid #cbd5e1; outline: none; flex: 1;">
+                        <input type="email" placeholder="Enter your email..." style="padding: 12px 15px; border-radius: 12px; border: 1px solid #e9d5ff; outline: none; flex: 1;">
                         <button class="btn btn-dark" style="padding: 12px 24px; border-radius: 12px; width: auto;">Join</button>
                     </div>
                 </div>
             </div>
             
-            <div style="border-top: 1px solid #e2e8f0; padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Optinex. All rights reserved.</p>
+            <div style="border-top: 1px solid #f3e8ff; padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Incossify. All rights reserved.</p>
                 
                 <p style="color: var(--text-muted); font-size: 0.9rem;">
                     Developed by 
-                    <a href="https://raphxsoln.vercel.app" target="_blank" style="color: var(--opt-blue); font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
+                    <a href="https://raphxsoln.vercel.app" target="_blank" style="color: var(--inc-purple-main); font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
                         RaphXSoln <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i>
                     </a>
                 </p>
@@ -458,8 +457,8 @@
             </div>
         </div>
     </footer>
+
     <script>
-    // Password toggle function
     function togglePassword(inputId, icon) {
         const input = document.getElementById(inputId);
         if (input.type === "password") {
@@ -473,11 +472,9 @@
         }
     }
 
-    // Pure JS Login & Direct Redirection
     document.getElementById('loginForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Stop default form submit action
+        e.preventDefault();
 
-        // Elements
         const submitBtn = document.getElementById('submitBtn');
         const btnText = document.getElementById('btnText');
         const btnIcon = document.getElementById('btnIcon');
@@ -485,29 +482,24 @@
         const popup = document.getElementById('successPopup');
         const countdownEl = document.getElementById('countdown');
 
-        // Show Loading State
         btnText.innerText = 'Verifying...';
         btnIcon.style.display = 'none';
         btnSpinner.style.display = 'inline-block';
         submitBtn.style.opacity = '0.8';
         submitBtn.style.pointerEvents = 'none';
 
-        // Simulate authentication delay (1 second)
         setTimeout(() => {
-            // Show Success Modal
             popup.classList.add('show');
 
             let timeLeft = 2;
             countdownEl.textContent = timeLeft;
 
-            // Countdown timer to redirection
             const timer = setInterval(() => {
                 timeLeft--;
                 countdownEl.textContent = timeLeft;
 
                 if (timeLeft <= 0) {
                     clearInterval(timer);
-                    // Redirect to dashboard page
                     window.location.href = 'dashboard.html';
                 }
             }, 1000);
@@ -515,7 +507,6 @@
         }, 1000);
     });
 
-    // Navbar Scroll Effect
     const header = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 20) {
@@ -525,7 +516,6 @@
         }
     });
 
-    // Mobile Menu Toggle
     const hamburger = document.getElementById('hamburger');
     const mobileNav = document.getElementById('mobileNav');
     const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -541,7 +531,7 @@
             mobileNav.classList.remove('active');
         });
     });
-</script>
+    </script>
 
 </body>
 </html>
