@@ -211,43 +211,34 @@
             color: #f59e0b;
         }
 
-        .brand-logo-box {
+        /* CURRENCY SWITCHER CONTROL */
+        .currency-switch-box {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            padding: 3px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            text-align: right;
+            gap: 2px;
+            backdrop-filter: blur(8px);
         }
 
-        .brand-logo-icon {
-            width: 28px;
-            height: 28px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
+        .currency-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .currency-btn.active {
+            background: var(--inc-magenta);
             color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .brand-text-wrapper {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .brand-name {
-            font-size: 1.05rem;
-            font-weight: 900;
-            letter-spacing: -0.3px;
-            line-height: 1;
-        }
-
-        .brand-sub {
-            font-size: 0.58rem;
-            opacity: 0.75;
-            font-weight: 500;
-            letter-spacing: 0.2px;
+            box-shadow: 0 2px 8px rgba(217, 70, 239, 0.4);
         }
 
         /* Middle Balance Row */
@@ -628,19 +619,15 @@
                         <span id="displayPlan">Starterkit Plan</span>
                     </div>
 
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <div class="eye-toggle-badge" id="toggleBalanceBtn" title="Toggle Balance">
-                            <i class="fa-solid fa-eye" id="eyeIcon"></i>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <!-- CURRENCY CONVERTER SWITCH -->
+                        <div class="currency-switch-box">
+                            <button class="currency-btn active" id="btnNgn">NGN</button>
+                            <button class="currency-btn" id="btnEur">EUR</button>
                         </div>
 
-                        <div class="brand-logo-box">
-                            <div class="brand-logo-icon">
-                                <i class="fa-solid fa-arrow-trend-up"></i>
-                            </div>
-                            <div class="brand-text-wrapper">
-                                <span class="brand-name">Incossify</span>
-                                <span class="brand-sub">Optimize your wealth</span>
-                            </div>
+                        <div class="eye-toggle-badge" id="toggleBalanceBtn" title="Toggle Balance">
+                            <i class="fa-solid fa-eye" id="eyeIcon"></i>
                         </div>
                     </div>
                 </div>
@@ -876,10 +863,14 @@
             // PAYSTACK CONFIGURATION
             const PAYSTACK_SECRET_KEY = "sk_test_8df35f0fdf38905d4cec8e22a0eff23e87fbd491";
 
+            // CONVERSION RATE SETUP (1 EUR = ~1750 NGN)
+            const EUR_EXCHANGE_RATE = 1750;
+            let currentCurrency = localStorage.getItem('incossify_currency') || 'NGN';
+            let numericBalanceValue = 10000; // Base value in Naira
+
             // --- 1. USER REGISTRATION DATA & DRAWER SYNC ---
             const savedData = localStorage.getItem('incossify_user');
             let planName = "Starterkit Plan";
-            let rawAmount = "₦10,000.00";
             let shortFee = "₦10,000";
 
             if (savedData) {
@@ -893,14 +884,13 @@
                 }
                 if (user.plan && user.plan.toLowerCase().includes('apex')) {
                     planName = "Apex Plan";
-                    rawAmount = "₦15,000.00";
+                    numericBalanceValue = 15000;
                     shortFee = "₦15,000";
                 }
             }
 
             document.getElementById('displayPlan').innerText = planName;
             document.getElementById('modalFeeText').innerText = shortFee;
-            document.getElementById('modalWithdrawAmount').innerText = rawAmount;
 
             // --- 2. DRAWER SIDEBAR MENU HANDLER ---
             const openDrawerBtn = document.getElementById('openDrawerBtn');
@@ -949,29 +939,72 @@
                 tickerItems[currentIndex].classList.add('active');
             }, 4000);
 
-            // --- 4. PERSISTENT EYE BALANCE TOGGLE ---
+            // --- 4. PERSISTENT EYE BALANCE TOGGLE & CURRENCY CONVERTER ---
             const balanceText = document.getElementById('balanceText');
             const toggleBalanceBtn = document.getElementById('toggleBalanceBtn');
             const eyeIcon = document.getElementById('eyeIcon');
+            const btnNgn = document.getElementById('btnNgn');
+            const btnEur = document.getElementById('btnEur');
+            
             let isHidden = localStorage.getItem('incossify_hide_balance') === 'true';
 
+            function formatCurrency(value, currency) {
+                if (currency === 'EUR') {
+                    const eurVal = value / EUR_EXCHANGE_RATE;
+                    return `€${eurVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                } else {
+                    return `₦${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                }
+            }
+
             function updateBalanceDisplay() {
+                const formatted = formatCurrency(numericBalanceValue, currentCurrency);
+                
+                // Update modal withdrawal display text as well
+                document.getElementById('modalWithdrawAmount').innerText = formatCurrency(numericBalanceValue, 'NGN');
+
                 if (isHidden) {
                     balanceText.innerText = '••••••••';
                     eyeIcon.className = 'fa-solid fa-eye-slash';
                 } else {
-                    balanceText.innerText = rawAmount;
+                    balanceText.innerText = formatted;
                     eyeIcon.className = 'fa-solid fa-eye';
                 }
-            }
-            updateBalanceDisplay();
 
+                if (currentCurrency === 'EUR') {
+                    btnEur.classList.add('active');
+                    btnNgn.classList.remove('active');
+                } else {
+                    btnNgn.classList.add('active');
+                    btnEur.classList.remove('active');
+                }
+            }
+
+            // Currency Switch Events
+            btnNgn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentCurrency = 'NGN';
+                localStorage.setItem('incossify_currency', 'NGN');
+                updateBalanceDisplay();
+            });
+
+            btnEur.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentCurrency = 'EUR';
+                localStorage.setItem('incossify_currency', 'EUR');
+                updateBalanceDisplay();
+            });
+
+            // Toggle Eye Event
             toggleBalanceBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 isHidden = !isHidden;
                 localStorage.setItem('incossify_hide_balance', isHidden);
                 updateBalanceDisplay();
             });
+
+            // Initial render
+            updateBalanceDisplay();
 
             // --- 5. PAYSTACK INTEGRATION FOR BANKS & RESOLUTION ---
             let banksData = [];
