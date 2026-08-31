@@ -879,7 +879,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const PAYSTACK_SECRET_KEY = "sk_test_8df35f0fdf38905d4cec8e22a0eff23e87fbd491";
-            const EUR_EXCHANGE_RATE = 1750;
+            const EUR_EXCHANGE_RATE = 1,933.33;
             let currentCurrency = localStorage.getItem('vireon_currency') || 'EUR';
             let numericBalanceValue = 14500; // If you are tracking this in NGN internally, keep 14500 so currency conversion functions (like EUR conversion at 1750 rate) continue to calculate correctly, but update the string representations above
 
