@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Join Incossify</title>
+    <title>Join Vireon</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,32 +12,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- CSS VARIABLES & THEMING (INCOSSIFY) --- */
+        /* --- CSS VARIABLES & THEMING (VIREON - EMERALD & GOLD) --- */
         :root {
-            --inc-purple-dark: #1b022b;
-            --inc-purple-main: #3b0764;
-            --inc-violet: #8b5cf6;
-            --inc-magenta: #d946ef;
-            --inc-pink-glow: #f0abfc;
-            --inc-black: #0d0118; 
-            --inc-white: #ffffff;
+            --vir-green-dark: #022b1c;
+            --vir-green-main: #064e3b;
+            --vir-emerald: #059669;
+            --vir-gold: #d97706;
+            --vir-gold-glow: #fcd34d;
+            --vir-black: #02120b; 
+            --vir-white: #ffffff;
             
-            --light-bg: #fcf8ff;
-            --text-dark: #1e0933;
-            --text-muted: #584466;
-            --text-light: #a08cae;
+            --light-bg: #f2faf6;
+            --text-dark: #062318;
+            --text-muted: #3b5349;
+            --text-light: #8da499;
             
-            --grad-primary: linear-gradient(135deg, #6b21a8, #d946ef);
-            --grad-accent: linear-gradient(135deg, #a855f7, #ec4899);
-            --grad-glow: linear-gradient(135deg, #d946ef, #f0abfc);
+            --grad-primary: linear-gradient(135deg, #047857, #10b981);
+            --grad-accent: linear-gradient(135deg, #d97706, #f59e0b);
+            --grad-glow: linear-gradient(135deg, #10b981, #fcd34d);
             
             --radius-sm: 12px;
             --radius-md: 20px;
             --radius-lg: 30px;
             --radius-pill: 999px;
             
-            --shadow-soft: 0 15px 35px rgba(107, 33, 168, 0.12);
-            --shadow-float: 0 25px 50px rgba(27, 2, 43, 0.22);
+            --shadow-soft: 0 15px 35px rgba(5, 150, 105, 0.12);
+            --shadow-float: 0 25px 50px rgba(2, 43, 28, 0.22);
             
             --font-main: 'Outfit', sans-serif;
             --header-height: 90px;
@@ -76,7 +76,7 @@
             position: fixed; top: 0; left: 0; width: 100%; height: var(--header-height);
             z-index: 1005; transition: all 0.3s ease; display: flex; align-items: center;
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(59, 7, 100, 0.05);
+            box-shadow: 0 4px 20px rgba(6, 78, 59, 0.05);
         }
         .nav-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         
@@ -85,12 +85,12 @@
         
         .nav-links { display: flex; gap: 35px; align-items: center; }
         .nav-links a.nav-item { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); }
-        .nav-links a.nav-item:hover { color: var(--inc-magenta); }
+        .nav-links a.nav-item:hover { color: var(--vir-emerald); }
 
         .hamburger { display: none; cursor: pointer; width: 30px; height: 20px; position: relative; z-index: 1006; }
         .hamburger span {
             display: block; position: absolute; height: 2px; width: 100%;
-            background: var(--inc-black); border-radius: 4px; transition: .3s ease-in-out; left: 0;
+            background: var(--vir-black); border-radius: 4px; transition: .3s ease-in-out; left: 0;
         }
         .hamburger span:nth-child(1) { top: 0px; }
         .hamburger span:nth-child(2) { top: 9px; width: 70%; right: 0; left: auto; }
@@ -100,14 +100,14 @@
         .hamburger.active span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
 
         .mobile-nav-bg {
-            position: fixed; top: -100%; left: 0; width: 100%; background: var(--inc-white);
+            position: fixed; top: -100%; left: 0; width: 100%; background: var(--vir-white);
             box-shadow: 0 15px 40px rgba(0,0,0,0.1); z-index: 1004;
             padding: calc(var(--header-height) + 20px) 30px 40px;
             border-bottom-left-radius: var(--radius-lg); border-bottom-right-radius: var(--radius-lg);
             transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; gap: 20px;
         }
         .mobile-nav-bg.active { top: 0; }
-        .mobile-link { font-size: 1.1rem; color: var(--inc-black); font-weight: 600; border-bottom: 1px solid #f3e8ff; padding-bottom: 10px;}
+        .mobile-link { font-size: 1.1rem; color: var(--vir-black); font-weight: 600; border-bottom: 1px solid #e6f4ed; padding-bottom: 10px;}
 
         /* --- BUTTONS --- */
         .btn {
@@ -117,18 +117,18 @@
             cursor: pointer; transition: all 0.3s ease; border: none;
         }
         .btn-primary { 
-            background: var(--grad-primary); color: var(--inc-white); 
-            box-shadow: 0 8px 20px rgba(107, 33, 168, 0.3); width: 100%;
+            background: var(--grad-primary); color: var(--vir-white); 
+            box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3); width: 100%;
             position: relative; overflow: hidden;
         }
         .btn-primary:hover { 
-            transform: translateY(-3px); box-shadow: 0 12px 25px rgba(217, 70, 239, 0.45);
+            transform: translateY(-3px); box-shadow: 0 12px 25px rgba(16, 185, 129, 0.45);
         }
         .btn-dark {
-            background: var(--inc-black); color: var(--inc-white); width: 100%;
+            background: var(--vir-black); color: var(--vir-white); width: 100%;
         }
         .btn-dark:hover {
-            background: var(--inc-purple-main); transform: translateY(-3px);
+            background: var(--vir-green-main); transform: translateY(-3px);
         }
 
         /* --- MAIN REGISTRATION AREA --- */
@@ -170,19 +170,19 @@
         .auth-branding {
             padding-right: 20px;
         }
-        .auth-branding h1 { font-size: 3.5rem; letter-spacing: -1.5px; margin-bottom: 20px; color: var(--inc-black); font-weight: 900;}
+        .auth-branding h1 { font-size: 3.5rem; letter-spacing: -1.5px; margin-bottom: 20px; color: var(--vir-black); font-weight: 900;}
         .auth-branding h1 span { background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .auth-branding p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 30px; line-height: 1.6; }
         
         .branding-perk { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .perk-icon { width: 50px; height: 50px; border-radius: 15px; background: var(--inc-white); box-shadow: var(--shadow-soft); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--inc-magenta); }
+        .perk-icon { width: 50px; height: 50px; border-radius: 15px; background: var(--vir-white); box-shadow: var(--shadow-soft); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--vir-emerald); }
         .perk-text h4 { font-size: 1.05rem; margin-bottom: 2px; }
         .perk-text p { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
 
         .auth-card {
             background: rgba(255, 255, 255, 0.75); 
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(217, 70, 239, 0.15);
+            border: 1px solid rgba(5, 150, 105, 0.15);
             border-radius: var(--radius-lg); 
             padding: 40px; 
             box-shadow: var(--shadow-float);
@@ -190,7 +190,7 @@
             position: relative;
         }
 
-        .auth-title { font-size: 1.8rem; margin-bottom: 25px; color: var(--inc-black); font-weight: 800; text-align: center;}
+        .auth-title { font-size: 1.8rem; margin-bottom: 25px; color: var(--vir-black); font-weight: 800; text-align: center;}
 
         .form-grid {
             display: grid;
@@ -201,7 +201,7 @@
 
         .form-group { margin-bottom: 5px; }
         .form-group label { 
-            display: block; font-size: 0.85rem; color: var(--inc-black); 
+            display: block; font-size: 0.85rem; color: var(--vir-black); 
             margin-bottom: 8px; font-weight: 700; padding-left: 5px;
         }
         
@@ -214,27 +214,27 @@
             position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
             color: var(--text-light); font-size: 1.1rem; cursor: pointer; transition: 0.3s;
         }
-        .input-wrapper i.icon-right:hover { color: var(--inc-magenta); }
+        .input-wrapper i.icon-right:hover { color: var(--vir-emerald); }
         
         .input-wrapper input,
         .input-wrapper select {
             width: 100%; padding: 15px 50px;
-            background: var(--inc-white); 
-            border: 1.5px solid #e9d5ff;
+            background: var(--vir-white); 
+            border: 1.5px solid #d1fae5;
             border-radius: 16px;
             color: var(--text-dark); font-size: 0.95rem; outline: none; transition: all 0.3s ease;
             font-family: var(--font-main); font-weight: 500;
-            box-shadow: inset 2px 2px 5px rgba(27, 2, 43, 0.02);
+            box-shadow: inset 2px 2px 5px rgba(2, 43, 28, 0.02);
         }
-        .input-wrapper input::placeholder { color: #a08cae; font-weight: 400; }
+        .input-wrapper input::placeholder { color: #8da499; font-weight: 400; }
         .input-wrapper input:focus,
         .input-wrapper select:focus { 
-            border-color: var(--inc-magenta);
-            box-shadow: 0 0 0 4px rgba(217, 70, 239, 0.15); 
-            background: var(--inc-white);
+            border-color: var(--vir-emerald);
+            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.15); 
+            background: var(--vir-white);
         }
         .input-wrapper input:focus ~ i.icon-left,
-        .input-wrapper select:focus ~ i.icon-left { color: var(--inc-magenta); }
+        .input-wrapper select:focus ~ i.icon-left { color: var(--vir-emerald); }
 
         .input-wrapper select {
             appearance: none;
@@ -242,23 +242,23 @@
             cursor: pointer;
         }
 
-        /* Package Selector (Incossify Styling) */
+        /* Package Selector (Vireon Single Premier Styling) */
         .package-selector {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 12px;
         }
         .package-option {
             position: relative;
-            border: 2px solid #e9d5ff;
+            border: 2px solid #d1fae5;
             border-radius: 16px;
-            padding: 16px;
+            padding: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: var(--inc-white);
+            background: var(--vir-white);
         }
         .package-option:hover {
-            border-color: var(--inc-magenta);
+            border-color: var(--vir-emerald);
         }
         .package-option input[type="radio"] {
             position: absolute;
@@ -266,52 +266,52 @@
             width: 0; height: 0;
         }
         .package-option.selected {
-            border-color: var(--inc-magenta);
-            background: rgba(217, 70, 239, 0.05);
-            box-shadow: 0 0 0 4px rgba(217, 70, 239, 0.15);
+            border-color: var(--vir-emerald);
+            background: rgba(5, 150, 105, 0.05);
+            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.15);
         }
         .package-option .pkg-check {
             position: absolute;
-            top: 10px; right: 10px;
-            width: 22px; height: 22px;
+            top: 15px; right: 15px;
+            width: 24px; height: 24px;
             border-radius: 50%;
-            border: 2px solid #e9d5ff;
+            border: 2px solid #d1fae5;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.7rem;
-            color: var(--inc-white);
+            font-size: 0.75rem;
+            color: var(--vir-white);
             transition: all 0.3s;
         }
         .package-option.selected .pkg-check {
-            background: var(--inc-magenta);
-            border-color: var(--inc-magenta);
+            background: var(--vir-emerald);
+            border-color: var(--vir-emerald);
         }
         .package-option .pkg-name {
             font-weight: 800;
-            font-size: 1rem;
-            color: var(--inc-black);
+            font-size: 1.1rem;
+            color: var(--vir-black);
             margin-bottom: 4px;
         }
         .package-option .pkg-price {
             font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--inc-purple-main);
-            margin-bottom: 2px;
+            font-size: 1rem;
+            color: var(--vir-green-main);
+            margin-bottom: 4px;
         }
         .package-option .pkg-bonus {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
         }
 
         .popup-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(13, 1, 24, 0.82); backdrop-filter: blur(8px);
+            background: rgba(2, 18, 11, 0.82); backdrop-filter: blur(8px);
             z-index: 9999; display: flex; justify-content: center; align-items: center;
             opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
         }
         .popup-overlay.show { opacity: 1; pointer-events: all; }
         
         .popup-content {
-            background: var(--inc-white); 
+            background: var(--vir-white); 
             padding: 50px 40px; 
             border-radius: var(--radius-lg);
             text-align: center;
@@ -320,18 +320,18 @@
         }
         .popup-overlay.show .popup-content { transform: scale(1); }
         
-        .popup-content h2 { font-size: 1.8rem; margin-bottom: 12px; color: var(--inc-black); }
+        .popup-content h2 { font-size: 1.8rem; margin-bottom: 12px; color: var(--vir-black); }
         .popup-content p { color: var(--text-muted); font-size: 1rem; font-weight: 500; line-height: 1.5; }
-        .countdown { margin-top: 25px; font-size: 1rem; color: var(--inc-black); font-weight: 800; }
+        .countdown { margin-top: 25px; font-size: 1rem; color: var(--vir-black); font-weight: 800; }
 
         .auth-footer-links {
             margin-top: 25px; font-size: 0.95rem; color: var(--text-muted); font-weight: 500; text-align: center;
         }
-        .auth-footer-links a { color: var(--inc-purple-main); font-weight: 700; text-decoration: none; transition: 0.3s; }
-        .auth-footer-links a:hover { color: var(--inc-magenta); }
+        .auth-footer-links a { color: var(--vir-green-main); font-weight: 700; text-decoration: none; transition: 0.3s; }
+        .auth-footer-links a:hover { color: var(--vir-emerald); }
 
         footer {
-            background: var(--inc-white); padding: 50px 0 20px; border-top: 1px solid #f3e8ff; margin-top: auto;
+            background: var(--vir-white); padding: 50px 0 20px; border-top: 1px solid #e6f4ed; margin-top: auto;
         }
 
         @media (max-width: 992px) {
@@ -349,7 +349,6 @@
             .form-grid { grid-template-columns: 1fr; }
             .full-width { grid-column: span 1; }
             .auth-title { font-size: 1.8rem; }
-            .package-selector { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -358,8 +357,8 @@
     <header id="navbar">
         <div class="container nav-wrapper">
             <a href="index.html" class="logo">
-                <img src="logo-.png" alt="Incossify Logo" onerror="this.style.display='none'; document.getElementById('txtLogo').style.display='block';">
-                <span id="txtLogo" style="display:none; font-size:1.5rem; font-weight:900; color:var(--inc-purple-main); letter-spacing:-0.5px;">Incossify</span>
+                <img src="logo-.png" alt="Vireon Logo" onerror="this.style.display='none'; document.getElementById('txtLogo').style.display='block';">
+                <span id="txtLogo" style="display:none; font-size:1.5rem; font-weight:900; color:var(--vir-green-main); letter-spacing:-0.5px;">Vireon</span>
             </a>
             
             <nav class="nav-links">
@@ -407,7 +406,7 @@
                 </div>
                 
                 <div class="branding-perk">
-                    <div class="perk-icon" style="color: var(--inc-magenta);"><i class="fa-solid fa-star"></i></div>
+                    <div class="perk-icon" style="color: var(--vir-emerald);"><i class="fa-solid fa-star"></i></div>
                     <div class="perk-text">
                         <h4>Engage & Earn</h4>
                         <p>Get paid for reviews, sharing talent, and connections.</p>
@@ -417,7 +416,7 @@
 
             <div class="auth-card">
                 
-                <h2 class="auth-title">Join Incossify Now</h2>
+                <h2 class="auth-title">Join Vireon Now</h2>
 
                 <form id="registerForm">
                     
@@ -472,22 +471,13 @@
                             <label>Select Your Plan</label>
                             
                             <div class="package-selector">
-                                <!-- Starterkit Plan Option -->
-                                <div class="package-option selected" onclick="selectPackage(this, 'Starterkit Plan')">
-                                    <input type="radio" name="package" value="Starterkit Plan" checked>
+                                <!-- Premier Plan Option -->
+                                <div class="package-option selected" onclick="selectPackage(this, 'Premier Plan')">
+                                    <input type="radio" name="package" value="Premier Plan" checked>
                                     <div class="pkg-check"><i class="fa-solid fa-check"></i></div>
-                                    <div class="pkg-name">Starterkit Plan</div>
-                                    <div class="pkg-price">₦10,000</div>
-                                    <div class="pkg-bonus">Welcome Bonus: ₦10,000</div>
-                                </div>
-
-                                <!-- Apex Plan Option -->
-                                <div class="package-option" onclick="selectPackage(this, 'Apex Plan')">
-                                    <input type="radio" name="package" value="Apex Plan">
-                                    <div class="pkg-check"><i class="fa-solid fa-check"></i></div>
-                                    <div class="pkg-name">Apex Plan</div>
-                                    <div class="pkg-price">₦15,000</div>
-                                    <div class="pkg-bonus">Welcome Bonus: ₦15,000</div>
+                                    <div class="pkg-name">Premier Plan</div>
+                                    <div class="pkg-price">₦14,500</div>
+                                    <div class="pkg-bonus">Welcome Bonus: ₦14,500</div>
                                 </div>
                             </div>
                         </div>
@@ -523,10 +513,10 @@
     <div class="popup-overlay" id="successPopup">
         <div class="popup-content">
             <div style="display: flex; justify-content: center; margin-bottom: 25px;">
-                <img src="logo-.png" alt="Incossify Logo" style="height: 70px; width: auto;" onerror="this.style.display='none'; document.getElementById('txtLogoPopup').style.display='block';">
-                <span id="txtLogoPopup" style="display:none; font-size:2.2rem; font-weight:900; color:var(--inc-purple-main); letter-spacing:-0.5px;">Incossify</span>
+                <img src="logo-.png" alt="Vireon Logo" style="height: 70px; width: auto;" onerror="this.style.display='none'; document.getElementById('txtLogoPopup').style.display='block';">
+                <span id="txtLogoPopup" style="display:none; font-size:2.2rem; font-weight:900; color:var(--vir-green-main); letter-spacing:-0.5px;">Vireon</span>
             </div>
-            <h2>Welcome to Incossify!</h2>
+            <h2>Welcome to Vireon!</h2>
             <p>Your account is ready. Redirecting you to your dashboard...</p>
             <div class="countdown">Routing in <span id="countdown">3</span>s</div>
         </div>
@@ -537,13 +527,13 @@
             <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; margin-bottom: 40px;">
                 <div style="max-width: 320px;">
                     <a href="index.html" class="logo" style="margin-bottom: 15px;">
-                        <img src="logo-.png" alt="Incossify Logo" style="height: 35px; width: auto;" onerror="this.style.display='none'; document.getElementById('txtLogoFoot').style.display='block';">
-                        <span id="txtLogoFoot" style="display:none; font-weight: 900; font-size: 1.3rem; color: var(--inc-purple-main); margin-left: 10px;">Incossify</span>
+                        <img src="logo-.png" alt="Vireon Logo" style="height: 35px; width: auto;" onerror="this.style.display='none'; document.getElementById('txtLogoFoot').style.display='block';">
+                        <span id="txtLogoFoot" style="display:none; font-weight: 900; font-size: 1.3rem; color: var(--vir-green-main); margin-left: 10px;">Vireon</span>
                     </a>
                     <p style="color: var(--text-muted); font-size: 0.95rem;">Monetize your digital presence. Earn seamlessly through reviews, connections, and talent sharing, and withdraw your funds instantly.</p>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 15px; color: var(--inc-black);">Platform</h4>
+                    <h4 style="margin-bottom: 15px; color: var(--vir-black);">Platform</h4>
                     <ul style="color: var(--text-muted); font-size: 0.95rem; display: flex; flex-direction: column; gap: 12px;">
                         <li><a href="index.html#earn">How to Earn</a></li>
                         <li><a href="index.html#features">Ecosystem Features</a></li>
@@ -551,20 +541,20 @@
                     </ul>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 15px; color: var(--inc-black);">Stay Updated</h4>
+                    <h4 style="margin-bottom: 15px; color: var(--vir-black);">Stay Updated</h4>
                     <div style="display: flex; gap: 10px;">
-                        <input type="email" placeholder="Enter your email..." style="padding: 12px 15px; border-radius: 12px; border: 1px solid #e9d5ff; outline: none; flex: 1;">
+                        <input type="email" placeholder="Enter your email..." style="padding: 12px 15px; border-radius: 12px; border: 1px solid #d1fae5; outline: none; flex: 1;">
                         <button class="btn btn-dark" style="padding: 12px 24px; border-radius: 12px; width: auto;">Join</button>
                     </div>
                 </div>
             </div>
             
-            <div style="border-top: 1px solid #f3e8ff; padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Incossify. All rights reserved.</p>
+            <div style="border-top: 1px solid #e6f4ed; padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Vireon. All rights reserved.</p>
                 
                 <p style="color: var(--text-muted); font-size: 0.9rem;">
                     Developed by 
-                    <a href="https://raphxsoln.vercel.app" target="_blank" style="color: var(--inc-purple-main); font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
+                    <a href="https://raphxsoln.vercel.app" target="_blank" style="color: var(--vir-green-main); font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
                         RaphXSoln<i class="fa-brands fa-whatsapp" style="color: #25D366;"></i>
                     </a>
                 </p>
@@ -620,7 +610,7 @@
             registeredAt: new Date().toLocaleDateString()
         };
 
-        localStorage.setItem('incossify_user', JSON.stringify(userData));
+        localStorage.setItem('vireon_user', JSON.stringify(userData));
 
         const submitBtn = document.getElementById('submitBtn');
         const btnText = document.getElementById('btnText');
