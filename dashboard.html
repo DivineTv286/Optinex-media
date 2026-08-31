@@ -21,7 +21,7 @@
             --vir-black: #02120b; 
             --vir-white: #ffffff;
             
-            --bg-color: #070b12; /* Dark background from reference image */
+            --bg-color: #070b12;
             --card-bg: #0d1522;
             --text-dark: #f8fafc;
             --text-muted: #94a3b8;
@@ -391,10 +391,10 @@
             overflow-x: auto;
             padding-bottom: 8px;
             margin-bottom: 22px;
-            scrollbar-width: none; /* Firefox */
+            scrollbar-width: none;
         }
         .horizontal-scroll-container::-webkit-scrollbar {
-            display: none; /* Safari and Chrome */
+            display: none;
         }
 
         .quick-item { 
@@ -633,6 +633,7 @@
 
             <div class="icon-btn pop-trigger"><i class="fa-solid fa-plus"></i></div>
         </div>
+
         <div class="card-container-wrapper">
             <div class="card-stack-bg"></div>
             
@@ -862,6 +863,7 @@
         </div>
     </div>
     
+    <!-- ACCOUNT SETUP / ACTIVATION POPUP MODAL -->
     <div class="modal-overlay" id="setupModal">
         <div class="popup-box">
             <div class="popup-close" id="closeModal" style="position: absolute; top: 16px; right: 16px; cursor: pointer; color: var(--text-muted);"><i class="fa-solid fa-xmark"></i></div>
@@ -879,13 +881,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const PAYSTACK_SECRET_KEY = "sk_test_8df35f0fdf38905d4cec8e22a0eff23e87fbd491";
-            const EUR_EXCHANGE_RATE = 1,933.33;
+            const NGN_BASE_VALUE = 14500; // ₦14,500 setup/bonus baseline
+            const EUR_BASE_VALUE = 7.50;    // €7.50 equivalent baseline
+            
             let currentCurrency = localStorage.getItem('vireon_currency') || 'EUR';
-            let numericBalanceValue = 14500; // If you are tracking this in NGN internally, keep 14500 so currency conversion functions (like EUR conversion at 1750 rate) continue to calculate correctly, but update the string representations above
 
             const savedData = localStorage.getItem('vireon_user');
             let planName = "Premier Plan";
-            let shortFee = "€7.50";
 
             if (savedData) {
                 const user = JSON.parse(savedData);
@@ -899,7 +901,7 @@
             }
 
             document.getElementById('displayPlan').innerText = planName;
-            document.getElementById('modalFeeText').innerText = shortFee;
+            document.getElementById('modalFeeText').innerText = `₦${NGN_BASE_VALUE.toLocaleString()}`;
 
             const openDrawerBtn = document.getElementById('openDrawerBtn');
             const drawerOverlay = document.getElementById('drawerOverlay');
@@ -912,12 +914,12 @@
             });
 
             const activities = [
-                { name: "David", action: "earned", amount: "€14.28", source: "from Reviews" },
-                { name: "Tom", action: "earned", amount: "€8.85", source: "from Talent Share" },
-                { name: "Sarah", action: "withdrew", amount: "€85.71", source: "to Local Bank" },
+                { name: "David", action: "earned", amount: "€7.50", source: "from Reviews" },
+                { name: "Tom", action: "earned", amount: "€7.50", source: "from Talent Share" },
+                { name: "Sarah", action: "withdrew", amount: "₦14,500", source: "to Local Bank" },
                 { name: "Emeka", action: "earned", amount: "€7.50", source: "from Welcome Bonus" },
-                { name: "Grace", action: "earned", amount: "€25.71", source: "from Connections" },
-                { name: "Michael", action: "withdrew", amount: "€45.71", source: "to Local Bank" }
+                { name: "Grace", action: "earned", amount: "€7.50", source: "from Connections" },
+                { name: "Michael", action: "withdrew", amount: "₦14,500", source: "to Local Bank" }
             ];
 
             const tickerContainer = document.getElementById('activityTicker');
@@ -950,18 +952,23 @@
             
             let isHidden = localStorage.getItem('vireon_hide_balance') === 'true';
 
-            function formatCurrency(value, currency) {
-                if (currency === 'EUR') {
-                    return `€${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-                } else {
-                    const ngnVal = value * EUR_EXCHANGE_RATE;
-                    return `₦${ngnVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-                }
-            }
-
             function updateBalanceDisplay() {
-                const formatted = formatCurrency(numericBalanceValue, currentCurrency);
-                document.getElementById('modalWithdrawAmount').innerText = formatCurrency(numericBalanceValue, currentCurrency);
+                let formatted = "";
+                let modalFormatted = "";
+
+                if (currentCurrency === 'EUR') {
+                    formatted = `€${EUR_BASE_VALUE.toFixed(2)}`;
+                    modalFormatted = `€${EUR_BASE_VALUE.toFixed(2)}`;
+                    btnEur.classList.add('active');
+                    btnNgn.classList.remove('active');
+                } else {
+                    formatted = `₦${NGN_BASE_VALUE.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                    modalFormatted = `₦${NGN_BASE_VALUE.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                    btnNgn.classList.add('active');
+                    btnEur.classList.remove('active');
+                }
+
+                document.getElementById('modalWithdrawAmount').innerText = modalFormatted;
 
                 if (isHidden) {
                     balanceText.innerText = '••••••••';
@@ -969,14 +976,6 @@
                 } else {
                     balanceText.innerText = formatted;
                     eyeIcon.className = 'fa-solid fa-eye';
-                }
-
-                if (currentCurrency === 'EUR') {
-                    btnEur.classList.add('active');
-                    btnNgn.classList.remove('active');
-                } else {
-                    btnNgn.classList.add('active');
-                    btnEur.classList.remove('active');
                 }
             }
 
