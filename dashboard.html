@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Incossify Dashboard</title>
+    <title>Vireon Dashboard</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,23 +11,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- INCOSSIFY COLOR PALETTE & VARIABLES --- */
+        /* --- VIREON COLOR PALETTE & VARIABLES --- */
         :root {
-            --inc-purple-dark: #1b022b;
-            --inc-purple-main: #3b0764;
-            --inc-violet: #8b5cf6;
-            --inc-magenta: #d946ef;
-            --inc-pink-glow: #f0abfc;
-            --inc-black: #0d0118; 
-            --inc-white: #ffffff;
+            --vir-green-dark: #022b1c;
+            --vir-green-main: #064e3b;
+            --vir-emerald: #059669;
+            --vir-cyan: #4fd1c5;
+            --vir-gold: #d97706;
+            --vir-gold-glow: #fcd34d;
+            --vir-black: #02120b; 
+            --vir-white: #ffffff;
             
-            --bg-color: #fcf8ff;
-            --text-dark: #1e0933;
-            --text-muted: #584466;
-            --text-light: #a08cae;
+            --bg-color: #f2faf6;
+            --text-dark: #062318;
+            --text-muted: #3b5349;
+            --text-light: #8da499;
             
-            --grad-primary: linear-gradient(135deg, #6b21a8 0%, #d946ef 100%);
-            --grad-card: linear-gradient(135deg, #2a0845 0%, #6b21a8 50%, #d946ef 100%);
+            --grad-primary: linear-gradient(135deg, #047857 0%, #10b981 100%);
+            --grad-card: linear-gradient(135deg, #022b1c 0%, #064e3b 45%, #059669 200%);
             
             --radius-md: 20px;
             --radius-lg: 28px;
@@ -49,19 +50,19 @@
         /* --- TOP HEADER & LIVE ACTIVITY POPUP BAR --- */
         .top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 10px; }
         .icon-btn {
-            width: 42px; height: 42px; background: var(--inc-white); border-radius: 50%;
+            width: 42px; height: 42px; background: var(--vir-white); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(59, 7, 100, 0.08); cursor: pointer; color: var(--text-dark);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.08); cursor: pointer; color: var(--text-dark);
         }
 
         .live-activity-bar {
-            flex: 1; background: var(--inc-white); border-radius: 50px;
+            flex: 1; background: var(--vir-white); border-radius: 50px;
             padding: 6px 14px 6px 8px; display: flex; align-items: center; gap: 10px;
-            box-shadow: 0 4px 15px rgba(59, 7, 100, 0.06); height: 44px; overflow: hidden;
-            border: 1px solid #f3e8ff;
+            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.06); height: 44px; overflow: hidden;
+            border: 1px solid #e6f4ee;
         }
         .activity-badge {
-            width: 30px; height: 30px; border-radius: 50%; background: #fae8ff; color: var(--inc-magenta);
+            width: 30px; height: 30px; border-radius: 50%; background: #e6f4ee; color: var(--vir-emerald);
             display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;
         }
         .activity-ticker { flex: 1; overflow: hidden; position: relative; height: 32px; display: flex; align-items: center; }
@@ -73,38 +74,38 @@
         .activity-item.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
         .activity-item.exit { opacity: 0; transform: translateY(-15px); }
         .activity-text-main { font-size: 0.74rem; font-weight: 800; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
-        .activity-text-main span { color: var(--inc-magenta); }
+        .activity-text-main span { color: var(--vir-emerald); }
         .activity-text-sub { font-size: 0.65rem; color: var(--text-muted); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; }
 
         /* --- SIDEBAR DRAWER MENU --- */
         .drawer-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(13, 1, 24, 0.6); backdrop-filter: blur(4px);
+            background: rgba(2, 26, 36, 0.6); backdrop-filter: blur(4px);
             z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
         }
         .drawer-overlay.open { opacity: 1; pointer-events: all; }
 
         .drawer-content {
             position: fixed; top: 0; left: -80%; width: 78%; max-width: 320px; height: 100%;
-            background: var(--inc-white); z-index: 2001; transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--vir-white); z-index: 2001; transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             padding: 24px 18px 24px; display: flex; flex-direction: column;
-            box-shadow: 10px 0 30px rgba(27, 2, 43, 0.15);
+            box-shadow: 10px 0 30px rgba(2, 43, 28, 0.15);
         }
         .drawer-overlay.open .drawer-content { left: 0; }
 
         .drawer-close-btn {
-            width: 36px; height: 36px; background: #f3e8ff; border-radius: 50%;
+            width: 36px; height: 36px; background: #e6f4ee; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; color: var(--text-muted);
             cursor: pointer; margin-bottom: 20px; font-size: 0.9rem;
         }
 
         .drawer-profile {
             display: flex; align-items: center; gap: 14px; margin-bottom: 30px; padding-bottom: 20px;
-            border-bottom: 1px solid #f3e8ff;
+            border-bottom: 1px solid #e6f4ee;
         }
         .drawer-avatar {
             width: 48px; height: 48px; border-radius: 50%; background: var(--grad-primary);
-            color: var(--inc-white); display: flex; align-items: center; justify-content: center;
+            color: var(--vir-white); display: flex; align-items: center; justify-content: center;
             font-size: 1.2rem; font-weight: 800; flex-shrink: 0;
         }
         .drawer-user-info h4 { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 2px; }
@@ -116,30 +117,29 @@
             color: var(--text-dark); font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: all 0.2s;
         }
         .drawer-nav-item i { font-size: 1.1rem; width: 22px; text-align: center; color: var(--text-muted); }
-        .drawer-nav-item.active { background: var(--grad-primary); color: var(--inc-white); }
-        .drawer-nav-item.active i { color: var(--inc-white); }
+        .drawer-nav-item.active { background: var(--grad-primary); color: var(--vir-white); }
+        .drawer-nav-item.active i { color: var(--vir-white); }
 
         .drawer-logout-btn {
-            margin-top: auto; border: 1.5px solid #e9d5ff; border-radius: 18px;
+            margin-top: auto; border: 1.5px solid #a7f3d0; border-radius: 18px;
             padding: 14px; display: flex; align-items: center; justify-content: center; gap: 10px;
             color: var(--text-dark); font-weight: 800; font-size: 0.95rem; cursor: pointer; text-decoration: none;
         }
 
-        /* --- STYLED CUSTOM BALANCE CARD (MATCHED TO DESIGN) --- */
+        /* --- BALANCE CARD (VIREON EMERALD & GOLD) --- */
         .card-container-wrapper {
             position: relative;
             margin-bottom: 25px;
             perspective: 1000px;
         }
 
-        /* Background Stacked Card Effect */
         .card-stack-bg {
             position: absolute;
             top: 6px;
             right: -8px;
             width: 90%;
             height: 94%;
-            background: linear-gradient(135deg, #4c1d95 0%, #c026d3 100%);
+            background: linear-gradient(135deg, #059669 0%, #d97706 100%);
             border-radius: var(--radius-lg);
             z-index: 1;
             opacity: 0.4;
@@ -150,16 +150,15 @@
             position: relative;
             z-index: 2;
             width: 100%;
-            background: linear-gradient(135deg, #18022b 0%, #3b0764 45%, #60a5fa 200%);
+            background: linear-gradient(135deg, #022b1c 0%, #064e3b 45%, #059669 200%);
             border-radius: var(--radius-lg);
             padding: 22px 20px;
-            color: var(--inc-white);
-            box-shadow: 0 15px 35px rgba(27, 2, 43, 0.4);
+            color: var(--vir-white);
+            box-shadow: 0 15px 35px rgba(2, 43, 28, 0.4);
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(79, 209, 197, 0.25);
         }
 
-        /* Card Mesh/Wave Overlays */
         .optinex-card::before {
             content: '';
             position: absolute;
@@ -167,7 +166,7 @@
             left: -30%;
             width: 250px;
             height: 250px;
-            background: radial-gradient(circle, rgba(217, 70, 239, 0.25) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(79, 209, 197, 0.25) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
         }
@@ -179,12 +178,11 @@
             right: -20%;
             width: 200px;
             height: 200px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(217, 119, 6, 0.3) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
         }
 
-        /* Top Header inside Card */
         .card-header-row {
             display: flex;
             justify-content: space-between;
@@ -208,10 +206,9 @@
         }
 
         .badge-pill i.fa-award {
-            color: #f59e0b;
+            color: var(--vir-gold-glow);
         }
 
-        /* CURRENCY SWITCHER CONTROL */
         .currency-switch-box {
             background: rgba(0, 0, 0, 0.25);
             border: 1px solid rgba(255, 255, 255, 0.25);
@@ -236,12 +233,11 @@
         }
 
         .currency-btn.active {
-            background: var(--inc-magenta);
+            background: var(--vir-emerald);
             color: #fff;
-            box-shadow: 0 2px 8px rgba(217, 70, 239, 0.4);
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.4);
         }
 
-        /* Middle Balance Row */
         .card-middle-row {
             display: flex;
             align-items: center;
@@ -254,7 +250,7 @@
         .card-chip-img {
             width: 44px;
             height: 32px;
-            background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 100%);
+            background: linear-gradient(135deg, #fcd34d 0%, #d97706 100%);
             border-radius: 6px;
             position: relative;
             flex-shrink: 0;
@@ -277,7 +273,7 @@
             font-size: 1.85rem;
             font-weight: 900;
             letter-spacing: -0.5px;
-            color: var(--inc-white);
+            color: var(--vir-white);
             flex: 1;
             white-space: nowrap;
         }
@@ -288,7 +284,6 @@
             margin-left: auto;
         }
 
-        /* Footer Row inside Card */
         .card-footer-row {
             display: flex;
             justify-content: space-between;
@@ -368,7 +363,6 @@
             opacity: 0.9;
         }
 
-        /* Balance Eye Toggle Icon inside Card Header */
         .eye-toggle-badge {
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -384,7 +378,7 @@
             transition: 0.2s;
         }
 
-        /* --- QUICK TOP-UP --- */
+        /* --- QUICK FEATURES --- */
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
         .section-title { font-size: 1rem; font-weight: 800; color: var(--text-dark); }
         .section-link { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-decoration: none; }
@@ -398,20 +392,16 @@
         }
         .quick-item span { font-size: 0.7rem; font-weight: 700; color: var(--text-dark); text-align: center; line-height: 1.2; }
 
-        .q-purple { background: #f3e8ff; color: #7e22ce; }
-        .q-magenta { background: #fce7f3; color: #db2777; }
-        .q-violet { background: #ede9fe; color: #6d28d9; }
-        .q-pink { background: #fdf2f8; color: #be185d; }
-        .q-indigo { background: #e0e7ff; color: #4338ca; }
+        .q-green { background: #e6f4ee; color: #047857; }
+        .q-gold { background: #fef3c7; color: #d97706; }
         .q-cyan { background: #e0f2fe; color: #0284c7; }
-        .q-orange { background: #ffedd5; color: #c2410c; }
-        .q-teal { background: #ccfbf1; color: #0f766e; }
+        .q-emerald { background: #d1fae5; color: #059669; }
 
         .btn-activate {
-            width: 100%; background: var(--grad-primary); color: var(--inc-white); border: none;
+            width: 100%; background: var(--grad-primary); color: var(--vir-white); border: none;
             padding: 16px; border-radius: 50px; font-size: 1rem; font-weight: 800;
             display: flex; align-items: center; justify-content: center; gap: 10px;
-            box-shadow: 0 8px 20px rgba(217, 70, 239, 0.3); cursor: pointer; margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3); cursor: pointer; margin-bottom: 25px;
             text-decoration: none; transition: transform 0.2s;
         }
         .btn-activate:hover { transform: translateY(-2px); }
@@ -419,9 +409,9 @@
         /* --- OTHER FEATURES --- */
         .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .feature-card {
-            background: var(--inc-white); padding: 16px; border-radius: var(--radius-md);
+            background: var(--vir-white); padding: 16px; border-radius: var(--radius-md);
             display: flex; align-items: center; gap: 12px;
-            box-shadow: 0 4px 15px rgba(59, 7, 100, 0.04); cursor: pointer; border: 1px solid #f3e8ff;
+            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.04); cursor: pointer; border: 1px solid #e6f4ee;
         }
         .feature-icon {
             width: 42px; height: 42px; border-radius: 12px; display: flex;
@@ -432,25 +422,25 @@
 
         /* --- BOTTOM NAVBAR --- */
         .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--inc-white);
-            display: flex; justify-space-around: fill; align-items: center; padding: 10px 0 14px;
-            box-shadow: 0 -5px 20px rgba(59, 7, 100, 0.05); z-index: 100; border-top: 1px solid #f3e8ff;
+            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--vir-white);
+            display: flex; align-items: center; padding: 10px 0 14px;
+            box-shadow: 0 -5px 20px rgba(5, 150, 105, 0.05); z-index: 100; border-top: 1px solid #e6f4ee;
             justify-content: space-around;
         }
         .nav-tab { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 0.7rem; font-weight: 600; cursor: pointer; }
         .nav-tab i { font-size: 1.1rem; }
-        .nav-tab.active { color: var(--inc-magenta); font-weight: 800; }
+        .nav-tab.active { color: var(--vir-emerald); font-weight: 800; }
         
         .center-fab {
             width: 50px; height: 50px; background: var(--grad-primary); border-radius: 16px;
-            display: flex; align-items: center; justify-content: center; color: var(--inc-white);
-            font-size: 1.2rem; margin-top: -25px; box-shadow: 0 8px 18px rgba(217, 70, 239, 0.4); cursor: pointer;
+            display: flex; align-items: center; justify-content: center; color: var(--vir-white);
+            font-size: 1.2rem; margin-top: -25px; box-shadow: 0 8px 18px rgba(5, 150, 105, 0.4); cursor: pointer;
         }
 
         /* --- GENERAL OVERLAY MODAL BASE --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(13, 1, 24, 0.75); backdrop-filter: blur(6px);
+            background: rgba(2, 26, 36, 0.75); backdrop-filter: blur(6px);
             z-index: 2999; display: flex; justify-content: center; align-items: center;
             opacity: 0; pointer-events: none; transition: all 0.3s ease; padding: 20px;
         }
@@ -458,7 +448,7 @@
 
         /* --- WITHDRAWAL FORM MODAL --- */
         .withdraw-card {
-            background: var(--inc-white); width: 100%; max-width: 380px;
+            background: var(--vir-white); width: 100%; max-width: 380px;
             border-radius: 32px; padding: 28px 22px; position: relative;
             transform: scale(0.9); transition: transform 0.3s ease;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
@@ -467,13 +457,13 @@
 
         .withdraw-close-btn {
             position: absolute; top: 20px; right: 20px; width: 34px; height: 34px;
-            background: #f3e8ff; border-radius: 50%; display: flex; align-items: center;
+            background: #e6f4ee; border-radius: 50%; display: flex; align-items: center;
             justify-content: center; color: var(--text-muted); cursor: pointer; font-size: 0.9rem;
         }
 
         .withdraw-header { text-align: center; margin-bottom: 20px; }
         .withdraw-icon-badge {
-            width: 60px; height: 60px; background: #fae8ff; color: var(--inc-magenta);
+            width: 60px; height: 60px; background: #e6f4ee; color: var(--vir-emerald);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-size: 1.4rem; margin: 0 auto 12px;
         }
@@ -484,19 +474,19 @@
         .form-group label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
         
         .form-input-box {
-            width: 100%; background: #fcf8ff; border: 1px solid #e9d5ff;
+            width: 100%; background: #f2faf6; border: 1px solid #a7f3d0;
             border-radius: 16px; padding: 14px 16px; font-size: 0.88rem;
             color: var(--text-dark); font-weight: 600; outline: none; transition: 0.2s;
         }
-        .form-input-box:focus { border-color: var(--inc-magenta); background: #fff; }
+        .form-input-box:focus { border-color: var(--vir-emerald); background: #fff; }
         
         .form-input-box.clickable { cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .form-input-box.clickable span { color: #a08cae; font-weight: 500; }
+        .form-input-box.clickable span { color: #8da499; font-weight: 500; }
         .form-input-box.clickable.selected span { color: var(--text-dark); font-weight: 700; }
 
         .amount-display-box {
-            background: #fae8ff; border-radius: 16px; padding: 14px 16px;
-            color: var(--inc-purple-main); font-weight: 800; font-size: 1rem;
+            background: #e6f4ee; border-radius: 16px; padding: 14px 16px;
+            color: var(--vir-green-dark); font-weight: 800; font-size: 1rem;
         }
 
         .verify-status { font-size: 0.72rem; margin-top: 4px; font-weight: 600; min-height: 16px; }
@@ -505,13 +495,13 @@
             width: 100%; background: var(--grad-primary); color: #fff; border: none;
             padding: 16px; border-radius: 50px; font-weight: 800; font-size: 0.95rem;
             display: flex; align-items: center; justify-content: center; gap: 8px;
-            cursor: pointer; box-shadow: 0 8px 20px rgba(217, 70, 239, 0.3); margin-top: 10px;
+            cursor: pointer; box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3); margin-top: 10px;
         }
 
         /* --- BANK SELECTION BOTTOM SHEET --- */
         .bank-selector-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(13, 1, 24, 0.75); backdrop-filter: blur(4px);
+            background: rgba(2, 26, 36, 0.75); backdrop-filter: blur(4px);
             z-index: 3500; display: flex; justify-content: center; align-items: flex-end;
             opacity: 0; pointer-events: none; transition: all 0.3s ease;
         }
@@ -530,37 +520,37 @@
         .sheet-close { cursor: pointer; font-size: 1.2rem; color: var(--text-muted); }
 
         .bank-search-input {
-            width: 100%; background: #fcf8ff; border: 1px solid #e9d5ff;
+            width: 100%; background: #f2faf6; border: 1px solid #a7f3d0;
             padding: 12px 16px; border-radius: 16px; outline: none; margin-bottom: 15px; font-weight: 600;
         }
 
         .bank-list-container { flex: 1; overflow-y: auto; }
         .bank-item-row {
-            padding: 14px 10px; border-bottom: 1px solid #f3e8ff; cursor: pointer;
+            padding: 14px 10px; border-bottom: 1px solid #e6f4ee; cursor: pointer;
             font-size: 0.9rem; font-weight: 600; color: var(--text-dark); transition: 0.2s;
         }
-        .bank-item-row:hover { background: #fcf8ff; color: var(--inc-magenta); }
+        .bank-item-row:hover { background: #f2faf6; color: var(--vir-emerald); }
 
         /* --- REQUIREMENT MODAL --- */
         .popup-box {
-            background: var(--inc-white); width: 100%; max-width: 360px;
+            background: var(--vir-white); width: 100%; max-width: 360px;
             border-radius: var(--radius-lg); padding: 30px 24px; text-align: center;
             position: relative; transform: scale(0.9); transition: transform 0.3s ease;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
         .modal-overlay.show .popup-box { transform: scale(1); }
         .popup-lock-icon {
-            width: 65px; height: 65px; background: #fae8ff; color: var(--inc-magenta);
+            width: 65px; height: 65px; background: #e6f4ee; color: var(--vir-emerald);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-size: 1.5rem; margin: 0 auto 18px;
         }
         .popup-box h3 { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
         .popup-box p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 22px; font-weight: 500; }
         .popup-btn {
-            background: var(--grad-primary); color: var(--inc-white); width: 100%;
+            background: var(--grad-primary); color: var(--vir-white); width: 100%;
             padding: 14px; border-radius: 50px; font-weight: 700; font-size: 0.95rem;
             display: flex; align-items: center; justify-content: center; gap: 8px;
-            border: none; cursor: pointer; text-decoration: none; box-shadow: 0 8px 18px rgba(217, 70, 239, 0.3);
+            border: none; cursor: pointer; text-decoration: none; box-shadow: 0 8px 18px rgba(5, 150, 105, 0.3);
         }
     </style>
 </head>
@@ -572,10 +562,10 @@
             <div class="drawer-close-btn" id="drawerCloseBtn"><i class="fa-solid fa-xmark"></i></div>
             
             <div class="drawer-profile">
-                <div class="drawer-avatar" id="avatarInitial">I</div>
+                <div class="drawer-avatar" id="avatarInitial">V</div>
                 <div class="drawer-user-info">
-                    <h4 id="drawerName">Incossify User</h4>
-                    <p id="drawerEmail">user@incossify.com</p>
+                    <h4 id="drawerName">Vireon User</h4>
+                    <p id="drawerEmail">user@vireon.com</p>
                 </div>
             </div>
 
@@ -607,7 +597,7 @@
             <div class="icon-btn pop-trigger"><i class="fa-solid fa-plus"></i></div>
         </div>
 
-        <!-- REDESIGNED OPTINEX-STYLE BALANCE CARD -->
+        <!-- VIREON BALANCE CARD -->
         <div class="card-container-wrapper">
             <div class="card-stack-bg"></div>
             
@@ -616,7 +606,7 @@
                 <div class="card-header-row">
                     <div class="badge-pill">
                         <i class="fa-solid fa-award"></i>
-                        <span id="displayPlan">Starterkit Plan</span>
+                        <span>Premier Plan</span>
                     </div>
 
                     <div style="display: flex; align-items: center; gap: 8px;">
@@ -636,7 +626,7 @@
                 <div class="card-middle-row">
                     <i class="fa-solid fa-chevron-left" style="font-size: 0.8rem; opacity: 0.6;"></i>
                     <div class="card-chip-img"></div>
-                    <div class="balance-display-main" id="balanceText">₦10,000.00</div>
+                    <div class="balance-display-main" id="balanceText">₦14,500.00</div>
                     <i class="fa-solid fa-wifi contactless-icon"></i>
                 </div>
 
@@ -644,8 +634,8 @@
                 <div class="card-footer-row">
                     <div class="card-left-footer">
                         <div class="sub-tag-label">
-                            <i class="fa-solid fa-gem" style="font-size: 0.75rem; color: var(--inc-pink-glow);"></i>
-                            Performance Reward
+                            <i class="fa-solid fa-gem" style="font-size: 0.75rem; color: var(--vir-gold-glow);"></i>
+                            Welcome Bonus
                         </div>
                         <button class="btn-card-withdraw" id="openWithdrawBtn">
                             <i class="fa-solid fa-wallet"></i> Withdraw
@@ -670,36 +660,20 @@
         </div>
         <div class="quick-grid">
             <div class="quick-item pop-trigger">
-                <div class="quick-icon q-purple"><i class="fa-solid fa-child"></i></div>
-                <span>Kids Assignment</span>
+                <div class="quick-icon q-green"><i class="fa-solid fa-star"></i></div>
+                <span>Reviews</span>
             </div>
             <div class="quick-item pop-trigger">
-                <div class="quick-icon q-magenta"><i class="fa-solid fa-circle-play"></i></div>
-                <span>Watch Video</span>
+                <div class="quick-icon q-gold"><i class="fa-solid fa-share-nodes"></i></div>
+                <span>Talent Share</span>
             </div>
             <div class="quick-item pop-trigger">
-                <div class="quick-icon q-violet"><i class="fa-solid fa-music"></i></div>
-                <span>Play Musics</span>
+                <div class="quick-icon q-cyan"><i class="fa-solid fa-network-wired"></i></div>
+                <span>Connections</span>
             </div>
             <div class="quick-item pop-trigger">
-                <div class="quick-icon q-pink"><i class="fa-solid fa-newspaper"></i></div>
-                <span>Inn-Blog</span>
-            </div>
-            <div class="quick-item pop-trigger">
-                <div class="quick-icon q-indigo"><i class="fa-solid fa-robot"></i></div>
-                <span>Inn-Ai</span>
-            </div>
-            <div class="quick-item pop-trigger">
-                <div class="quick-icon q-cyan"><i class="fa-brands fa-twitter"></i></div>
-                <span>Inn-Tweet</span>
-            </div>
-            <div class="quick-item pop-trigger">
-                <div class="quick-icon q-orange"><i class="fa-solid fa-gamepad"></i></div>
-                <span>Inn-Games</span>
-            </div>
-            <div class="quick-item pop-trigger">
-                <div class="quick-icon q-teal"><i class="fa-solid fa-plane-departure"></i></div>
-                <span>Inn-Trips</span>
+                <div class="quick-icon q-emerald"><i class="fa-solid fa-wallet"></i></div>
+                <span>Payouts</span>
             </div>
         </div>
 
@@ -710,47 +684,47 @@
 
         <!-- Other Features -->
         <div class="section-header">
-            <span class="section-title">Other Features</span>
+            <span class="section-title">Ecosystem</span>
             <a href="#" class="section-link pop-trigger">View all</a>
         </div>
         <div class="features-grid">
             <div class="feature-card pop-trigger">
-                <div class="feature-icon q-purple"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="feature-icon q-green"><i class="fa-solid fa-shield-halved"></i></div>
                 <div class="feature-info">
                     <h4>Security</h4>
                     <p>2FA & PIN</p>
                 </div>
             </div>
             <div class="feature-card pop-trigger">
-                <div class="feature-icon q-magenta"><i class="fa-solid fa-gift"></i></div>
+                <div class="feature-icon q-gold"><i class="fa-solid fa-gift"></i></div>
                 <div class="feature-info">
                     <h4>Referrals</h4>
                     <p>Earn bonuses</p>
                 </div>
             </div>
             <div class="feature-card pop-trigger">
-                <div class="feature-icon q-violet"><i class="fa-solid fa-ranking-star"></i></div>
+                <div class="feature-icon q-cyan"><i class="fa-solid fa-ranking-star"></i></div>
                 <div class="feature-info">
                     <h4>Leaderboard</h4>
                     <p>Top earners</p>
                 </div>
             </div>
             <div class="feature-card pop-trigger">
-                <div class="feature-icon q-pink"><i class="fa-solid fa-headset"></i></div>
+                <div class="feature-icon q-emerald"><i class="fa-solid fa-headset"></i></div>
                 <div class="feature-info">
                     <h4>Support</h4>
                     <p>Live chat</p>
                 </div>
             </div>
             <div class="feature-card pop-trigger">
-                <div class="feature-icon q-indigo"><i class="fa-solid fa-file-invoice"></i></div>
+                <div class="feature-icon q-green"><i class="fa-solid fa-file-invoice"></i></div>
                 <div class="feature-info">
                     <h4>Statements</h4>
                     <p>Download PDF</p>
                 </div>
             </div>
             <div class="feature-card pop-trigger">
-                <div class="feature-icon q-cyan"><i class="fa-solid fa-bell"></i></div>
+                <div class="feature-icon q-gold"><i class="fa-solid fa-bell"></i></div>
                 <div class="feature-info">
                     <h4>Notifications</h4>
                     <p>Alerts & news</p>
@@ -806,7 +780,7 @@
                     <label>Bank Name</label>
                     <div class="form-input-box clickable" id="bankSelectTrigger">
                         <span id="selectedBankText">Enter bank name</span>
-                        <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; color: #a08cae;"></i>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; color: #8da499;"></i>
                     </div>
                 </div>
 
@@ -818,7 +792,7 @@
                 <div class="form-group">
                     <label>Amount</label>
                     <div class="amount-display-box" id="modalWithdrawAmount">
-                        ₦10,000.00
+                        ₦14,500.00
                     </div>
                 </div>
 
@@ -838,7 +812,7 @@
             </div>
             <input type="text" id="bankSearchInput" class="bank-search-input" placeholder="Search bank...">
             <div class="bank-list-container" id="bankListContainer">
-                <div style="text-align: center; color: #a08cae; padding: 20px;">Loading banks...</div>
+                <div style="text-align: center; color: #8da499; padding: 20px;">Loading banks...</div>
             </div>
         </div>
     </div>
@@ -851,7 +825,7 @@
                 <i class="fa-solid fa-lock"></i>
             </div>
             <h3>Account Setup Required</h3>
-            <p>Activate your Incossify account with a <strong id="modalFeeText">₦10,000</strong> setup fee to unlock withdrawals and premium earning features.</p>
+            <p>Activate your Vireon account with a <strong>₦14,500</strong> setup fee to unlock withdrawals and premium earning features.</p>
             <a href="payment.html" class="popup-btn">
                 Activate Account <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -860,18 +834,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // PAYSTACK CONFIGURATION
             const PAYSTACK_SECRET_KEY = "sk_test_8df35f0fdf38905d4cec8e22a0eff23e87fbd491";
-
-            // CONVERSION RATE SETUP (1 EUR = ~1750 NGN)
             const EUR_EXCHANGE_RATE = 1750;
-            let currentCurrency = localStorage.getItem('incossify_currency') || 'NGN';
-            let numericBalanceValue = 10000; // Base value in Naira
+            let currentCurrency = localStorage.getItem('vireon_currency') || 'NGN';
+            let numericBalanceValue = 14500; // Premier plan fixed welcome bonus/balance amount
 
             // --- 1. USER REGISTRATION DATA & DRAWER SYNC ---
-            const savedData = localStorage.getItem('incossify_user');
-            let planName = "Starterkit Plan";
-            let shortFee = "₦10,000";
+            const savedData = localStorage.getItem('vireon_user');
 
             if (savedData) {
                 const user = JSON.parse(savedData);
@@ -882,15 +851,7 @@
                 if (user.email) {
                     document.getElementById('drawerEmail').innerText = user.email;
                 }
-                if (user.plan && user.plan.toLowerCase().includes('apex')) {
-                    planName = "Apex Plan";
-                    numericBalanceValue = 15000;
-                    shortFee = "₦15,000";
-                }
             }
-
-            document.getElementById('displayPlan').innerText = planName;
-            document.getElementById('modalFeeText').innerText = shortFee;
 
             // --- 2. DRAWER SIDEBAR MENU HANDLER ---
             const openDrawerBtn = document.getElementById('openDrawerBtn');
@@ -905,16 +866,11 @@
 
             // --- 3. LIVE ACTIVITIES TICKER POPUP ---
             const activities = [
-                { name: "David", action: "earned", amount: "₦25,000", source: "from Watch Video" },
-                { name: "Tom", action: "earned", amount: "₦15,500", source: "from Inn-Ai" },
-                { name: "Sarah", action: "withdrew", amount: "₦150,000", source: "to Local Bank" },
-                { name: "Emeka", action: "earned", amount: "₦8,500", source: "from Inn-Blog" },
-                { name: "Grace", action: "earned", amount: "₦45,000", source: "from Play Musics" },
-                { name: "Michael", action: "withdrew", amount: "₦80,000", source: "to Local Bank" },
-                { name: "Anita", action: "earned", amount: "₦12,000", source: "from Kids Assignment" },
-                { name: "Blessing", action: "earned", amount: "₦30,000", source: "from Inn-Games" },
-                { name: "Chidi", action: "withdrew", amount: "₦200,000", source: "to Local Bank" },
-                { name: "Victor", action: "earned", amount: "₦18,000", source: "from Inn-Trips" }
+                { name: "David", action: "earned", amount: "₦14,500", source: "from Premier Plan Bonus" },
+                { name: "Tom", action: "withdrew", amount: "₦45,000", source: "to Local Bank" },
+                { name: "Sarah", action: "earned", amount: "₦29,000", source: "from Review Earning" },
+                { name: "Emeka", action: "earned", amount: "₦14,500", source: "from Talent Share" },
+                { name: "Grace", action: "withdrew", amount: "₦120,000", source: "to Local Bank" }
             ];
 
             const tickerContainer = document.getElementById('activityTicker');
@@ -946,7 +902,7 @@
             const btnNgn = document.getElementById('btnNgn');
             const btnEur = document.getElementById('btnEur');
             
-            let isHidden = localStorage.getItem('incossify_hide_balance') === 'true';
+            let isHidden = localStorage.getItem('vireon_hide_balance') === 'true';
 
             function formatCurrency(value, currency) {
                 if (currency === 'EUR') {
@@ -959,8 +915,6 @@
 
             function updateBalanceDisplay() {
                 const formatted = formatCurrency(numericBalanceValue, currentCurrency);
-                
-                // Update modal withdrawal display text as well
                 document.getElementById('modalWithdrawAmount').innerText = formatCurrency(numericBalanceValue, 'NGN');
 
                 if (isHidden) {
@@ -980,30 +934,27 @@
                 }
             }
 
-            // Currency Switch Events
             btnNgn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 currentCurrency = 'NGN';
-                localStorage.setItem('incossify_currency', 'NGN');
+                localStorage.setItem('vireon_currency', 'NGN');
                 updateBalanceDisplay();
             });
 
             btnEur.addEventListener('click', (e) => {
                 e.stopPropagation();
                 currentCurrency = 'EUR';
-                localStorage.setItem('incossify_currency', 'EUR');
+                localStorage.setItem('vireon_currency', 'EUR');
                 updateBalanceDisplay();
             });
 
-            // Toggle Eye Event
             toggleBalanceBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 isHidden = !isHidden;
-                localStorage.setItem('incossify_hide_balance', isHidden);
+                localStorage.setItem('vireon_hide_balance', isHidden);
                 updateBalanceDisplay();
             });
 
-            // Initial render
             updateBalanceDisplay();
 
             // --- 5. PAYSTACK INTEGRATION FOR BANKS & RESOLUTION ---
@@ -1066,7 +1017,7 @@
                 const num = accNumInput.value.trim();
                 if (num.length === 10 && selectedBankCode !== "") {
                     verifyStatus.innerText = "Verifying account details...";
-                    verifyStatus.style.color = "#d946ef";
+                    verifyStatus.style.color = "#059669";
                     accNameInput.value = "";
 
                     fetch(`https://api.paystack.co/bank/resolve?account_number=${num}&bank_code=${selectedBankCode}`, {
@@ -1128,7 +1079,6 @@
                 setupModal.classList.add('show');
             });
 
-            // Triggers for Activation Setup Modal on all Quick Feature items
             const triggers = document.querySelectorAll('.pop-trigger');
             triggers.forEach(el => {
                 el.addEventListener('click', (e) => {
