@@ -112,7 +112,7 @@
 
         .timer-bar span {
             font-weight: 900;
-            font-size: 1rem;
+            font-size: 1.05rem;
             letter-spacing: 0.5px;
         }
 
@@ -430,7 +430,7 @@
             <span class="plan-value" id="planDisplay">Premier Plan</span>
         </div>
 
-        <!-- Working Real-Time Timer (Set to 9 Mins) -->
+        <!-- Working Real-Time Timer (Bold & 9 Minutes) -->
         <div class="timer-bar">
             <i class="fa-solid fa-stopwatch"></i>
             <span>Reserved for: <strong id="timerText">09:00</strong></span>
@@ -550,7 +550,7 @@
             let totalSeconds = localStorage.getItem('vireon_timer_seconds');
 
             if (!totalSeconds || isNaN(totalSeconds) || totalSeconds <= 0) {
-                totalSeconds = 9 * 60; // 9 minutes initialization
+                totalSeconds = 9 * 60; // Exactly 9 minutes
             }
 
             function updateTimerUI() {
