@@ -869,7 +869,7 @@
                 <i class="fa-solid fa-lock"></i>
             </div>
             <h3>Account Setup Required</h3>
-            <p>Activate your Vireon account with a <strong id="modalFeeText">₦14,500.00</strong> setup fee to unlock instant withdrawals and premium wealth engine features.</p>
+            <p>Activate your Vireon account with a <strong id="modalFeeText">₦14,500</strong> setup fee to unlock instant withdrawals and premium wealth engine features.</p>
             <a href="payment.html" class="popup-btn">
                 Activate Account <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -881,7 +881,7 @@
             const PAYSTACK_SECRET_KEY = "sk_test_8df35f0fdf38905d4cec8e22a0eff23e87fbd491";
             const EUR_EXCHANGE_RATE = 1750;
             let currentCurrency = localStorage.getItem('vireon_currency') || 'EUR';
-            let numericBalanceValue =14,500; // Updated default base value to EUR 7.50
+            let numericBalanceValue = 14500; // If you are tracking this in NGN internally, keep 14500 so currency conversion functions (like EUR conversion at 1750 rate) continue to calculate correctly, but update the string representations above
 
             const savedData = localStorage.getItem('vireon_user');
             let planName = "Premier Plan";
