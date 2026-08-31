@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Incossify | Optimize Your Wealth</title>
-    <meta name="description" content="Incossify: Transform your daily digital interactions into measurable euro earnings.">
+    <title>Vireon | Optimize Your Wealth</title>
+    <meta name="description" content="Vireon: Transform your daily digital interactions into measurable euro earnings.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,33 +13,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- CSS VARIABLES & THEMING (INCOSSIFY) --- */
+        /* --- CSS VARIABLES & THEMING (VIREON) --- */
         :root {
-            /* Incossify Brand Palette derived from logo */
-            --inc-purple-dark: #1b022b;
-            --inc-purple-main: #3b0764;
-            --inc-violet: #8b5cf6;
-            --inc-magenta: #d946ef;
-            --inc-pink-glow: #f0abfc;
-            --inc-black: #0d0118; 
-            --inc-white: #ffffff;
+            /* Vireon Brand Palette derived from logo image */
+            --vireon-dark-navy: #081124;
+            --vireon-deep-blue: #0f1c3f;
+            --vireon-blue-main: #1d4ed8;
+            --vireon-cyan: #00f0ff;
+            --vireon-glow: #70d7ff;
+            --vireon-black: #050b14; 
+            --vireon-white: #ffffff;
             
-            --light-bg: #fcf8ff;
-            --text-dark: #1e0933;
-            --text-muted: #584466;
-            --text-light: #a08cae;
+            --light-bg: #f4f8fb;
+            --text-dark: #0a1325;
+            --text-muted: #485c7a;
+            --text-light: #94a3b8;
             
-            --grad-primary: linear-gradient(135deg, #6b21a8, #d946ef);
-            --grad-accent: linear-gradient(135deg, #a855f7, #ec4899);
-            --grad-glow: linear-gradient(135deg, #d946ef, #f0abfc);
+            --grad-primary: linear-gradient(135deg, #0f1c3f, #00f0ff);
+            --grad-accent: linear-gradient(135deg, #1d4ed8, #00f0ff);
+            --grad-glow: linear-gradient(135deg, #00f0ff, #70d7ff);
             
             --radius-sm: 12px;
             --radius-md: 20px;
             --radius-lg: 30px;
             --radius-pill: 999px;
             
-            --shadow-soft: 0 15px 35px rgba(107, 33, 168, 0.12);
-            --shadow-float: 0 25px 50px rgba(27, 2, 43, 0.22);
+            --shadow-soft: 0 15px 35px rgba(0, 240, 255, 0.08);
+            --shadow-float: 0 25px 50px rgba(8, 17, 36, 0.25);
             
             --font-main: 'Outfit', sans-serif;
             --header-height: 90px;
@@ -71,17 +71,17 @@
             cursor: pointer; transition: all 0.3s ease; border: none;
         }
         .btn-primary { 
-            background: var(--grad-primary); color: var(--inc-white); 
-            box-shadow: 0 8px 20px rgba(107, 33, 168, 0.3);
+            background: var(--grad-primary); color: var(--vireon-white); 
+            box-shadow: 0 8px 20px rgba(0, 240, 255, 0.2);
         }
         .btn-primary:hover { 
-            transform: translateY(-3px); box-shadow: 0 12px 25px rgba(217, 70, 239, 0.45);
+            transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 240, 255, 0.35);
         }
         .btn-dark {
-            background: var(--inc-black); color: var(--inc-white);
+            background: var(--vireon-black); color: var(--vireon-white);
         }
         .btn-dark:hover {
-            background: var(--inc-purple-main); transform: translateY(-3px);
+            background: var(--vireon-deep-blue); transform: translateY(-3px);
         }
 
         /* --- HEADER & NAVIGATION --- */
@@ -91,22 +91,22 @@
         }
         header.scrolled {
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(59, 7, 100, 0.05);
+            box-shadow: 0 4px 20px rgba(15, 28, 63, 0.05);
         }
         .nav-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         
         .logo { display: flex; align-items: center; text-decoration: none; }
         .logo img { height: 40px; width: auto; object-fit: contain; }
-        .logo-text { font-weight: 900; font-size: 1.5rem; color: var(--inc-purple-main); margin-left: 10px; letter-spacing: -0.5px; }
+        .logo-text { font-weight: 900; font-size: 1.5rem; color: var(--vireon-deep-blue); margin-left: 10px; letter-spacing: -0.5px; }
         
         .nav-links { display: flex; gap: 35px; align-items: center; }
         .nav-links a.nav-item { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); }
-        .nav-links a.nav-item:hover { color: var(--inc-magenta); }
+        .nav-links a.nav-item:hover { color: var(--vireon-cyan); }
 
         .hamburger { display: none; cursor: pointer; width: 30px; height: 20px; position: relative; z-index: 1006; }
         .hamburger span {
             display: block; position: absolute; height: 2px; width: 100%;
-            background: var(--inc-black); border-radius: 4px; transition: .3s ease-in-out; left: 0;
+            background: var(--vireon-black); border-radius: 4px; transition: .3s ease-in-out; left: 0;
         }
         .hamburger span:nth-child(1) { top: 0px; }
         .hamburger span:nth-child(2) { top: 9px; width: 70%; right: 0; left: auto; }
@@ -116,14 +116,14 @@
         .hamburger.active span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
 
         .mobile-nav-bg {
-            position: fixed; top: -100%; left: 0; width: 100%; background: var(--inc-white);
+            position: fixed; top: -100%; left: 0; width: 100%; background: var(--vireon-white);
             box-shadow: 0 15px 40px rgba(0,0,0,0.1); z-index: 1004;
             padding: calc(var(--header-height) + 20px) 30px 40px;
             border-bottom-left-radius: var(--radius-lg); border-bottom-right-radius: var(--radius-lg);
             transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; gap: 20px;
         }
         .mobile-nav-bg.active { top: 0; }
-        .mobile-link { font-size: 1.1rem; color: var(--inc-black); font-weight: 600; border-bottom: 1px solid #f3e8ff; padding-bottom: 10px;}
+        .mobile-link { font-size: 1.1rem; color: var(--vireon-black); font-weight: 600; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;}
 
         /* --- HERO SECTION --- */
         .hero { 
@@ -131,10 +131,10 @@
             padding-bottom: 80px; position: relative;
             overflow: hidden;
         }
-        /* Abstract Background Shapes */
+        /* Abstract Background Shapes matching Vireon Theme */
         .bg-shape-1 {
             position: absolute; top: -10%; right: -5%; width: 55%; height: 110%;
-            background: #f3e8ff; border-radius: 100px;
+            background: #e0f2fe; border-radius: 100px;
             transform: rotate(-15deg); z-index: 0; opacity: 0.8;
         }
         .bg-shape-2 {
@@ -147,7 +147,7 @@
         .hero-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; }
         
         .hero-content { z-index: 2; max-width: 550px; }
-        .hero-content h1 { font-size: 4rem; letter-spacing: -1.5px; margin-bottom: 20px; color: var(--inc-black); font-weight: 900;}
+        .hero-content h1 { font-size: 4rem; letter-spacing: -1.5px; margin-bottom: 20px; color: var(--vireon-black); font-weight: 900;}
         .hero-content h1 span { background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero-content p.sub-text { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 35px; line-height: 1.6; }
         
@@ -156,7 +156,7 @@
         
         /* Pure CSS Phone Mockup */
         .phone-mockup {
-            width: 290px; height: 600px; background: var(--inc-white); border-radius: 40px;
+            width: 290px; height: 600px; background: var(--vireon-white); border-radius: 40px;
             border: 10px solid #ffffff; box-shadow: var(--shadow-float); position: relative;
             z-index: 5; overflow: hidden; display: flex; flex-direction: column;
         }
@@ -169,20 +169,20 @@
             height: 45%; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; 
             position: relative; text-align: center;
         }
-        .phone-inner-card { background: white; margin: -25px 20px 0; border-radius: 15px; padding: 20px; box-shadow: 0 10px 20px rgba(59, 7, 100, 0.08); position: relative; z-index: 6; text-align: center;}
+        .phone-inner-card { background: white; margin: -25px 20px 0; border-radius: 15px; padding: 20px; box-shadow: 0 10px 20px rgba(15, 28, 63, 0.08); position: relative; z-index: 6; text-align: center;}
         
-        .mock-avatar { width: 60px; height: 60px; border-radius: 50%; background: #fcf8ff; margin: 0 auto 10px; border: 3px solid var(--inc-magenta); display: flex; align-items: center; justify-content: center; color: var(--inc-purple-main); font-size: 1.5rem;}
-        .mock-btn { background: var(--grad-glow); color: var(--inc-black); padding: 12px; border-radius: 20px; font-weight: 800; font-size: 0.9rem; margin-top: 15px; width: 100%; display: flex; justify-content: center; gap: 8px; align-items: center;}
+        .mock-avatar { width: 60px; height: 60px; border-radius: 50%; background: #f0fdf4; margin: 0 auto 10px; border: 3px solid var(--vireon-cyan); display: flex; align-items: center; justify-content: center; color: var(--vireon-deep-blue); font-size: 1.5rem;}
+        .mock-btn { background: var(--grad-glow); color: var(--vireon-black); padding: 12px; border-radius: 20px; font-weight: 800; font-size: 0.9rem; margin-top: 15px; width: 100%; display: flex; justify-content: center; gap: 8px; align-items: center;}
         
         /* Floating Element Cards */
         .floating-card {
-            position: absolute; background: var(--inc-white); padding: 15px 25px; border-radius: var(--radius-md);
+            position: absolute; background: var(--vireon-white); padding: 15px 25px; border-radius: var(--radius-md);
             box-shadow: var(--shadow-soft); z-index: 6; display: flex; align-items: center; gap: 15px;
-            animation: float 6s ease-in-out infinite; border: 1px solid rgba(217, 70, 239, 0.1);
+            animation: float 6s ease-in-out infinite; border: 1px solid rgba(0, 240, 255, 0.2);
         }
-        .fc-alert { top: 15%; left: -10%; animation-delay: 0s; flex-direction: column; align-items: flex-start; gap: 5px; border-left: 4px solid var(--inc-magenta);}
+        .fc-alert { top: 15%; left: -10%; animation-delay: 0s; flex-direction: column; align-items: flex-start; gap: 5px; border-left: 4px solid var(--vireon-cyan);}
         .fc-logs { top: 50%; right: -20%; width: 240px; animation-delay: 1s; flex-direction: column; align-items: flex-start;}
-        .fc-withdraw { bottom: 8%; left: 5%; animation-delay: 2s; background: var(--inc-black); color: white;}
+        .fc-withdraw { bottom: 8%; left: 5%; animation-delay: 2s; background: var(--vireon-black); color: white;}
 
         @keyframes float {
             0% { transform: translateY(0px); }
@@ -197,37 +197,37 @@
         .feature-visual { position: relative; height: 400px; display: flex; justify-content: center; align-items: center;}
         .mock-window {
             background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft);
-            padding: 30px; width: 100%; max-width: 420px; position: relative; border: 1px solid rgba(107, 33, 168, 0.08);
+            padding: 30px; width: 100%; max-width: 420px; position: relative; border: 1px solid rgba(15, 28, 63, 0.08);
         }
         .mock-window-accent {
             position: absolute; width: 60px; height: 60px; background: var(--grad-accent);
             border-radius: 15px; top: -20px; left: -20px; display: flex; align-items: center; justify-content: center;
-            color: var(--inc-white); font-size: 1.5rem; transform: rotate(-10deg); box-shadow: 0 10px 20px rgba(217, 70, 239, 0.3);
+            color: var(--vireon-white); font-size: 1.5rem; transform: rotate(-10deg); box-shadow: 0 10px 20px rgba(0, 240, 255, 0.3);
         }
 
-        .stats-row { display: flex; gap: 40px; margin-bottom: 40px; border-bottom: 1px solid #f3e8ff; padding-bottom: 30px; }
-        .stat-item h3 { font-size: 2.5rem; color: var(--inc-black); margin-bottom: 5px; font-weight: 900; }
+        .stats-row { display: flex; gap: 40px; margin-bottom: 40px; border-bottom: 1px solid #e2e8f0; padding-bottom: 30px; }
+        .stat-item h3 { font-size: 2.5rem; color: var(--vireon-black); margin-bottom: 5px; font-weight: 900; }
         .stat-item p { color: var(--text-muted); font-size: 0.95rem; font-weight: 600; text-transform: uppercase; }
 
         .feature-list { display: flex; flex-direction: column; gap: 25px; }
         .f-item { display: flex; gap: 15px; align-items: flex-start;}
-        .f-icon { color: var(--inc-white); background: var(--grad-primary); padding: 12px; border-radius: 12px; height: max-content; font-size: 1.2rem;}
-        .f-item h4 { font-size: 1.1rem; margin-bottom: 5px; color: var(--inc-black);}
+        .f-icon { color: var(--vireon-white); background: var(--grad-primary); padding: 12px; border-radius: 12px; height: max-content; font-size: 1.2rem;}
+        .f-item h4 { font-size: 1.1rem; margin-bottom: 5px; color: var(--vireon-black);}
         .f-item p { color: var(--text-muted); font-size: 0.95rem; }
 
         /* --- CTA BANNER SECTION --- */
         .cta-section { padding: 80px 0; position: relative; }
         .cta-banner {
-            background: var(--inc-black); border-radius: 40px; padding: 60px 80px;
+            background: var(--vireon-black); border-radius: 40px; padding: 60px 80px;
             display: flex; align-items: center; justify-content: space-between;
             position: relative; overflow: hidden; box-shadow: var(--shadow-float);
         }
         .cta-banner::before {
             content: ''; position: absolute; top: -50%; right: -10%; width: 50%; height: 200%;
-            background: rgba(217, 70, 239, 0.08); transform: rotate(25deg); border-radius: 100px;
+            background: rgba(0, 240, 255, 0.08); transform: rotate(25deg); border-radius: 100px;
         }
-        .cta-content { color: var(--inc-white); max-width: 550px; z-index: 2; margin-right: auto; }
-        .cta-content h2 { color: var(--inc-white); font-size: 2.8rem; margin-bottom: 20px; font-weight: 900; }
+        .cta-content { color: var(--vireon-white); max-width: 550px; z-index: 2; margin-right: auto; }
+        .cta-content h2 { color: var(--vireon-white); font-size: 2.8rem; margin-bottom: 20px; font-weight: 900; }
         .cta-content p { color: rgba(255,255,255,0.7); margin-bottom: 30px; font-size: 1.1rem; }
         
         .cta-visual { position: absolute; right: 80px; bottom: -60px; transform: rotate(10deg); z-index: 2; }
@@ -266,10 +266,10 @@
             }
             .f-item { 
                 text-align: left; 
-                background: var(--inc-white);
+                background: var(--vireon-white);
                 padding: 25px 20px; 
                 border-radius: var(--radius-md);
-                box-shadow: 0 10px 25px rgba(27, 2, 43, 0.05);
+                box-shadow: 0 10px 25px rgba(8, 17, 36, 0.05);
             }
             
             .mock-window-accent { left: 50%; transform: translateX(-50%) rotate(0deg); top: -30px; }
@@ -284,8 +284,8 @@
     <header id="navbar">
         <div class="container nav-wrapper">
             <a href="index.html" class="logo">
-                <img src="logo-.png" alt="Incossify Logo" onerror="this.style.display='none'; document.getElementById('txtLogo').style.display='block';">
-                <span id="txtLogo" style="display:none; font-size:1.5rem; font-weight:900; color:var(--inc-purple-main); letter-spacing:-0.5px;">Incossify</span>
+                <img src="logo-.png" alt="Vireon Logo" onerror="this.style.display='none'; document.getElementById('txtLogo').style.display='block';">
+                <span id="txtLogo" style="display:none; font-size:1.5rem; font-weight:900; color:var(--vireon-deep-blue); letter-spacing:-0.5px;">Vireon</span>
             </a>
             
             <nav class="nav-links">
@@ -323,13 +323,13 @@
                 <div class="hero-content">
                     <h1>Optimize Your<br><span>Wealth Engine</span></h1>
                     <p class="sub-text">
-                        Transform your daily digital interactions into measurable Euro earnings. With Incossify, you build wealth effortlessly every time you engage, review, or share your talent.
+                        Transform your daily digital interactions into measurable Euro earnings. With Vireon, you build wealth effortlessly every time you engage, review, or share your talent.
                     </p>
                     <a href="register.html" class="btn btn-primary">Start Generating Income <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></a>
                     
                     <div style="display: flex; align-items: center; gap: 20px; margin-top: 50px;">
-                        <div style="background: var(--inc-black); padding: 15px; border-radius: 15px; width: max-content;">
-                            <i class="fa-solid fa-coins" style="color: var(--inc-magenta); font-size: 1.5rem;"></i>
+                        <div style="background: var(--vireon-black); padding: 15px; border-radius: 15px; width: max-content;">
+                            <i class="fa-solid fa-coins" style="color: var(--vireon-cyan); font-size: 1.5rem;"></i>
                         </div>
                         <div>
                             <h4 style="font-size: 1.05rem; margin-bottom: 2px;">24/7 Euro Payouts</h4>
@@ -342,22 +342,22 @@
                     <div class="floating-card fc-alert">
                         <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Review Approved</span>
                         <div style="display: flex; align-items: center; gap: 10px;">
-                            <i class="fa-solid fa-star" style="color: var(--inc-magenta);"></i>
-                            <span style="font-weight: 800; color: var(--inc-black);">+€15.50 Earned!</span>
+                            <i class="fa-solid fa-star" style="color: var(--vireon-cyan);"></i>
+                            <span style="font-weight: 800; color: var(--vireon-black);">+€15.50 Earned!</span>
                         </div>
                     </div>
                     
                     <div class="phone-mockup">
                         <div class="phone-inner-top">
                             <p style="opacity: 0.8; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Available Balance</p>
-                            <h3 style="color: var(--inc-white); font-size: 2.2rem; margin-bottom: 20px;">€1,250.00</h3>
+                            <h3 style="color: var(--vireon-white); font-size: 2.2rem; margin-bottom: 20px;">€1,250.00</h3>
                             
                             <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: space-between;">
                                 <div style="text-align: left;">
                                     <p style="font-size: 0.75rem; opacity: 0.9;">Today's Income</p>
                                     <p style="font-weight: 700;">+ €45.00</p>
                                 </div>
-                                <i class="fa-solid fa-chart-line" style="color: var(--inc-pink-glow);"></i>
+                                <i class="fa-solid fa-chart-line" style="color: var(--vireon-glow);"></i>
                             </div>
                         </div>
                         
@@ -368,8 +368,8 @@
                             <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Strategy Upload • €5.00 Reward</p>
                             
                             <div style="display: flex; gap: 10px;">
-                                <div style="flex: 1; background: #f3e8ff; color: var(--text-muted); padding: 12px; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-times"></i></div>
-                                <div style="flex: 2; background: var(--inc-magenta); color: var(--inc-white); padding: 12px; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-check"></i> Submit</div>
+                                <div style="flex: 1; background: #e0f2fe; color: var(--text-muted); padding: 12px; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-times"></i></div>
+                                <div style="flex: 2; background: var(--vireon-blue-main); color: var(--vireon-white); padding: 12px; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-check"></i> Submit</div>
                             </div>
                         </div>
                     </div>
@@ -380,12 +380,12 @@
                             <i class="fa-solid fa-list-ul" style="color: var(--text-muted);"></i>
                         </div>
                         
-                        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 12px; border-bottom: 1px solid #f3e8ff; padding-bottom: 8px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
                             <div style="display: flex; align-items: center; gap: 10px;">
-                                <i class="fa-solid fa-microphone-alt" style="color: var(--inc-purple-main); background: #f3e8ff; padding: 6px; border-radius: 8px; font-size: 0.7rem;"></i>
+                                <i class="fa-solid fa-microphone-alt" style="color: var(--vireon-deep-blue); background: #e0f2fe; padding: 6px; border-radius: 8px; font-size: 0.7rem;"></i>
                                 <span style="font-size: 0.85rem; font-weight: 600;">Talent Core</span>
                             </div>
-                            <span style="font-weight: 700; color: var(--inc-black);">+€8.00</span>
+                            <span style="font-weight: 700; color: var(--vireon-black);">+€8.00</span>
                         </div>
                         
                         <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
@@ -393,12 +393,12 @@
                                 <i class="fa-solid fa-network-wired" style="color: #16a34a; background: #dcfce7; padding: 6px; border-radius: 8px; font-size: 0.7rem;"></i>
                                 <span style="font-size: 0.85rem; font-weight: 600;">Global Connect</span>
                             </div>
-                            <span style="font-weight: 700; color: var(--inc-black);">+€25.00</span>
+                            <span style="font-weight: 700; color: var(--vireon-black);">+€25.00</span>
                         </div>
                     </div>
                     
                     <div class="floating-card fc-withdraw">
-                        <i class="fa-solid fa-circle-check" style="color: var(--inc-magenta); font-size: 1.2rem;"></i>
+                        <i class="fa-solid fa-circle-check" style="color: var(--vireon-cyan); font-size: 1.2rem;"></i>
                         <div>
                             <span style="display: block; font-weight: 700; font-size: 0.9rem;">Withdraw Success</span>
                             <span style="font-size: 0.75rem; opacity: 0.8;">Euros sent to bank.</span>
@@ -415,12 +415,12 @@
                         <div class="mock-window-accent"><i class="fa-solid fa-wallet"></i></div>
                         <h4 style="margin-bottom: 25px; font-size: 1.4rem;">Live Payout Terminal</h4>
                         
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; padding: 15px; background: var(--light-bg); border-radius: 12px; border-left: 4px solid var(--inc-magenta);">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; padding: 15px; background: var(--light-bg); border-radius: 12px; border-left: 4px solid var(--vireon-cyan);">
                             <div>
-                                <p style="font-weight: 800; font-size: 1.1rem; color: var(--inc-black);">Withdraw Funds</p>
+                                <p style="font-weight: 800; font-size: 1.1rem; color: var(--vireon-black);">Withdraw Funds</p>
                                 <p style="font-size: 0.85rem; color: var(--text-muted);">Automated System (24/7)</p>
                             </div>
-                            <div style="background: var(--inc-black); color: var(--inc-white); padding: 8px 15px; border-radius: 8px; font-weight: 700; font-size: 0.85rem;">
+                            <div style="background: var(--vireon-black); color: var(--vireon-white); padding: 8px 15px; border-radius: 8px; font-weight: 700; font-size: 0.85rem;">
                                 Process Now
                             </div>
                         </div>
@@ -454,18 +454,18 @@
                             <div class="f-icon"><i class="fa-solid fa-star"></i></div>
                             <div>
                                 <h4>Engage & Earn</h4>
-                                <p>Turn your digital footprint into an asset. You earn real Euros by simply reviewing products, connecting globally, and sharing your talents through the Incossify network.</p>
+                                <p>Turn your digital footprint into an asset. You earn real Euros by simply reviewing products, connecting globally, and sharing your talents through the Vireon network.</p>
                             </div>
                         </div>
                         <div class="f-item">
-                            <div class="f-icon" style="background: var(--inc-black); color: var(--inc-magenta);"><i class="fa-solid fa-bell"></i></div>
+                            <div class="f-icon" style="background: var(--vireon-black); color: var(--vireon-cyan);"><i class="fa-solid fa-bell"></i></div>
                             <div>
                                 <h4>Live Interaction Logs</h4>
                                 <p>Stay informed with instant alert pop-ups the moment you earn. Access detailed performance logs to track your activity history and revenue growth.</p>
                             </div>
                         </div>
                         <div class="f-item" id="withdraw">
-                            <div class="f-icon" style="background: var(--grad-accent); color: var(--inc-white);"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                            <div class="f-icon" style="background: var(--grad-accent); color: var(--vireon-white);"><i class="fa-solid fa-money-bill-transfer"></i></div>
                             <div>
                                 <h4>Automated Euro Withdrawals</h4>
                                 <p>No manual admin approvals needed. Our custom-built, automated payout system runs 24/7, ensuring you can withdraw your funds securely and exactly when you need them.</p>
@@ -480,14 +480,14 @@
             <div class="cta-banner">
                 <div class="cta-content">
                     <h2>Ready to start optimizing your income?</h2>
-                    <p>Join Incossify today. Set up your smart profile, start engaging with global opportunities, track your earnings in real-time, and withdraw seamlessly.</p>
-                    <a href="register.html" class="btn btn-primary" style="background: var(--inc-white); color: var(--inc-purple-main);">Create Your Account <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></a>
+                    <p>Join Vireon today. Set up your smart profile, start engaging with global opportunities, track your earnings in real-time, and withdraw seamlessly.</p>
+                    <a href="register.html" class="btn btn-primary" style="background: var(--vireon-white); color: var(--vireon-deep-blue);">Create Your Account <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></a>
                 </div>
                 
                 <div class="cta-visual">
-                    <div class="phone-mockup" style="border-width: 8px; width: 240px; height: 400px; background: var(--inc-purple-main);">
-                        <div class="phone-inner-top" style="height: 40%; background: var(--inc-black);">
-                             <h3 style="color: var(--inc-magenta); font-size: 1.8rem; margin-top: 20px;">+€85.00</h3>
+                    <div class="phone-mockup" style="border-width: 8px; width: 240px; height: 400px; background: var(--vireon-deep-blue);">
+                        <div class="phone-inner-top" style="height: 40%; background: var(--vireon-black);">
+                             <h3 style="color: var(--vireon-cyan); font-size: 1.8rem; margin-top: 20px;">+€85.00</h3>
                              <p style="font-size: 0.8rem; color: white;">Total Earned Today</p>
                         </div>
                         <div class="phone-inner-card" style="margin-top: -20px; padding: 15px;">
@@ -500,18 +500,18 @@
 
     </main>
 
-    <footer style="background: var(--inc-white); padding: 50px 0 20px; border-top: 1px solid #f3e8ff; margin-top: 40px;">
+    <footer style="background: var(--vireon-white); padding: 50px 0 20px; border-top: 1px solid #e2e8f0; margin-top: 40px;">
         <div class="container">
             <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; margin-bottom: 40px;">
                 <div style="max-width: 320px;">
                     <a href="#" class="logo">
-                        <img src="logo-.png" alt="Incossify Logo" style="height: 35px; width: auto;" onerror="this.style.display='none'; document.getElementById('txtLogoFoot').style.display='block';">
-                        <span id="txtLogoFoot" style="display:none; font-weight: 900; font-size: 1.3rem; color: var(--inc-purple-main); margin-left: 10px;">Incossify</span>
+                        <img src="logo-.png" alt="Vireon Logo" style="height: 35px; width: auto;" onerror="this.style.display='none'; document.getElementById('txtLogoFoot').style.display='block';">
+                        <span id="txtLogoFoot" style="display:none; font-weight: 900; font-size: 1.3rem; color: var(--vireon-deep-blue); margin-left: 10px;">Vireon</span>
                     </a>
                     <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 15px;">Monetize your digital presence. Earn seamlessly through reviews, connections, and talent sharing, and withdraw your funds instantly.</p>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 15px; color: var(--inc-black);">Platform</h4>
+                    <h4 style="margin-bottom: 15px; color: var(--vireon-black);">Platform</h4>
                     <ul style="color: var(--text-muted); font-size: 0.95rem; display: flex; flex-direction: column; gap: 12px;">
                         <li><a href="#earn">How to Earn</a></li>
                         <li><a href="#features">Ecosystem Features</a></li>
@@ -519,20 +519,20 @@
                     </ul>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 15px; color: var(--inc-black);">Get Started</h4>
+                    <h4 style="margin-bottom: 15px; color: var(--vireon-black);">Get Started</h4>
                     <div style="display: flex; gap: 10px;">
-                        <input type="email" placeholder="Enter your email..." style="padding: 12px 15px; border-radius: 12px; border: 1px solid #d8b4fe; outline: none; flex: 1;">
+                        <input type="email" placeholder="Enter your email..." style="padding: 12px 15px; border-radius: 12px; border: 1px solid #cbd5e1; outline: none; flex: 1;">
                         <button class="btn btn-dark" style="padding: 12px 24px; border-radius: 12px;">Join</button>
                     </div>
                 </div>
             </div>
             
-            <div style="border-top: 1px solid #f3e8ff; padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Incossify. All rights reserved.</p>
+            <div style="border-top: 1px solid #e2e8f0; padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Vireon. All rights reserved.</p>
                 
                 <p style="color: var(--text-muted); font-size: 0.9rem;">
                     Developed by 
-                    <a href="https://raphxsoln.vercel.app" target="_blank" style="color: var(--inc-purple-main); font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
+                    <a href="https://raphxsoln.vercel.app" target="_blank" style="color: var(--vireon-deep-blue); font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
                         RaphXSoln <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i>
                     </a>
                 </p>
