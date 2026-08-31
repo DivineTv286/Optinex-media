@@ -424,27 +424,27 @@
         .q-orange { background: rgba(234, 88, 12, 0.15); color: #fb923c; }
 
         .btn-activate {
-    width: 100%; 
-    background: linear-gradient(135deg, #1e3c72 0%, #2a52be 100%); 
-    color: var(--vir-white); 
-    border: none;
-    padding: 16px; 
-    border-radius: 50px; 
-    font-size: 1rem; 
-    font-weight: 800;
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 10px;
-    box-shadow: 0 8px 20px rgba(30, 60, 114, 0.3); 
-    cursor: pointer; 
-    margin-bottom: 25px;
-    text-decoration: none; 
-    transition: transform 0.2s;
-}
-.btn-activate:hover { 
-    transform: translateY(-2px); 
-}
+            width: 100%; 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a52be 100%); 
+            color: var(--vir-white); 
+            border: none;
+            padding: 16px; 
+            border-radius: 50px; 
+            font-size: 1rem; 
+            font-weight: 800;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px;
+            box-shadow: 0 8px 20px rgba(30, 60, 114, 0.3); 
+            cursor: pointer; 
+            margin-bottom: 25px;
+            text-decoration: none; 
+            transition: transform 0.2s;
+        }
+        .btn-activate:hover { 
+            transform: translateY(-2px); 
+        }
         .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
         .feature-card {
             background: var(--card-bg); padding: 16px; border-radius: var(--radius-md);
@@ -647,8 +647,8 @@
 
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <div class="currency-switch-box">
-                            <button class="currency-btn active" id="btnNgn">NGN</button>
-                            <button class="currency-btn" id="btnEur">EUR</button>
+                            <button class="currency-btn active" id="btnEur">EUR</button>
+                            <button class="currency-btn" id="btnNgn">NGN</button>
                         </div>
 
                         <div class="eye-toggle-badge" id="toggleBalanceBtn" title="Toggle Balance">
@@ -660,7 +660,7 @@
                 <div class="card-middle-row">
                     <i class="fa-solid fa-chevron-left" style="font-size: 0.8rem; opacity: 0.6;"></i>
                     <div class="card-chip-img"></div>
-                    <div class="balance-display-main" id="balanceText">₦14,500.00</div>
+                    <div class="balance-display-main" id="balanceText">€7.50</div>
                     <i class="fa-solid fa-wifi contactless-icon"></i>
                 </div>
 
@@ -839,7 +839,7 @@
                 <div class="form-group">
                     <label>Amount</label>
                     <div class="amount-display-box" id="modalWithdrawAmount">
-                        ₦14,500.00
+                        €7.50
                     </div>
                 </div>
 
@@ -871,7 +871,7 @@
                 <i class="fa-solid fa-lock"></i>
             </div>
             <h3>Account Setup Required</h3>
-            <p>Activate your Vireon account with a <strong id="modalFeeText">₦14,500</strong> setup fee to unlock instant withdrawals and premium wealth engine features.</p>
+            <p>Activate your Vireon account with a <strong id="modalFeeText">€7.50</strong> setup fee to unlock instant withdrawals and premium wealth engine features.</p>
             <a href="payment.html" class="popup-btn">
                 Activate Account <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -882,12 +882,12 @@
         document.addEventListener('DOMContentLoaded', () => {
             const PAYSTACK_SECRET_KEY = "sk_test_8df35f0fdf38905d4cec8e22a0eff23e87fbd491";
             const EUR_EXCHANGE_RATE = 1750;
-            let currentCurrency = localStorage.getItem('vireon_currency') || 'NGN';
-            let numericBalanceValue = 14500; // Premier plan default welcome bonus
+            let currentCurrency = localStorage.getItem('vireon_currency') || 'EUR';
+            let numericBalanceValue = 7.50; // Updated default base value to EUR 7.50
 
             const savedData = localStorage.getItem('vireon_user');
             let planName = "Premier Plan";
-            let shortFee = "₦14,500";
+            let shortFee = "€7.50";
 
             if (savedData) {
                 const user = JSON.parse(savedData);
@@ -914,12 +914,12 @@
             });
 
             const activities = [
-                { name: "David", action: "earned", amount: "₦25,000", source: "from Reviews" },
-                { name: "Tom", action: "earned", amount: "₦15,500", source: "from Talent Share" },
-                { name: "Sarah", action: "withdrew", amount: "₦150,000", source: "to Local Bank" },
-                { name: "Emeka", action: "earned", amount: "₦14,500", source: "from Welcome Bonus" },
-                { name: "Grace", action: "earned", amount: "₦45,000", source: "from Connections" },
-                { name: "Michael", action: "withdrew", amount: "₦80,000", source: "to Local Bank" }
+                { name: "David", action: "earned", amount: "€14.28", source: "from Reviews" },
+                { name: "Tom", action: "earned", amount: "€8.85", source: "from Talent Share" },
+                { name: "Sarah", action: "withdrew", amount: "€85.71", source: "to Local Bank" },
+                { name: "Emeka", action: "earned", amount: "€7.50", source: "from Welcome Bonus" },
+                { name: "Grace", action: "earned", amount: "€25.71", source: "from Connections" },
+                { name: "Michael", action: "withdrew", amount: "€45.71", source: "to Local Bank" }
             ];
 
             const tickerContainer = document.getElementById('activityTicker');
@@ -954,16 +954,16 @@
 
             function formatCurrency(value, currency) {
                 if (currency === 'EUR') {
-                    const eurVal = value / EUR_EXCHANGE_RATE;
-                    return `€${eurVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                    return `€${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
                 } else {
-                    return `₦${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                    const ngnVal = value * EUR_EXCHANGE_RATE;
+                    return `₦${ngnVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
                 }
             }
 
             function updateBalanceDisplay() {
                 const formatted = formatCurrency(numericBalanceValue, currentCurrency);
-                document.getElementById('modalWithdrawAmount').innerText = formatCurrency(numericBalanceValue, 'NGN');
+                document.getElementById('modalWithdrawAmount').innerText = formatCurrency(numericBalanceValue, currentCurrency);
 
                 if (isHidden) {
                     balanceText.innerText = '••••••••';
