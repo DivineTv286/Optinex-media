@@ -240,15 +240,6 @@
         }
         .form-utils a:hover { color: var(--inc-magenta); text-decoration: underline; }
 
-        /* --- ALERTS --- */
-        .error-msg { 
-            color: #b91c1c; font-size: 0.9rem; margin-bottom: 25px; 
-            background: #fef2f2; padding: 15px; 
-            border-radius: 16px;
-            border-left: 4px solid #ef4444; text-align: left; 
-            display: flex; align-items: flex-start; gap: 12px; font-weight: 600;
-        }
-
         /* --- SUCCESS POPUP --- */
         .popup-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -347,7 +338,7 @@
             
             <div class="auth-branding">
                 <h1>Access the<br><span>Wealth Engine</span></h1>
-                <p>Welcome back. Log in to track your Euro earnings, complete tasks, and withdraw your funds effortlessly.</p>
+                <p>Welcome back. Log in to track your earnings, complete tasks, and withdraw your funds effortlessly.</p>
                 
                 <div class="branding-perk">
                     <div class="perk-icon"><i class="fa-solid fa-chart-line"></i></div>
@@ -362,13 +353,13 @@
                 
                 <h2 class="auth-title">Sign In to Incossify</h2>
 
-                <form action="" method="POST" id="loginForm">
+                <form id="loginForm">
                     
                     <div class="form-group">
                         <label>Email Address</label>
                         <div class="input-wrapper">
                             <i class="fa-regular fa-envelope icon-left"></i>
-                            <input type="email" name="email" placeholder="hello@example.com" value="" required>
+                            <input type="email" name="email" placeholder="hello@example.com" required>
                         </div>
                     </div>
 
@@ -475,6 +466,16 @@
     document.getElementById('loginForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
+        const email = document.querySelector('input[name="email"]').value;
+
+        // Save session state to localStorage matching the registration style
+        const userData = {
+            email: email,
+            isLoggedIn: true,
+            loginAt: new Date().toLocaleDateString()
+        };
+        localStorage.setItem('incossify_user', JSON.stringify(userData));
+
         const submitBtn = document.getElementById('submitBtn');
         const btnText = document.getElementById('btnText');
         const btnIcon = document.getElementById('btnIcon');
@@ -505,15 +506,6 @@
             }, 1000);
 
         }, 1000);
-    });
-
-    const header = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
     });
 
     const hamburger = document.getElementById('hamburger');
