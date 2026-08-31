@@ -98,16 +98,22 @@
         .timer-bar {
             background: #e6f4ed;
             color: var(--vir-emerald);
-            padding: 10px 16px;
+            padding: 12px 16px;
             border-radius: 16px;
-            font-size: 0.85rem;
-            font-weight: 800;
+            font-size: 0.9rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             margin-bottom: 16px;
             border: 1px solid #c6ebd9;
+        }
+
+        .timer-bar span {
+            font-weight: 900;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
         }
 
         /* --- GRADIENT AMOUNT CARD --- */
@@ -424,10 +430,10 @@
             <span class="plan-value" id="planDisplay">Premier Plan</span>
         </div>
 
-        <!-- Working Real-Time Timer -->
+        <!-- Working Real-Time Timer (Set to 9 Mins) -->
         <div class="timer-bar">
             <i class="fa-solid fa-stopwatch"></i>
-            <span>Reserved for: <strong id="timerText">29:49</strong></span>
+            <span>Reserved for: <strong id="timerText">09:00</strong></span>
         </div>
 
         <!-- Amount Box -->
@@ -539,12 +545,12 @@
                 }, 2000);
             });
 
-            // --- 3. WORKING REAL-TIME COUNTDOWN TIMER ---
+            // --- 3. WORKING REAL-TIME COUNTDOWN TIMER (9 Minutes Default) ---
             const timerDisplay = document.getElementById('timerText');
             let totalSeconds = localStorage.getItem('vireon_timer_seconds');
 
             if (!totalSeconds || isNaN(totalSeconds) || totalSeconds <= 0) {
-                totalSeconds = 29 * 60 + 49;
+                totalSeconds = 9 * 60; // 9 minutes initialization
             }
 
             function updateTimerUI() {
