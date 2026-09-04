@@ -1,31 +1,47 @@
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method not allowed' });
+        return res.status(405).json({ status: false, message: 'Method not allowed' });
     }
 
-    const { accountNumber, bankCode } = req.body;
-
-    if (!accountNumber || !bankCode) {
-        return res.status(400).json({ error: 'Account number and bank code are required' });
-    }
+    const { action, account_number, bank_code } = req.body;
 
     try {
-        const response = await fetch(`https://api.paystack.co/bank/resolve?account_number=${accountNumber}&bank_code=${bankCode}`, {
-            method: 'GET',
-            headers: {
-                "Authorization": `Bearer ${process.env.PAYSTACK_SECRET_KEY}`
-            }
-        });
-
-        const data = await response.json();
-        
-        if (!response.ok) {
-            return res.status(response.status).json({ error: data.message || 'Failed to resolve account' });
+        // Handle fetching the bank list
+        if (action === 'get_banks') {
+            const response = await fetch('https://api.paystack.co/bank', {
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${process.env.PAYSTACK_SECRET_KEY}`
+                }
+            });
+            const data = await response.json();
+            return res.status(200).json(data);
         }
 
-        return res.status(200).json(data);
+        // Handle account resolution
+        if (action === 'resolve_account') {
+            if (!account_number || !bank_code) {
+                return res.status(400).json({ status: false, message: 'Account number and bank code are required' });
+            }
+
+            const response = await fetch(`https://api.paystack.co/bank/resolve?account_number=${account_number}&bank_code=${bank_code}`, {
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${process.env.PAYSTACK_SECRET_KEY}`
+                }
+            });
+
+            const data = await response.json();
+            
+            if (!response.ok) {
+                return res.status(200).json({ status: false, message: data.message || 'Could not resolve account details' });
+            }
+
+            return res.status(200).json(data);
+        }
+
+        return res.status(400).json({ status: false, message: 'Invalid action specified' });
     } catch (error) {
-        return res.status(500).json({ error: 'Internal server error during account verification' });
+        return res.status(500).json({ status: false, message: 'Internal server error during processing' });
     }
 }
-
