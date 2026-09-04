@@ -2,572 +2,1141 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vireon | Optimize Your Wealth</title>
-    <meta name="description" content="Vireon: Transform your daily digital interactions into measurable euro earnings.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vireon Dashboard</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- CSS VARIABLES & THEMING (VIREON) --- */
+        /* --- VIREON DARK THEME PALETTE & VARIABLES --- */
         :root {
-            /* Vireon Brand Palette derived from logo image */
-            --vireon-dark-navy: #081124;
-            --vireon-deep-blue: #0f1c3f;
-            --vireon-blue-main: #1d4ed8;
-            --vireon-cyan: #00f0ff;
-            --vireon-glow: #70d7ff;
-            --vireon-black: #050b14; 
-            --vireon-white: #ffffff;
+            --vir-green-dark: #022b1c;
+            --vir-green-main: #064e3b;
+            --vir-emerald: #059669;
+            --vir-gold: #d97706;
+            --vir-gold-glow: #fcd34d;
+            --vir-black: #02120b; 
+            --vir-white: #ffffff;
             
-            --light-bg: #f4f8fb;
-            --text-dark: #0a1325;
-            --text-muted: #485c7a;
-            --text-light: #94a3b8;
+            --bg-color: #070b12;
+            --card-bg: #0d1522;
+            --text-dark: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-light: #64748b;
+            --border-color: rgba(255, 255, 255, 0.08);
             
-            --grad-primary: linear-gradient(135deg, #0f1c3f, #00f0ff);
-            --grad-accent: linear-gradient(135deg, #1d4ed8, #00f0ff);
-            --grad-glow: linear-gradient(135deg, #00f0ff, #70d7ff);
+            --grad-primary: linear-gradient(135deg, #047857 0%, #10b981 100%);
+            --grad-card: linear-gradient(135deg, #021a24 0%, #033446 45%, #05728a 200%);
             
-            --radius-sm: 12px;
             --radius-md: 20px;
-            --radius-lg: 30px;
-            --radius-pill: 999px;
-            
-            --shadow-soft: 0 15px 35px rgba(0, 240, 255, 0.08);
-            --shadow-float: 0 25px 50px rgba(8, 17, 36, 0.25);
-            
+            --radius-lg: 28px;
             --font-main: 'Outfit', sans-serif;
-            --header-height: 90px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
-        html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); -webkit-tap-highlight-color: transparent; }
         
         body {
-            background-color: var(--light-bg);
+            background-color: var(--bg-color);
             color: var(--text-dark);
-            font-family: var(--font-main);
-            line-height: 1.6;
+            padding-bottom: 90px;
+            min-height: 100vh;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
         }
 
-        h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; color: var(--text-dark); }
-        a { text-decoration: none; color: inherit; transition: 0.3s ease; }
-        ul { list-style: none; }
+        .container { max-width: 480px; margin: 0 auto; padding: 20px 18px; }
 
-        .container { max-width: 1250px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
-        
-        /* --- BUTTONS --- */
-        .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 14px 32px; border-radius: var(--radius-pill);
-            font-family: var(--font-main); font-weight: 700; font-size: 0.95rem; 
-            cursor: pointer; transition: all 0.3s ease; border: none;
-        }
-        .btn-primary { 
-            background: var(--grad-primary); color: var(--vireon-white); 
-            box-shadow: 0 8px 20px rgba(0, 240, 255, 0.2);
-        }
-        .btn-primary:hover { 
-            transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 240, 255, 0.35);
-        }
-        .btn-dark {
-            background: var(--vireon-black); color: var(--vireon-white);
-        }
-        .btn-dark:hover {
-            background: var(--vireon-deep-blue); transform: translateY(-3px);
+        /* --- TOP HEADER & LIVE ACTIVITY POPUP BAR --- */
+        .top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 10px; }
+        .icon-btn {
+            width: 42px; height: 42px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); cursor: pointer; color: var(--text-dark);
         }
 
-        /* --- HEADER & NAVIGATION --- */
-        header {
-            position: fixed; top: 0; left: 0; width: 100%; height: var(--header-height);
-            z-index: 1005; transition: all 0.3s ease; display: flex; align-items: center;
+        .live-activity-bar {
+            flex: 1; background: var(--card-bg); border-radius: 50px;
+            padding: 6px 14px 6px 8px; display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); height: 44px; overflow: hidden;
+            border: 1px solid var(--border-color);
         }
-        header.scrolled {
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(15, 28, 63, 0.05);
+        .activity-badge {
+            width: 30px; height: 30px; border-radius: 50%; background: rgba(5, 150, 105, 0.2); color: #34d399;
+            display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;
         }
-        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        
-        .logo { display: flex; align-items: center; text-decoration: none; }
-        .logo img { height: 40px; width: auto; object-fit: contain; }
-        .logo-text { font-weight: 900; font-size: 1.5rem; color: var(--vireon-deep-blue); margin-left: 10px; letter-spacing: -0.5px; }
-        
-        .nav-links { display: flex; gap: 35px; align-items: center; }
-        .nav-links a.nav-item { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); }
-        .nav-links a.nav-item:hover { color: var(--vireon-cyan); }
+        .activity-ticker { flex: 1; overflow: hidden; position: relative; height: 32px; display: flex; align-items: center; }
+        .activity-item {
+            position: absolute; width: 100%; transition: all 0.5s ease-in-out;
+            opacity: 0; transform: translateY(15px); pointer-events: none;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .activity-item.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .activity-item.exit { opacity: 0; transform: translateY(-15px); }
+        .activity-text-main { font-size: 0.74rem; font-weight: 800; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+        .activity-text-main span { color: #34d399; }
+        .activity-text-sub { font-size: 0.65rem; color: var(--text-muted); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; }
 
-        .hamburger { display: none; cursor: pointer; width: 30px; height: 20px; position: relative; z-index: 1006; }
-        .hamburger span {
-            display: block; position: absolute; height: 2px; width: 100%;
-            background: var(--vireon-black); border-radius: 4px; transition: .3s ease-in-out; left: 0;
+        /* --- SIDEBAR DRAWER MENU --- */
+        .drawer-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(4px);
+            z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
         }
-        .hamburger span:nth-child(1) { top: 0px; }
-        .hamburger span:nth-child(2) { top: 9px; width: 70%; right: 0; left: auto; }
-        .hamburger span:nth-child(3) { top: 18px; }
-        .hamburger.active span:nth-child(1) { top: 9px; transform: rotate(45deg); }
-        .hamburger.active span:nth-child(2) { opacity: 0; width: 0; }
-        .hamburger.active span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
+        .drawer-overlay.open { opacity: 1; pointer-events: all; }
 
-        .mobile-nav-bg {
-            position: fixed; top: -100%; left: 0; width: 100%; background: var(--vireon-white);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1); z-index: 1004;
-            padding: calc(var(--header-height) + 20px) 30px 40px;
-            border-bottom-left-radius: var(--radius-lg); border-bottom-right-radius: var(--radius-lg);
-            transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; gap: 20px;
+        .drawer-content {
+            position: fixed; top: 0; left: -80%; width: 78%; max-width: 320px; height: 100%;
+            background: #0b1320; z-index: 2001; transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 24px 18px 24px; display: flex; flex-direction: column;
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5); border-right: 1px solid var(--border-color);
         }
-        .mobile-nav-bg.active { top: 0; }
-        .mobile-link { font-size: 1.1rem; color: var(--vireon-black); font-weight: 600; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;}
+        .drawer-overlay.open .drawer-content { left: 0; }
 
-        /* --- HERO SECTION --- */
-        .hero { 
-            padding-top: calc(var(--header-height) + 40px); 
-            padding-bottom: 80px; position: relative;
+        .drawer-close-btn {
+            width: 36px; height: 36px; background: rgba(255, 255, 255, 0.05); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: var(--text-muted);
+            cursor: pointer; margin-bottom: 20px; font-size: 0.9rem; border: 1px solid var(--border-color);
+        }
+
+        .drawer-profile {
+            display: flex; align-items: center; gap: 14px; margin-bottom: 30px; padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .drawer-avatar {
+            width: 48px; height: 48px; border-radius: 50%; background: var(--grad-primary);
+            color: var(--vir-white); display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; font-weight: 800; flex-shrink: 0;
+        }
+        .drawer-user-info h4 { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 2px; }
+        .drawer-user-info p { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; word-break: break-all; }
+
+        .drawer-nav-list { display: flex; flex-direction: column; gap: 8px; flex: 1; overflow-y: auto; }
+        .drawer-nav-item {
+            display: flex; align-items: center; gap: 16px; padding: 14px 18px; border-radius: 16px;
+            color: var(--text-muted); font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: all 0.2s;
+        }
+        .drawer-nav-item i { font-size: 1.1rem; width: 22px; text-align: center; color: var(--text-muted); }
+        .drawer-nav-item.active { background: var(--grad-primary); color: var(--vir-white); }
+        .drawer-nav-item.active i { color: var(--vir-white); }
+
+        .drawer-logout-btn {
+            margin-top: auto; border: 1.5px solid var(--border-color); border-radius: 18px;
+            padding: 14px; display: flex; align-items: center; justify-content: center; gap: 10px;
+            color: var(--text-dark); font-weight: 800; font-size: 0.95rem; cursor: pointer; text-decoration: none;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        /* --- STYLED CUSTOM BALANCE CARD --- */
+        .card-container-wrapper {
+            position: relative;
+            margin-bottom: 25px;
+            perspective: 1000px;
+        }
+
+        .card-stack-bg {
+            position: absolute;
+            top: 6px;
+            right: -8px;
+            width: 90%;
+            height: 94%;
+            background: linear-gradient(135deg, #059669 0%, #d97706 100%);
+            border-radius: var(--radius-lg);
+            z-index: 1;
+            opacity: 0.2;
+            transform: rotate(3deg);
+        }
+
+        .optinex-card {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            background: var(--grad-card);
+            border-radius: var(--radius-lg);
+            padding: 22px 20px;
+            color: var(--vir-white);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             overflow: hidden;
-        }
-        /* Abstract Background Shapes matching Vireon Theme */
-        .bg-shape-1 {
-            position: absolute; top: -10%; right: -5%; width: 55%; height: 110%;
-            background: #e0f2fe; border-radius: 100px;
-            transform: rotate(-15deg); z-index: 0; opacity: 0.8;
-        }
-        .bg-shape-2 {
-            position: absolute; top: 20%; right: -10%; width: 60%; height: 80%;
-            background: var(--grad-primary); 
-            border-radius: 100px; transform: rotate(-10deg); z-index: 0;
-            opacity: 0.08;
+            border: 1px solid rgba(79, 209, 197, 0.2);
         }
 
-        .hero-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; }
+        .optinex-card::before {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -30%;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(5, 150, 105, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .optinex-card::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(217, 119, 6, 0.25) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .badge-pill {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            backdrop-filter: blur(8px);
+        }
+
+        .badge-pill i.fa-award {
+            color: var(--vir-gold-glow);
+        }
+
+        .currency-switch-box {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            backdrop-filter: blur(8px);
+        }
+
+        .currency-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .currency-btn.active {
+            background: var(--vir-emerald);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.4);
+        }
+
+        .card-middle-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .card-chip-img {
+            width: 44px;
+            height: 32px;
+            background: linear-gradient(135deg, #fcd34d 0%, #d97706 100%);
+            border-radius: 6px;
+            position: relative;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            border: 1px solid #fbbf24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-chip-img::after {
+            content: '';
+            width: 70%;
+            height: 60%;
+            border: 1px solid rgba(0, 0, 0, 0.25);
+            border-radius: 3px;
+        }
+
+        .balance-display-main {
+            font-size: 1.85rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: var(--vir-white);
+            flex: 1;
+            white-space: nowrap;
+        }
+
+        .contactless-icon {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-left: auto;
+        }
+
+        .card-footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
+            z-index: 3;
+        }
+
+        .card-left-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sub-tag-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.9;
+        }
+
+        .btn-card-withdraw {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: #fff;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            backdrop-filter: blur(6px);
+            transition: 0.2s;
+            width: fit-content;
+        }
+
+        .btn-card-withdraw:active {
+            transform: scale(0.96);
+        }
+
+        .card-right-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .card-type-text {
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            opacity: 0.75;
+        }
+
+        .mastercard-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .mc-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+
+        .mc-red {
+            background: #eb001b;
+        }
+
+        .mc-yellow {
+            background: #f79e1b;
+            margin-left: -10px;
+            opacity: 0.9;
+        }
+
+        .eye-toggle-badge {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: #fff;
+            transition: 0.2s;
+        }
+
+        /* --- HORIZONTAL SCROLLING MODULES (ENGINE & ECOSYSTEM) --- */
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .section-title { font-size: 1rem; font-weight: 800; color: var(--text-dark); }
+        .section-link { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-decoration: none; }
+
+        .horizontal-scroll-container {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 22px;
+            scrollbar-width: none;
+        }
+        .horizontal-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .quick-item { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 8px; 
+            cursor: pointer; 
+            flex-shrink: 0;
+            width: 78px;
+        }
+        .quick-icon {
+            width: 56px; height: 56px; border-radius: 18px; display: flex;
+            align-items: center; justify-content: center; font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+        }
+        .quick-item span { font-size: 0.7rem; font-weight: 700; color: var(--text-dark); text-align: center; line-height: 1.2; white-space: nowrap; }
+
+        .q-emerald { background: rgba(5, 150, 105, 0.15); color: #34d399; }
+        .q-gold { background: rgba(217, 119, 6, 0.15); color: #fbbf24; }
+        .q-cyan { background: rgba(2, 132, 199, 0.15); color: #38bdf8; }
+        .q-teal { background: rgba(15, 118, 110, 0.15); color: #2dd4bf; }
+        .q-purple { background: rgba(124, 58, 237, 0.15); color: #a78bfa; }
+        .q-pink { background: rgba(219, 39, 119, 0.15); color: #f472b6; }
+        .q-blue { background: rgba(37, 99, 235, 0.15); color: #60a5fa; }
+        .q-orange { background: rgba(234, 88, 12, 0.15); color: #fb923c; }
+
+        .btn-activate {
+            width: 100%; 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a52be 100%); 
+            color: var(--vir-white); 
+            border: none;
+            padding: 16px; 
+            border-radius: 50px; 
+            font-size: 1rem; 
+            font-weight: 800;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px;
+            box-shadow: 0 8px 20px rgba(30, 60, 114, 0.3); 
+            cursor: pointer; 
+            margin-bottom: 25px;
+            text-decoration: none; 
+            transition: transform 0.2s;
+        }
+        .btn-activate:hover { 
+            transform: translateY(-2px); 
+        }
+        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .feature-card {
+            background: var(--card-bg); padding: 16px; border-radius: var(--radius-md);
+            display: flex; align-items: center; gap: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); cursor: pointer; border: 1px solid var(--border-color);
+        }
+        .feature-icon {
+            width: 42px; height: 42px; border-radius: 12px; display: flex;
+            align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+            border: 1px solid var(--border-color);
+        }
+        .feature-info h4 { font-size: 0.88rem; font-weight: 800; color: var(--text-dark); margin-bottom: 2px; }
+        .feature-info p { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
+
+        /* --- BOTTOM NAVBAR --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: #0b1320;
+            display: flex; align-items: center; padding: 10px 0 14px;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3); z-index: 100; border-top: 1px solid var(--border-color);
+            justify-content: space-around;
+        }
+        .nav-tab { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 0.7rem; font-weight: 600; cursor: pointer; }
+        .nav-tab i { font-size: 1.1rem; }
+        .nav-tab.active { color: #34d399; font-weight: 800; }
         
-        .hero-content { z-index: 2; max-width: 550px; }
-        .hero-content h1 { font-size: 4rem; letter-spacing: -1.5px; margin-bottom: 20px; color: var(--vireon-black); font-weight: 900;}
-        .hero-content h1 span { background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-content p.sub-text { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 35px; line-height: 1.6; }
+        .center-fab {
+            width: 50px; height: 50px; background: var(--grad-primary); border-radius: 16px;
+            display: flex; align-items: center; justify-content: center; color: var(--vir-white);
+            font-size: 1.2rem; margin-top: -25px; box-shadow: 0 8px 18px rgba(5, 150, 105, 0.4); cursor: pointer;
+        }
+
+        /* --- MODALS & OVERLAYS --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(6px);
+            z-index: 2999; display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: all 0.3s ease; padding: 20px;
+        }
+        .modal-overlay.show { opacity: 1; pointer-events: all; }
+
+        .withdraw-card {
+            background: #0b1320; width: 100%; max-width: 380px;
+            border-radius: 32px; padding: 28px 22px; position: relative;
+            transform: scale(0.9); transition: transform 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid var(--border-color);
+        }
+        .modal-overlay.show .withdraw-card { transform: scale(1); }
+
+        .withdraw-close-btn {
+            position: absolute; top: 20px; right: 20px; width: 34px; height: 34px;
+            background: rgba(255, 255, 255, 0.05); border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; border: 1px solid var(--border-color);
+        }
+
+        .withdraw-header { text-align: center; margin-bottom: 20px; }
+        .withdraw-icon-badge {
+            width: 60px; height: 60px; background: rgba(5, 150, 105, 0.2); color: #34d399;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; margin: 0 auto 12px; border: 1px solid var(--border-color);
+        }
+        .withdraw-header h3 { font-size: 1.35rem; font-weight: 800; color: var(--text-dark); margin-bottom: 4px; }
+        .withdraw-header p { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; line-height: 1.3; }
+
+        .form-group { margin-bottom: 14px; position: relative; }
+        .form-group label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
         
-        /* Hero Visuals (CSS Mockups) */
-        .hero-visual { position: relative; height: 600px; z-index: 2; display: flex; justify-content: center; align-items: center; }
+        .form-input-box {
+            width: 100%; background: #070b12; border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 14px 16px; font-size: 0.88rem;
+            color: var(--text-dark); font-weight: 600; outline: none; transition: 0.2s;
+        }
+        .form-input-box:focus { border-color: var(--vir-emerald); background: #0b1320; }
         
-        /* Pure CSS Phone Mockup */
-        .phone-mockup {
-            width: 290px; height: 600px; background: var(--vireon-white); border-radius: 40px;
-            border: 10px solid #ffffff; box-shadow: var(--shadow-float); position: relative;
-            z-index: 5; overflow: hidden; display: flex; flex-direction: column;
-        }
-        .phone-mockup::before {
-            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 40%; height: 25px; background: #ffffff; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; z-index: 10;
-        }
-        .phone-inner-top { 
-            background: var(--grad-primary); color: white; padding: 50px 20px 30px; 
-            height: 45%; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; 
-            position: relative; text-align: center;
-        }
-        .phone-inner-card { background: white; margin: -25px 20px 0; border-radius: 15px; padding: 20px; box-shadow: 0 10px 20px rgba(15, 28, 63, 0.08); position: relative; z-index: 6; text-align: center;}
-        
-        .mock-avatar { width: 60px; height: 60px; border-radius: 50%; background: #f0fdf4; margin: 0 auto 10px; border: 3px solid var(--vireon-cyan); display: flex; align-items: center; justify-content: center; color: var(--vireon-deep-blue); font-size: 1.5rem;}
-        .mock-btn { background: var(--grad-glow); color: var(--vireon-black); padding: 12px; border-radius: 20px; font-weight: 800; font-size: 0.9rem; margin-top: 15px; width: 100%; display: flex; justify-content: center; gap: 8px; align-items: center;}
-        
-        /* Floating Element Cards */
-        .floating-card {
-            position: absolute; background: var(--vireon-white); padding: 15px 25px; border-radius: var(--radius-md);
-            box-shadow: var(--shadow-soft); z-index: 6; display: flex; align-items: center; gap: 15px;
-            animation: float 6s ease-in-out infinite; border: 1px solid rgba(0, 240, 255, 0.2);
-        }
-        .fc-alert { top: 15%; left: -10%; animation-delay: 0s; flex-direction: column; align-items: flex-start; gap: 5px; border-left: 4px solid var(--vireon-cyan);}
-        .fc-logs { top: 50%; right: -20%; width: 240px; animation-delay: 1s; flex-direction: column; align-items: flex-start;}
-        .fc-withdraw { bottom: 8%; left: 5%; animation-delay: 2s; background: var(--vireon-black); color: white;}
+        .form-input-box.clickable { cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .form-input-box.clickable span { color: var(--text-light); font-weight: 500; }
+        .form-input-box.clickable.selected span { color: var(--text-dark); font-weight: 700; }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
+        .amount-display-box {
+            background: rgba(5, 150, 105, 0.15); border-radius: 16px; padding: 14px 16px;
+            color: #34d399; font-weight: 800; font-size: 1rem; border: 1px solid var(--border-color);
         }
 
-        /* --- FEATURES SECTION --- */
-        .section-padding { padding: 100px 0; }
-        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        
-        .feature-visual { position: relative; height: 400px; display: flex; justify-content: center; align-items: center;}
-        .mock-window {
-            background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft);
-            padding: 30px; width: 100%; max-width: 420px; position: relative; border: 1px solid rgba(15, 28, 63, 0.08);
-        }
-        .mock-window-accent {
-            position: absolute; width: 60px; height: 60px; background: var(--grad-accent);
-            border-radius: 15px; top: -20px; left: -20px; display: flex; align-items: center; justify-content: center;
-            color: var(--vireon-white); font-size: 1.5rem; transform: rotate(-10deg); box-shadow: 0 10px 20px rgba(0, 240, 255, 0.3);
+        .verify-status { font-size: 0.72rem; margin-top: 4px; font-weight: 600; min-height: 16px; }
+
+        .btn-submit-withdraw {
+            width: 100%; background: var(--grad-primary); color: #fff; border: none;
+            padding: 16px; border-radius: 50px; font-weight: 800; font-size: 0.95rem;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            cursor: pointer; box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3); margin-top: 10px;
         }
 
-        .stats-row { display: flex; gap: 40px; margin-bottom: 40px; border-bottom: 1px solid #e2e8f0; padding-bottom: 30px; }
-        .stat-item h3 { font-size: 2.5rem; color: var(--vireon-black); margin-bottom: 5px; font-weight: 900; }
-        .stat-item p { color: var(--text-muted); font-size: 0.95rem; font-weight: 600; text-transform: uppercase; }
-
-        .feature-list { display: flex; flex-direction: column; gap: 25px; }
-        .f-item { display: flex; gap: 15px; align-items: flex-start;}
-        .f-icon { color: var(--vireon-white); background: var(--grad-primary); padding: 12px; border-radius: 12px; height: max-content; font-size: 1.2rem;}
-        .f-item h4 { font-size: 1.1rem; margin-bottom: 5px; color: var(--vireon-black);}
-        .f-item p { color: var(--text-muted); font-size: 0.95rem; }
-
-        /* --- CTA BANNER SECTION --- */
-        .cta-section { padding: 80px 0; position: relative; }
-        .cta-banner {
-            background: var(--vireon-black); border-radius: 40px; padding: 60px 80px;
-            display: flex; align-items: center; justify-content: space-between;
-            position: relative; overflow: hidden; box-shadow: var(--shadow-float);
+        .bank-selector-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(4px);
+            z-index: 3500; display: flex; justify-content: center; align-items: flex-end;
+            opacity: 0; pointer-events: none; transition: all 0.3s ease;
         }
-        .cta-banner::before {
-            content: ''; position: absolute; top: -50%; right: -10%; width: 50%; height: 200%;
-            background: rgba(0, 240, 255, 0.08); transform: rotate(25deg); border-radius: 100px;
-        }
-        .cta-content { color: var(--vireon-white); max-width: 550px; z-index: 2; margin-right: auto; }
-        .cta-content h2 { color: var(--vireon-white); font-size: 2.8rem; margin-bottom: 20px; font-weight: 900; }
-        .cta-content p { color: rgba(255,255,255,0.7); margin-bottom: 30px; font-size: 1.1rem; }
-        
-        .cta-visual { position: absolute; right: 80px; bottom: -60px; transform: rotate(10deg); z-index: 2; }
+        .bank-selector-overlay.show { opacity: 1; pointer-events: all; }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 1024px) {
-            .hero-content h1 { font-size: 3rem; }
-            .fc-logs { display: none; }
-            .cta-visual { display: none; }
-            .cta-content { margin: 0 auto; text-align: center; }
+        .bank-selector-sheet {
+            background: #0b1320; width: 100%; max-width: 480px; height: 80vh;
+            border-top-left-radius: 30px; border-top-right-radius: 30px;
+            padding: 20px; display: flex; flex-direction: column;
+            transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 1px solid var(--border-color);
+        }
+        .bank-selector-overlay.show .bank-selector-sheet { transform: translateY(0); }
+
+        .sheet-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .sheet-header h4 { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); }
+        .sheet-close { cursor: pointer; font-size: 1.2rem; color: var(--text-muted); }
+
+        .bank-search-input {
+            width: 100%; background: #070b12; border: 1px solid var(--border-color);
+            padding: 12px 16px; border-radius: 16px; outline: none; margin-bottom: 15px; font-weight: 600; color: var(--text-dark);
         }
 
-        @media (max-width: 768px) {
-            .container { padding: 0 20px; }
-            .section-padding { padding: 70px 0; }
-            .hero { padding-top: calc(var(--header-height) + 20px); padding-bottom: 60px; }
+        .bank-list-container { flex: 1; overflow-y: auto; }
+        .bank-item-row {
+            padding: 14px 10px; border-bottom: 1px solid var(--border-color); cursor: pointer;
+            font-size: 0.9rem; font-weight: 600; color: var(--text-dark); transition: 0.2s;
+        }
+        .bank-item-row:hover { background: rgba(255, 255, 255, 0.05); color: #34d399; }
 
-            .hamburger { display: block; }
-            .nav-links { display: none; }
-            
-            .hero-layout, .features-grid { grid-template-columns: 1fr; text-align: center; }
-            .hero-content { margin: 0 auto; padding: 0 10px; }
-            .bg-shape-1, .bg-shape-2 { display: none; } 
-            
-            .hero-visual { height: 500px; margin-top: 20px; }
-            .phone-mockup { transform: scale(0.9); }
-            .fc-alert, .fc-withdraw { transform: scale(0.8); }
-            
-            .hero-content div[style*="display: flex"] { justify-content: center; text-align: left; }
-            
-            .stats-row { flex-direction: column; gap: 20px; }
-            
-            .feature-list {
-                padding: 10px;
-                gap: 20px;
-            }
-            .f-item { 
-                text-align: left; 
-                background: var(--vireon-white);
-                padding: 25px 20px; 
-                border-radius: var(--radius-md);
-                box-shadow: 0 10px 25px rgba(8, 17, 36, 0.05);
-            }
-            
-            .mock-window-accent { left: 50%; transform: translateX(-50%) rotate(0deg); top: -30px; }
-            
-            .cta-banner { padding: 40px 25px; border-radius: 24px; text-align: center; }
-            .cta-content h2 { font-size: 2.2rem; }
+        .popup-box {
+            background: #0b1320; width: 100%; max-width: 360px;
+            border-radius: var(--radius-lg); padding: 30px 24px; text-align: center;
+            position: relative; transform: scale(0.9); transition: transform 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid var(--border-color);
+        }
+        .modal-overlay.show .popup-box { transform: scale(1); }
+        .popup-lock-icon {
+            width: 65px; height: 65px; background: rgba(5, 150, 105, 0.2); color: #34d399;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin: 0 auto 18px; border: 1px solid var(--border-color);
+        }
+        .popup-box h3 { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
+        .popup-box p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 22px; font-weight: 500; }
+        .popup-btn {
+            background: var(--grad-primary); color: var(--vir-white); width: 100%;
+            padding: 14px; border-radius: 50px; font-weight: 700; font-size: 0.95rem;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            border: none; cursor: pointer; text-decoration: none; box-shadow: 0 8px 18px rgba(5, 150, 105, 0.3);
         }
     </style>
 </head>
 <body>
 
-    <header id="navbar">
-        <div class="container nav-wrapper">
-            <a href="index.html" class="logo">
-                <img src="logo-.png" alt="Vireon Logo" onerror="this.style.display='none'; document.getElementById('txtLogo').style.display='block';">
-                <span id="txtLogo" style="display:none; font-size:1.5rem; font-weight:900; color:var(--vireon-deep-blue); letter-spacing:-0.5px;">Vireon</span>
-            </a>
+    <!-- Drawer Navigation Menu Overlay -->
+    <div class="drawer-overlay" id="drawerOverlay">
+        <div class="drawer-content">
+            <div class="drawer-close-btn" id="drawerCloseBtn"><i class="fa-solid fa-xmark"></i></div>
             
-            <nav class="nav-links">
-                <a href="#earn" class="nav-item">How to Earn</a>
-                <a href="#features" class="nav-item">Ecosystem</a>
-                <a href="#withdraw" class="nav-item">Payouts</a>
-                
-                <a href="login.html" class="nav-item" style="margin-left: 15px;">Login</a>
-                <a href="register.html" class="btn btn-primary" style="margin-left: 5px;">Access Gateway</a>
-            </nav>
-            
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="drawer-profile">
+                <div class="drawer-avatar" id="avatarInitial">V</div>
+                <div class="drawer-user-info">
+                    <h4 id="drawerName">Vireon User</h4>
+                    <p id="drawerEmail">user@vireon.com</p>
+                </div>
             </div>
-        </div>
-    </header>
 
-    <div class="mobile-nav-bg" id="mobileNav">
-        <a href="#earn" class="mobile-link">How to Earn</a>
-        <a href="#features" class="mobile-link">Ecosystem</a>
-        <a href="#withdraw" class="mobile-link">Payouts</a>
-        
-        <a href="login.html" class="mobile-link" style="margin-top: 10px; border:none;">Login</a>
-        <a href="register.html" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 5px;">Access Gateway</a>
+            <div class="drawer-nav-list">
+                <a href="#" class="drawer-nav-item active"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="#" class="drawer-nav-item pop-trigger"><i class="fa-solid fa-bolt"></i> Ecosystem</a>
+                <a href="#" class="drawer-nav-item pop-trigger"><i class="fa-solid fa-chart-line"></i> Statistics</a>
+                <a href="#" class="drawer-nav-item pop-trigger"><i class="fa-solid fa-wallet"></i> Wallet</a>
+                <a href="#" class="drawer-nav-item pop-trigger"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="#" class="drawer-nav-item pop-trigger"><i class="fa-circle-question fa-solid"></i> Help Center</a>
+            </div>
+
+            <a href="login.html" class="drawer-logout-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out
+            </a>
+        </div>
     </div>
 
-    <main>
-        <section class="hero" id="earn">
-            <div class="bg-shape-1"></div>
-            <div class="bg-shape-2"></div>
+    <div class="container">
+        <!-- Top Header & Live Activity Bar -->
+        <div class="top-header">
+            <div class="icon-btn" id="openDrawerBtn"><i class="fa-solid fa-bars"></i></div>
             
-            <div class="container hero-layout">
-                <div class="hero-content">
-                    <h1>Optimize Your<br><span>Wealth Engine</span></h1>
-                    <p class="sub-text">
-                        Transform your daily digital interactions into measurable Euro earnings. With Vireon, you build wealth effortlessly every time you engage, review, or share your talent.
-                    </p>
-                    <a href="register.html" class="btn btn-primary">Start Generating Income <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></a>
-                    
-                    <div style="display: flex; align-items: center; gap: 20px; margin-top: 50px;">
-                        <div style="background: var(--vireon-black); padding: 15px; border-radius: 15px; width: max-content;">
-                            <i class="fa-solid fa-coins" style="color: var(--vireon-cyan); font-size: 1.5rem;"></i>
-                        </div>
-                        <div>
-                            <h4 style="font-size: 1.05rem; margin-bottom: 2px;">24/7 Euro Payouts</h4>
-                            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.3;">Our automated system lets you withdraw your accumulated balance seamlessly.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="hero-visual">
-                    <div class="floating-card fc-alert">
-                        <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Review Approved</span>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <i class="fa-solid fa-star" style="color: var(--vireon-cyan);"></i>
-                            <span style="font-weight: 800; color: var(--vireon-black);">+€15.50 Earned!</span>
-                        </div>
-                    </div>
-                    
-                    <div class="phone-mockup">
-                        <div class="phone-inner-top">
-                            <p style="opacity: 0.8; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Available Balance</p>
-                            <h3 style="color: var(--vireon-white); font-size: 2.2rem; margin-bottom: 20px;">€1,250.00</h3>
-                            
-                            <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: space-between;">
-                                <div style="text-align: left;">
-                                    <p style="font-size: 0.75rem; opacity: 0.9;">Today's Income</p>
-                                    <p style="font-weight: 700;">+ €45.00</p>
-                                </div>
-                                <i class="fa-solid fa-chart-line" style="color: var(--vireon-glow);"></i>
-                            </div>
-                        </div>
-                        
-                        <div class="phone-inner-card">
-                            <h4 style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px; text-transform: uppercase;">Pending Task</h4>
-                            <div class="mock-avatar"><i class="fa-solid fa-lightbulb"></i></div>
-                            <h3 style="margin-bottom: 5px;">IdeaVault Entry</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Strategy Upload • €5.00 Reward</p>
-                            
-                            <div style="display: flex; gap: 10px;">
-                                <div style="flex: 1; background: #e0f2fe; color: var(--text-muted); padding: 12px; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-times"></i></div>
-                                <div style="flex: 2; background: var(--vireon-blue-main); color: var(--vireon-white); padding: 12px; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-check"></i> Submit</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="floating-card fc-logs">
-                        <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 15px;">
-                            <span style="font-weight: 800; font-size: 0.95rem;">Recent Activity</span>
-                            <i class="fa-solid fa-list-ul" style="color: var(--text-muted);"></i>
-                        </div>
-                        
-                        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <i class="fa-solid fa-microphone-alt" style="color: var(--vireon-deep-blue); background: #e0f2fe; padding: 6px; border-radius: 8px; font-size: 0.7rem;"></i>
-                                <span style="font-size: 0.85rem; font-weight: 600;">Talent Core</span>
-                            </div>
-                            <span style="font-weight: 700; color: var(--vireon-black);">+€8.00</span>
-                        </div>
-                        
-                        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <i class="fa-solid fa-network-wired" style="color: #16a34a; background: #dcfce7; padding: 6px; border-radius: 8px; font-size: 0.7rem;"></i>
-                                <span style="font-size: 0.85rem; font-weight: 600;">Global Connect</span>
-                            </div>
-                            <span style="font-weight: 700; color: var(--vireon-black);">+€25.00</span>
-                        </div>
-                    </div>
-                    
-                    <div class="floating-card fc-withdraw">
-                        <i class="fa-solid fa-circle-check" style="color: var(--vireon-cyan); font-size: 1.2rem;"></i>
-                        <div>
-                            <span style="display: block; font-weight: 700; font-size: 0.9rem;">Withdraw Success</span>
-                            <span style="font-size: 0.75rem; opacity: 0.8;">Euros sent to bank.</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="live-activity-bar">
+                <div class="activity-badge"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="activity-ticker" id="activityTicker"></div>
             </div>
-        </section>
 
-        <section class="section-padding container" id="features">
-            <div class="features-grid">
-                <div class="feature-visual">
-                    <div class="mock-window">
-                        <div class="mock-window-accent"><i class="fa-solid fa-wallet"></i></div>
-                        <h4 style="margin-bottom: 25px; font-size: 1.4rem;">Live Payout Terminal</h4>
-                        
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; padding: 15px; background: var(--light-bg); border-radius: 12px; border-left: 4px solid var(--vireon-cyan);">
-                            <div>
-                                <p style="font-weight: 800; font-size: 1.1rem; color: var(--vireon-black);">Withdraw Funds</p>
-                                <p style="font-size: 0.85rem; color: var(--text-muted);">Automated System (24/7)</p>
-                            </div>
-                            <div style="background: var(--vireon-black); color: var(--vireon-white); padding: 8px 15px; border-radius: 8px; font-weight: 700; font-size: 0.85rem;">
-                                Process Now
-                            </div>
-                        </div>
-                        
-                        <div style="padding: 15px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                <span style="font-size: 0.85rem; color: var(--text-muted);">Processing Status</span>
-                                <span style="font-size: 0.85rem; font-weight: 700; color: #16a34a;">Online & Active</span>
-                            </div>
-                            <div style="width: 100%; height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden;">
-                                <div style="width: 100%; height: 100%; background: var(--grad-primary);"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div>
-                    <div class="stats-row">
-                        <div class="stat-item">
-                            <h3>10M+</h3>
-                            <p>Completed Tasks</p>
-                        </div>
-                        <div class="stat-item">
-                            <h3>100%</h3>
-                            <p>Payout Uptime</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-list">
-                        <div class="f-item">
-                            <div class="f-icon"><i class="fa-solid fa-star"></i></div>
-                            <div>
-                                <h4>Engage & Earn</h4>
-                                <p>Turn your digital footprint into an asset. You earn real Euros by simply reviewing products, connecting globally, and sharing your talents through the Vireon network.</p>
-                            </div>
-                        </div>
-                        <div class="f-item">
-                            <div class="f-icon" style="background: var(--vireon-black); color: var(--vireon-cyan);"><i class="fa-solid fa-bell"></i></div>
-                            <div>
-                                <h4>Live Interaction Logs</h4>
-                                <p>Stay informed with instant alert pop-ups the moment you earn. Access detailed performance logs to track your activity history and revenue growth.</p>
-                            </div>
-                        </div>
-                        <div class="f-item" id="withdraw">
-                            <div class="f-icon" style="background: var(--grad-accent); color: var(--vireon-white);"><i class="fa-solid fa-money-bill-transfer"></i></div>
-                            <div>
-                                <h4>Automated Euro Withdrawals</h4>
-                                <p>No manual admin approvals needed. Our custom-built, automated payout system runs 24/7, ensuring you can withdraw your funds securely and exactly when you need them.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <div class="icon-btn pop-trigger"><i class="fa-solid fa-plus"></i></div>
+        </div>
 
-        <section class="cta-section container">
-            <div class="cta-banner">
-                <div class="cta-content">
-                    <h2>Ready to start optimizing your income?</h2>
-                    <p>Join Vireon today. Set up your smart profile, start engaging with global opportunities, track your earnings in real-time, and withdraw seamlessly.</p>
-                    <a href="register.html" class="btn btn-primary" style="background: var(--vireon-white); color: var(--vireon-deep-blue);">Create Your Account <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></a>
-                </div>
-                
-                <div class="cta-visual">
-                    <div class="phone-mockup" style="border-width: 8px; width: 240px; height: 400px; background: var(--vireon-deep-blue);">
-                        <div class="phone-inner-top" style="height: 40%; background: var(--vireon-black);">
-                             <h3 style="color: var(--vireon-cyan); font-size: 1.8rem; margin-top: 20px;">+€85.00</h3>
-                             <p style="font-size: 0.8rem; color: white;">Total Earned Today</p>
-                        </div>
-                        <div class="phone-inner-card" style="margin-top: -20px; padding: 15px;">
-                            <div class="mock-btn" style="margin-top: 0;">Withdraw Now</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer style="background: var(--vireon-white); padding: 50px 0 20px; border-top: 1px solid #e2e8f0; margin-top: 40px;">
-        <div class="container">
-            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; margin-bottom: 40px;">
-                <div style="max-width: 320px;">
-                    <a href="#" class="logo">
-                        <img src="logo-.png" alt="Vireon Logo" style="height: 35px; width: auto;" onerror="this.style.display='none'; document.getElementById('txtLogoFoot').style.display='block';">
-                        <span id="txtLogoFoot" style="display:none; font-weight: 900; font-size: 1.3rem; color: var(--vireon-deep-blue); margin-left: 10px;">Vireon</span>
-                    </a>
-                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 15px;">Monetize your digital presence. Earn seamlessly through reviews, connections, and talent sharing, and withdraw your funds instantly.</p>
-                </div>
-                <div>
-                    <h4 style="margin-bottom: 15px; color: var(--vireon-black);">Platform</h4>
-                    <ul style="color: var(--text-muted); font-size: 0.95rem; display: flex; flex-direction: column; gap: 12px;">
-                        <li><a href="#earn">How to Earn</a></li>
-                        <li><a href="#features">Ecosystem Features</a></li>
-                        <li><a href="#withdraw">Withdrawal System</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 style="margin-bottom: 15px; color: var(--vireon-black);">Get Started</h4>
-                    <div style="display: flex; gap: 10px;">
-                        <input type="email" placeholder="Enter your email..." style="padding: 12px 15px; border-radius: 12px; border: 1px solid #cbd5e1; outline: none; flex: 1;">
-                        <button class="btn btn-dark" style="padding: 12px 24px; border-radius: 12px;">Join</button>
-                    </div>
-                </div>
-            </div>
+        <div class="card-container-wrapper">
+            <div class="card-stack-bg"></div>
             
-            <div style="border-top: 1px solid #e2e8f0; padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Vireon. All rights reserved.</p>
-                
-                <p style="color: var(--text-muted); font-size: 0.9rem;">
-                    Developed by 
-                    <a href="https://raphxsoln.vercel.app" target="_blank" style="color: var(--vireon-deep-blue); font-weight: 700; display: inline-flex; align-items: center; gap: 5px;">
-                        RaphXSoln <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i>
-                    </a>
-                </p>
+            <div class="optinex-card">
+                <div class="card-header-row">
+                    <div class="badge-pill">
+                        <i class="fa-solid fa-award"></i>
+                        <span id="displayPlan">Premier Plan</span>
+                    </div>
 
-                <div style="display: flex; gap: 18px; color: var(--text-muted); font-size: 1.2rem;">
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="currency-switch-box">
+                            <button class="currency-btn active" id="btnEur">EUR</button>
+                            <button class="currency-btn" id="btnNgn">NGN</button>
+                        </div>
+
+                        <div class="eye-toggle-badge" id="toggleBalanceBtn" title="Toggle Balance">
+                            <i class="fa-solid fa-eye" id="eyeIcon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-middle-row">
+                    <i class="fa-solid fa-chevron-left" style="font-size: 0.8rem; opacity: 0.6;"></i>
+                    <div class="card-chip-img"></div>
+                    <div class="balance-display-main" id="balanceText">€7.50</div>
+                    <i class="fa-solid fa-wifi contactless-icon"></i>
+                </div>
+
+                <div class="card-footer-row">
+                    <div class="card-left-footer">
+                        <div class="sub-tag-label">
+                            <i class="fa-solid fa-gem" style="font-size: 0.75rem; color: var(--vir-gold-glow);"></i>
+                            Welcome Bonus Active
+                        </div>
+                        <button class="btn-card-withdraw" id="openWithdrawBtn">
+                            <i class="fa-solid fa-wallet"></i> Withdraw
+                        </button>
+                    </div>
+
+                    <div class="card-right-footer">
+                        <span class="card-type-text">DEBIT</span>
+                        <div class="mastercard-logo">
+                            <div class="mc-circle mc-red"></div>
+                            <div class="mc-circle mc-yellow"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </footer>
+
+        <!-- Horizontal Scrollable Vireon Engine Modules -->
+        <div class="section-header">
+            <span class="section-title">Vireon Engine</span>
+            <span class="section-link" style="font-size: 0.7rem; color: var(--text-light);">Swipe →</span>
+        </div>
+        <div class="horizontal-scroll-container">
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-emerald"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                <span>Instant Earn</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-gold"><i class="fa-solid fa-star"></i></div>
+                <span>Reviews</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-purple"><i class="fa-solid fa-book-open-reader"></i></div>
+                <span>Assignment</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-teal"><i class="fa-solid fa-users"></i></div>
+                <span>Connections</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-cyan"><i class="fa-solid fa-clipboard-question"></i></div>
+                <span>Surveys</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-pink"><i class="fa-solid fa-comments"></i></div>
+                <span>Converse</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-orange"><i class="fa-solid fa-brain"></i></div>
+                <span>IQ</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-blue"><i class="fa-solid fa-phone-volume"></i></div>
+                <span>CallCash</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-emerald"><i class="fa-solid fa-camera"></i></div>
+                <span>Snap Pro</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-gold"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                <span>QuickLoan</span>
+            </div>
+            <div class="quick-item pop-trigger">
+                <div class="quick-icon q-purple"><i class="fa-solid fa-house-laptop"></i></div>
+                <span>EasyOwn</span>
+            </div>
+        </div>
+
+        <!-- Activate Button -->
+        <a href="payment.html" class="btn-activate">
+            <i class="fa-solid fa-box-archive"></i> Upgrade / Activate Account
+        </a>
+
+        <!-- Other Features -->
+        <div class="section-header">
+            <span class="section-title">Ecosystem</span>
+            <a href="#" class="section-link pop-trigger">View all</a>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card pop-trigger">
+                <div class="feature-icon q-emerald"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="feature-info">
+                    <h4>Security</h4>
+                    <p>2FA & PIN</p>
+                </div>
+            </div>
+            <div class="feature-card pop-trigger">
+                <div class="feature-icon q-gold"><i class="fa-solid fa-gift"></i></div>
+                <div class="feature-info">
+                    <h4>Referrals</h4>
+                    <p>Earn bonuses</p>
+                </div>
+            </div>
+            <div class="feature-card pop-trigger">
+                <div class="feature-icon q-cyan"><i class="fa-solid fa-ranking-star"></i></div>
+                <div class="feature-info">
+                    <h4>Leaderboard</h4>
+                    <p>Top earners</p>
+                </div>
+            </div>
+            <div class="feature-card pop-trigger">
+                <div class="feature-icon q-teal"><i class="fa-solid fa-headset"></i></div>
+                <div class="feature-info">
+                    <h4>Support</h4>
+                    <p>Live chat</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <div class="nav-tab active">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-tab pop-trigger">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Statistic</span>
+        </div>
+        <div class="center-fab pop-trigger">
+            <i class="fa-solid fa-expand"></i>
+        </div>
+        <div class="nav-tab pop-trigger">
+            <i class="fa-solid fa-list-ul"></i>
+            <span>Activity</span>
+        </div>
+        <div class="nav-tab pop-trigger">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span>Logout</span>
+        </div>
+    </div>
+
+    <!-- WITHDRAWAL FORM MODAL -->
+    <div class="modal-overlay" id="withdrawModal">
+        <div class="withdraw-card">
+            <div class="withdraw-close-btn" id="closeWithdrawBtn"><i class="fa-solid fa-xmark"></i></div>
+            
+            <div class="withdraw-header">
+                <div class="withdraw-icon-badge">
+                    <i class="fa-solid fa-right-left"></i>
+                </div>
+                <h3>Withdraw Funds</h3>
+                <p>Enter your bank details to withdraw your welcome bonus.</p>
+            </div>
+
+            <form id="withdrawForm">
+                <div class="form-group">
+                    <label>Account Name</label>
+                    <input type="text" id="acc_name" class="form-input-box" placeholder="Enter account name" readonly required>
+                    <div id="verifyStatus" class="verify-status"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Bank Name</label>
+                    <div class="form-input-box clickable" id="bankSelectTrigger">
+                        <span id="selectedBankText">Enter bank name</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; color: var(--text-light);"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Account Number</label>
+                    <input type="tel" id="acc_number" class="form-input-box" maxlength="10" placeholder="Enter account number" required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label>Amount</label>
+                    <div class="amount-display-box" id="modalWithdrawAmount">
+                        €7.50
+                    </div>
+                </div>
+
+                <button type="button" class="btn-submit-withdraw" id="submitWithdrawBtn">
+                    Withdraw <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- BANK SELECTION BOTTOM SHEET -->
+    <div class="bank-selector-overlay" id="bankSelectorOverlay">
+        <div class="bank-selector-sheet">
+            <div class="sheet-header">
+                <h4>Select Bank</h4>
+                <i class="fa-solid fa-xmark sheet-close" id="closeBankSheet"></i>
+            </div>
+            <input type="text" id="bankSearchInput" class="bank-search-input" placeholder="Search bank...">
+            <div class="bank-list-container" id="bankListContainer">
+                <div style="text-align: center; color: var(--text-light); padding: 20px;">Loading banks...</div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="setupModal">
+        <div class="popup-box">
+            <div class="popup-close" id="closeModal" style="position: absolute; top: 16px; right: 16px; cursor: pointer; color: var(--text-muted);"><i class="fa-solid fa-xmark"></i></div>
+            <div class="popup-lock-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3>Account Setup Required</h3>
+            <p>Activate your Vireon account with a <strong id="modalFeeText">₦14,500</strong> setup fee to unlock instant withdrawals and premium wealth engine features.</p>
+            <a href="payment.html" class="popup-btn">
+                Activate Account <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
 
     <script>
-        const header = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 20) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
+        document.addEventListener('DOMContentLoaded', () => {
+            const NGN_BASE_VALUE = 14500; // ₦14,500 setup/bonus baseline
+            const EUR_BASE_VALUE = 7.50;    // €7.50 equivalent baseline
+            
+            let currentCurrency = localStorage.getItem('vireon_currency') || 'EUR';
+
+            const savedData = localStorage.getItem('vireon_user');
+            let planName = "Premier Plan";
+
+            if (savedData) {
+                const user = JSON.parse(savedData);
+                if (user.fullname) {
+                    document.getElementById('drawerName').innerText = user.fullname;
+                    document.getElementById('avatarInitial').innerText = user.fullname.charAt(0).toUpperCase();
+                }
+                if (user.email) {
+                    document.getElementById('drawerEmail').innerText = user.email;
+                }
             }
-        });
-        const hamburger = document.getElementById('hamburger');
-        const mobileNav = document.getElementById('mobileNav');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileNav.classList.toggle('active');
-        });
+            document.getElementById('displayPlan').innerText = planName;
+            document.getElementById('modalFeeText').innerText = `₦${NGN_BASE_VALUE.toLocaleString()}`;
 
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileNav.classList.remove('active');
+            const openDrawerBtn = document.getElementById('openDrawerBtn');
+            const drawerOverlay = document.getElementById('drawerOverlay');
+            const drawerCloseBtn = document.getElementById('drawerCloseBtn');
+
+            openDrawerBtn.addEventListener('click', () => drawerOverlay.classList.add('open'));
+            drawerCloseBtn.addEventListener('click', () => drawerOverlay.classList.remove('open'));
+            drawerOverlay.addEventListener('click', (e) => {
+                if (e.target === drawerOverlay) drawerOverlay.classList.remove('open');
+            });
+
+            const activities = [
+                { name: "David", action: "earned", amount: "€7.50", source: "from Reviews" },
+                { name: "Tom", action: "earned", amount: "€7.50", source: "from Talent Share" },
+                { name: "Sarah", action: "withdrew", amount: "₦14,500", source: "to Local Bank" },
+                { name: "Emeka", action: "earned", amount: "€7.50", source: "from Welcome Bonus" },
+                { name: "Grace", action: "earned", amount: "€7.50", source: "from Connections" },
+                { name: "Michael", action: "withdrew", amount: "₦14,500", source: "to Local Bank" }
+            ];
+
+            const tickerContainer = document.getElementById('activityTicker');
+            activities.forEach((act, index) => {
+                const item = document.createElement('div');
+                item.className = `activity-item ${index === 0 ? 'active' : ''}`;
+                item.innerHTML = `
+                    <div class="activity-text-main">${act.name} just ${act.action} <span>${act.amount}</span></div>
+                    <div class="activity-text-sub">${act.source}</div>
+                `;
+                tickerContainer.appendChild(item);
+            });
+
+            let currentIndex = 0;
+            const tickerItems = tickerContainer.querySelectorAll('.activity-item');
+            setInterval(() => {
+                const prevIndex = currentIndex;
+                currentIndex = (currentIndex + 1) % tickerItems.length;
+                tickerItems[prevIndex].classList.remove('active');
+                tickerItems[prevIndex].classList.add('exit');
+                setTimeout(() => tickerItems[prevIndex].classList.remove('exit'), 500);
+                tickerItems[currentIndex].classList.add('active');
+            }, 4000);
+
+            const balanceText = document.getElementById('balanceText');
+            const toggleBalanceBtn = document.getElementById('toggleBalanceBtn');
+            const eyeIcon = document.getElementById('eyeIcon');
+            const btnNgn = document.getElementById('btnNgn');
+            const btnEur = document.getElementById('btnEur');
+            
+            let isHidden = localStorage.getItem('vireon_hide_balance') === 'true';
+
+            function updateBalanceDisplay() {
+                let formatted = "";
+                let modalFormatted = "";
+
+                if (currentCurrency === 'EUR') {
+                    formatted = `€${EUR_BASE_VALUE.toFixed(2)}`;
+                    modalFormatted = `€${EUR_BASE_VALUE.toFixed(2)}`;
+                    btnEur.classList.add('active');
+                    btnNgn.classList.remove('active');
+                } else {
+                    formatted = `₦${NGN_BASE_VALUE.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                    modalFormatted = `₦${NGN_BASE_VALUE.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                    btnNgn.classList.add('active');
+                    btnEur.classList.remove('active');
+                }
+
+                document.getElementById('modalWithdrawAmount').innerText = modalFormatted;
+
+                if (isHidden) {
+                    balanceText.innerText = '••••••••';
+                    eyeIcon.className = 'fa-solid fa-eye-slash';
+                } else {
+                    balanceText.innerText = formatted;
+                    eyeIcon.className = 'fa-solid fa-eye';
+                }
+            }
+
+            btnNgn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentCurrency = 'NGN';
+                localStorage.setItem('vireon_currency', 'NGN');
+                updateBalanceDisplay();
+            });
+
+            btnEur.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentCurrency = 'EUR';
+                localStorage.setItem('vireon_currency', 'EUR');
+                updateBalanceDisplay();
+            });
+
+            toggleBalanceBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isHidden = !isHidden;
+                localStorage.setItem('vireon_hide_balance', isHidden);
+                updateBalanceDisplay();
+            });
+
+            updateBalanceDisplay();
+
+            let banksData = [];
+            let selectedBankCode = "";
+
+            function fetchServerBanks() {
+                fetch("/api/resolve-account", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ action: "get_banks" })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status && data.data) {
+                        banksData = data.data.sort((a, b) => a.name.localeCompare(b.name));
+                        renderBankList(banksData);
+                    } else {
+                        document.getElementById('bankListContainer').innerHTML = `<div style="padding:20px; text-align:center; color:#ef4444;">${data.message || 'Failed to load bank list.'}</div>`;
+                    }
+                })
+                .catch(err => {
+                    console.error("Backend API Error:", err);
+                    document.getElementById('bankListContainer').innerHTML = `<div style="padding:20px; text-align:center; color:#ef4444;">Failed to load bank list.</div>`;
+                });
+            }
+
+            function renderBankList(list) {
+                const container = document.getElementById('bankListContainer');
+                container.innerHTML = "";
+                list.forEach(b => {
+                    const row = document.createElement('div');
+                    row.className = 'bank-item-row';
+                    row.innerText = b.name;
+                    row.addEventListener('click', () => {
+                        selectedBankCode = b.code;
+                        const trigger = document.getElementById('bankSelectTrigger');
+                        document.getElementById('selectedBankText').innerText = b.name;
+                        trigger.classList.add('selected');
+                        closeBankSheet();
+                        triggerResolveAccount();
+                    });
+                    container.appendChild(row);
+                });
+            }
+
+            fetchServerBanks();
+
+            document.getElementById('bankSearchInput').addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                const filtered = banksData.filter(b => b.name.toLowerCase().includes(query));
+                renderBankList(filtered);
+            });
+
+            const accNumInput = document.getElementById('acc_number');
+            const accNameInput = document.getElementById('acc_name');
+            const verifyStatus = document.getElementById('verifyStatus');
+
+            function triggerResolveAccount() {
+                const num = accNumInput.value.trim();
+                if (num.length === 10 && selectedBankCode !== "") {
+                    verifyStatus.innerText = "Verifying account details...";
+                    verifyStatus.style.color = "#34d399";
+                    accNameInput.value = "";
+
+                    fetch("/api/resolve-account", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            action: "resolve_account",
+                            account_number: num,
+                            bank_code: selectedBankCode
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.status && data.data) {
+                            accNameInput.value = data.data.account_name;
+                            verifyStatus.innerText = "✓ Account verified";
+                            verifyStatus.style.color = "#22c55e";
+                        } else {
+                            accNameInput.value = "";
+                            verifyStatus.innerText = `✕ ${data.message || 'Could not resolve account details'}`;
+                            verifyStatus.style.color = "#ef4444";
+                        }
+                    })
+                    .catch(err => {
+                        verifyStatus.innerText = "✕ Verification network error";
+                        verifyStatus.style.color = "#ef4444";
+                    });
+                } else if (num.length > 0 && num.length < 10) {
+                    verifyStatus.innerText = "Account number must be 10 digits";
+                    verifyStatus.style.color = "#fbbf24";
+                } else {
+                    verifyStatus.innerText = "";
+                }
+            }
+
+            accNumInput.addEventListener('input', triggerResolveAccount);
+
+            const withdrawModal = document.getElementById('withdrawModal');
+            const bankSelectorOverlay = document.getElementById('bankSelectorOverlay');
+            const setupModal = document.getElementById('setupModal');
+
+            document.getElementById('openWithdrawBtn').addEventListener('click', () => {
+                withdrawModal.classList.add('show');
+            });
+
+            document.getElementById('closeWithdrawBtn').addEventListener('click', () => {
+                withdrawModal.classList.remove('show');
+            });
+
+            document.getElementById('bankSelectTrigger').addEventListener('click', () => {
+                bankSelectorOverlay.classList.add('show');
+            });
+
+            function closeBankSheet() {
+                bankSelectorOverlay.classList.remove('show');
+            }
+            document.getElementById('closeBankSheet').addEventListener('click', closeBankSheet);
+
+            document.getElementById('submitWithdrawBtn').addEventListener('click', () => {
+                withdrawModal.classList.remove('show');
+                setupModal.classList.add('show');
+            });
+
+            const triggers = document.querySelectorAll('.pop-trigger');
+            triggers.forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    drawerOverlay.classList.remove('open');
+                    setupModal.classList.add('show');
+                });
+            });
+
+            document.getElementById('closeModal').addEventListener('click', () => {
+                setupModal.classList.remove('show');
             });
         });
     </script>
