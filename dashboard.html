@@ -862,8 +862,6 @@
             </div>
         </div>
     </div>
-    
-    <!-- ACCOUNT SETUP / ACTIVATION POPUP MODAL -->
     <div class="modal-overlay" id="setupModal">
         <div class="popup-box">
             <div class="popup-close" id="closeModal" style="position: absolute; top: 16px; right: 16px; cursor: pointer; color: var(--text-muted);"><i class="fa-solid fa-xmark"></i></div>
@@ -880,7 +878,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const PAYSTACK_SECRET_KEY = "sk_test_8df35f0fdf38905d4cec8e22a0eff23e87fbd491";
             const NGN_BASE_VALUE = 14500; // ₦14,500 setup/bonus baseline
             const EUR_BASE_VALUE = 7.50;    // €7.50 equivalent baseline
             
@@ -1005,23 +1002,25 @@
             let banksData = [];
             let selectedBankCode = "";
 
-            function fetchPaystackBanks() {
-                fetch("https://api.paystack.co/bank?country=nigeria", {
-                    method: "GET",
+            function fetchServerBanks() {
+                fetch("/api/resolve-account", {
+                    method: "POST",
                     headers: {
-                        "Authorization": `Bearer ${PAYSTACK_SECRET_KEY}`,
-                        "Cache-Control": "no-cache"
-                    }
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ action: "get_banks" })
                 })
                 .then(res => res.json())
                 .then(data => {
                     if (data.status && data.data) {
                         banksData = data.data.sort((a, b) => a.name.localeCompare(b.name));
                         renderBankList(banksData);
+                    } else {
+                        document.getElementById('bankListContainer').innerHTML = `<div style="padding:20px; text-align:center; color:#ef4444;">${data.message || 'Failed to load bank list.'}</div>`;
                     }
                 })
                 .catch(err => {
-                    console.error("Paystack API Error:", err);
+                    console.error("Backend API Error:", err);
                     document.getElementById('bankListContainer').innerHTML = `<div style="padding:20px; text-align:center; color:#ef4444;">Failed to load bank list.</div>`;
                 });
             }
@@ -1045,7 +1044,7 @@
                 });
             }
 
-            fetchPaystackBanks();
+            fetchServerBanks();
 
             document.getElementById('bankSearchInput').addEventListener('input', (e) => {
                 const query = e.target.value.toLowerCase();
@@ -1064,11 +1063,16 @@
                     verifyStatus.style.color = "#34d399";
                     accNameInput.value = "";
 
-                    fetch(`https://api.paystack.co/bank/resolve?account_number=${num}&bank_code=${selectedBankCode}`, {
-                        method: "GET",
+                    fetch("/api/resolve-account", {
+                        method: "POST",
                         headers: {
-                            "Authorization": `Bearer ${PAYSTACK_SECRET_KEY}`
-                        }
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            action: "resolve_account",
+                            account_number: num,
+                            bank_code: selectedBankCode
+                        })
                     })
                     .then(res => res.json())
                     .then(data => {
@@ -1078,7 +1082,7 @@
                             verifyStatus.style.color = "#22c55e";
                         } else {
                             accNameInput.value = "";
-                            verifyStatus.innerText = "✕ Could not resolve account details";
+                            verifyStatus.innerText = `✕ ${data.message || 'Could not resolve account details'}`;
                             verifyStatus.style.color = "#ef4444";
                         }
                     })
